@@ -1,0 +1,225 @@
+%
+% Expose: Bachelor Thesis
+% Thomas Brüggemann
+%
+
+% -----------
+% 1. Präambel
+% -----------
+
+% Allgemeine Einstellungen
+% ------------------------
+\documentclass[
+    pdftex,
+	a4paper,
+	oneside,
+	12pt,
+	liststotocnumbered
+]{article}
+\usepackage{times}            % Times New Roman
+
+\usepackage[utf8]{inputenc}   % utf-8
+\usepackage[T1]{fontenc}      % Umlauttrennung
+\usepackage[german]{babel}    % deutsche Silbentrennung
+\selectlanguage{german}       % deutsche Betitelung
+\usepackage{nicefrac}
+
+% Titel-Font-Größen
+\usepackage{titlesec}
+\titleformat{\section}{\bfseries}{\thesection.}{12pt}{}
+\titleformat{\subsection}{\bfseries}{\thesubsection }{12pt}{}
+
+% Seitenränder
+\usepackage[
+    top=2.5cm, 
+    bottom=2.5cm, 
+    left=5cm, 
+    right=1cm
+]{geometry} 
+
+% Fussnoten
+\usepackage[hang,flushmargin]{footmisc}    
+\renewcommand*{\footnotelayout}{\footnotesize} % size of text
+\renewcommand{\footnotemargin}{2.2em}          % margin between text and number
+\setlength{\footnotesep}{1.3em}                % space between footnotes
+\setlength{\skip\footins}{2.5em}               % space between text & footnotes
+\usepackage{savefnmark}
+
+% Abkürzungen
+\usepackage[printonlyused]{acronym}    
+\renewcommand{\bflabel}[1]{{#1\hfill}}
+
+% Seitennummerierung oben
+\usepackage{scrpage2} 
+\usepackage[dvips]{color}
+\clearscrheadfoot 
+\chead[\pagemark]{\textcolor[gray]{0.5}{\pagemark}} 
+\pagestyle{scrheadings}
+
+% TOC, LOF, FIG Styles
+\usepackage{tocloft, titletoc}  
+\setlength{\cftaftertoctitleskip}{0em}
+\renewcommand{\cftloftitlefont}{\bfseries}
+%\renewcommand{\cftfigfont}{\bfseries}
+\renewcommand{\cfttoctitlefont}{\bfseries}
+\renewcommand{\cftlottitlefont}{\bfseries}
+\titlecontents{section}     % set formatting for \section 
+[2.3em]                     % adjust left margin
+{\vspace{0.5em}}            % font formatting
+{\hspace{-1.8em}.\contentslabel{0.7em}\hspace{1em}} % section label and offset
+{\hspace*{-2.3em}}
+{\titlerule*[1mm]{.}\contentspage}
+
+\titlecontents{subsection}  % set formatting for \subsection 
+[3em]                       % adjust left margin
+{\vspace{0.5em}}            % font formatting
+{\contentslabel{2.3em}}     % section label and offset
+{\hspace*{-2.3em}}
+{\titlerule*[1mm]{.}\contentspage}
+
+\titlecontents{subsubsection}  % set formatting for \subsubsection 
+[4.2em]                       % adjust left margin
+{\vspace{0.5em}}            % font formatting
+{\contentslabel{2.3em}}     % section label and offset
+{\hspace*{-2.3em}}
+{\titlerule*[1mm]{.}\contentspage}
+
+\titlecontents{figure}      % set formatting for \subsection 
+[2.3em]                     % adjust left margin
+{\vspace{0.5em}}            % font formatting
+{\contentslabel{2.3em}}     % section label and offset
+{\hspace*{-2.3em}}
+{\titlerule*[1mm]{.}\contentspage}
+
+\titlecontents{table}       % set formatting for \subsection 
+[3.4em]                     % adjust left margin
+{\vspace{0.5em}}            % font formatting
+{:\hspace*{0.9em}\contentslabel{4.5em}}     % section label and offset
+{\hspace*{-2.3em}}
+{\titlerule*[1mm]{.}\contentspage}
+
+
+% Literaturverzeichnis
+\usepackage[
+    bibstyle=authortitle,
+    citestyle=authoryear,
+    isbn=false,
+    url=false,
+    doi=false,
+    maxcitenames=3,
+    maxbibnames=30
+]{biblatex}
+\addbibresource{literature.bib}
+\let\cite\textcite
+
+\usepackage{caption}
+\usepackage{chngcntr}
+
+% Tabellenpackete
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{setspace}
+\counterwithin{table}{section}
+\usepackage{multirow}
+
+% Grafiken anzeigen
+\usepackage[pdftex]{graphicx}
+\graphicspath{{figures}}
+\counterwithin{figure}{section}
+\usepackage[absolute,overlay]{textpos}
+
+\begin{document}
+
+\shorthandoff{"}
+
+% Renews
+\renewcommand{\figurename}{Abb.}
+\renewcommand{\tablename}{}
+\renewcommand\thefigure{\arabic{section}-\arabic{figure}}
+\renewcommand\thetable{Tab. \arabic{section}-\arabic{table}}
+\newcommand{\todo}[1]{\textbf{\textsc{\textcolor{red}{TODO: #1}}}}
+
+% Variables
+\newcommand{\CC}{Cloud Computing }
+\newcommand{\CCs}{Cloud Computings }
+\newcommand{\CCComma}{Cloud Computing, }
+\newcommand{\TCC}{Themengebiet Cloud Computing }
+\newcommand{\HiTCC}{Herausforderungen im Themengebiet Cloud Computing }
+\newcommand{\TCCComma}{Themengebiet Cloud Computing, }
+\newcommand{\CSP}{Cloud-Service-Provider }
+\newcommand{\CSPComma}{Cloud-Service-Provider, }
+\newcommand{\CSPDot}{Cloud-Service-Provider. }
+\newcommand{\CSPn}{Cloud-Service-Providern }
+\newcommand{\CSp}{Cloud-Service-Provider}
+\newcommand{\CSPs}{Cloud-Service-Providers }
+\newcommand{\CSPsDot}{Cloud-Service-Providers. }
+\newcommand{\CSPsComma}{Cloud-Service-Providers, }
+\newcommand{\CSU}{Cloud-Service-Nutzer }
+\newcommand{\CSUDot}{Cloud-Service-Nutzer. }
+\newcommand{\CSUs}{Cloud-Service-Nutzers }
+\newcommand{\CSUn}{Cloud-Service-Nutzern }
+\newcommand{\CSUComma}{Cloud-Service-Nutzer, }
+\newcommand{\CSUsComma}{Cloud-Service-Nutzers, }
+\newcommand{\CSUsDot}{Cloud-Service-Nutzers. }
+\newcommand{\CSUnDot}{Cloud-Service-Nutzern. }
+\newcommand{\CS}{Cloud-Service }
+\newcommand{\Cs}{Cloud-Service}
+\newcommand{\CSComma}{Cloud-Service, }
+\newcommand{\CSs}{Cloud-Services }
+
+\pagenumbering{Roman}
+
+% ---------
+% Deckblatt
+% ---------
+\include{titlepages/cover}
+
+% ------------------
+% Inhaltsverzeichnis
+% ------------------
+\tocloftpagestyle{scrheadings}
+\tableofcontents
+\newpage
+
+% ---------------------
+% Abkürzungsverzeichnis
+% ---------------------
+\include{titlepages/acronyms}
+
+% -------------------
+% Tabellenverzeichnis
+% -------------------
+\listoftables
+\addcontentsline{toc}{section}{Tabellenverzeichnis}
+\newpage
+
+\normalsize
+\setstretch{1,5}
+\pagenumbering{arabic}
+
+% ------
+% Inhalt
+% ---------
+\include{chapters/1-einleitung}
+\include{chapters/2-cloudcomputing}
+\include{chapters/3-stateoftheartanalyse}
+\include{chapters/4-schlussbetrachtung}
+\newpage
+
+% --------------------
+% Literaturverzeichnis
+% --------------------
+\newpage
+\patchcmd{\bibsetup}{\interlinepenalty=5000}{\interlinepenalty=10000}{}{}
+\printbibliography[title={Literaturverzeichnis}]
+\addcontentsline{toc}{section}{Literaturverzeichnis}
+\newpage
+
+% ---------
+% Anhang
+% ---------
+\include{titlepages/erklaerung}
+\include{titlepages/lebenslauf}
+
+\end{document}
