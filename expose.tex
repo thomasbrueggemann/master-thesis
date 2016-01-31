@@ -143,6 +143,8 @@
 \newcommand{\ap}{app provider}
 \newcommand{\pp}{privacy policy}
 \newcommand{\pps}{privacy policies}
+\newcommand{\sca}{static code analysis}
+\newcommand{\Sca}{Static code analysis}
 
 \pagenumbering{Roman}
 
@@ -160,6 +162,8 @@
 \section*{Index of Abbreviations}
 \addcontentsline{toc}{section}{Index of Abbreviations}
 \begin{acronym}[TTTTTTTTTTTTTTTTTTTT]
+	\acro{API}{Application Programming Interface}
+	\acro{APK}{Android Application Package}
     \acro{mHealth}{Mobile Health}
 \end{acronym}
 \newpage
@@ -170,11 +174,36 @@
 
 % PROBLEM STATEMENT %
 \section{Problem Statement}
-The market for mobile smart device applications (apps) is growing extensively in recent years. It is increasingly easier for small companies or even single developers to create unique apps that reach millions of users via app stores.
-This market growth also effected mobile health (\mH) apps. More and more apps are available that support the users in solving their health related issues and information deficiencies. Users are asked to input their personal information in order to tailor the app to their custom needs. The users are asked to expose vulnerable information about their health status while it remains mostly unclear how and where the data is processed, stores or tossed along.
+The market for mobile smart device applications (apps) is growing extensively in recent years. 
+It is increasingly easier for small companies or even single developers to create unique apps that reach millions of users via app stores.
+This market growth also effected mobile health (\acs{mHealth}) apps. 
+More and more apps are available that support the users in solving their health related issues and information deficiencies. 
+Users are asked to input their personal information in order to tailor the app to their custom needs. 
+The users are asked to expose vulnerable information about their health status while it remains mostly unclear how and where the data is processed, stores or tossed along.
 
-The information about privacy practices of the \ap s should be found in the privacy policy document provided by the \ap. Processing these \pps requires a higher level of education and time to read through large documents of text to find the relevant information. Additionally, the important information is hidden in legal language or insufficiently addressed, if at all.\footnote{\cite{Dehling2014}, p. 11}
-Aside from the data usage beyond users control, it is also challenging for users to assess what kind of privat information an app asks for, in order to tailor the app experience. Users have to download the apps of interest and try them out, before it becomes clear what information is used. This leads to low inter comparability between apps. If users are looking for specific functionality in a \mH app, it is challenging to find the app that offers the desired functionality at an acceptable privacy risk.
+The information about privacy practices of the \ap s should be found in the privacy policy document provided by the \ap.
+Processing these \pps requires a higher level of education and time to read through large documents of text to find the relevant information. 
+Additionally, the important information is hidden in legal language or insufficiently addressed, if at all.\footnote{\cite{Dehling2014}, p. 11}
+
+Aside from the data usage beyond users control, it is also challenging for users to assess what kind of privat information an app asks for, in order to tailor the app experience. 
+Users have to download the apps of interest and try them out, before it becomes clear what information is used. 
+This leads to low inter comparability between apps. If users are looking for specific functionality in a \mH app, it is challenging to find the app that offers the desired functionality at an acceptable privacy risk. 
+Even if users would persue the goal to find and compare \mH apps of similar functionality, the high volume of apps available on the app stores\footnote{\cite{Enck2011}, p. 1} makes it not feasable to review all of them by hand.
+
+Resolving the challenges in evaluating the privacy risk of \mH apps, before usage and of large volumes, will result in an improved decision making process for users. 
+It also reduces the danger of exposing vulnerable information. 
+A way to assess privacy risks of \mH apps would be to automate the review of each individual app. 
+Automating the review process for large scale app assessments has the potential to grow new privacy evaluation service markets.\footnote{\cite{Enck2011}, p. 14}
+Automating the app assessment for potential privacy risk factors  can be done by downloading and analyzing the source of each app to trace data leaks. 
+\Sca is used in the field of informatics to analyse application source code to detect faults or vulnerabilities.\footnote{\cite{Baca2008}, p. 79} 
+A \sca could potentially be used to assess the privacy risks that mHealth apps pose.
+
+The automated process of assessing the privacy risk helps to reduce the costs of reviewing each individual app and enhances the information experience users get while researching mHealth apps.Additionally, it exposes new possibilities for research in the privacy risk area. The research could be conducted on providing solutions and best practices for minimizing the privacy risk of apps.
+It is unclear if, and to what degree, the concepts of static code analysis and privacy risk assessment can be combined in order to automate the app assessment.
+This leads to the research question of this master thesis. How and to what degree can the privacy risk assessment of mHealth apps be automated?
+
+\todo{Previous Research}
+Previous research in this field revield...
 
 % OBJECTIVES %
 \section{Objectives}
@@ -184,8 +213,12 @@ Aside from the data usage beyond users control, it is also challenging for users
 \section{Definitions}
 Certain terms are used in the remainder of this thesis that need to be defined:
 
-% Cloud Computing
+% Mobile health applications
 \subsection{Mobile health applications}
+
+
+\subsection{\Sca}
+
 
 % METHODS %
 \section{Methods}
@@ -198,12 +231,13 @@ Certain terms are used in the remainder of this thesis that need to be defined:
 
 % PROBLEMS %
 \section{Problems}
-So far there are no open questions or problems.
+So far there are no open questions or problems. Though, a problem could arise from the fact that the core of this thesis relies on a undocumented Google \acs{API} for downloading the \acs{APK} files of the apps. 
+If this \acs{API} is shut down or somehow secured from open usage, it would not be as easy to gather the needed \acs{APK} files for the \sca as it currently is.
 
 % --------------------
 % REFERENCES
 % --------------------
 \newpage
-\printbibliography[title={Literaturverzeichnis}]
-\addcontentsline{toc}{section}{Literaturverzeichnis}
+\printbibliography[title={References}]
+\addcontentsline{toc}{section}{References}
 \end{document}
