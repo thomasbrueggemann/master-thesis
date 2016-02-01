@@ -162,9 +162,10 @@
 \section*{Index of Abbreviations}
 \addcontentsline{toc}{section}{Index of Abbreviations}
 \begin{acronym}[TTTTTTTTTTTTTTTTTTTT]
-	\acro{API}{Application Programming Interface}
-	\acro{APK}{Android Application Package}
-    \acro{mHealth}{Mobile Health}
+	\acro{API}{Application programming interface}
+	\acro{APK}{Android application package}
+	\acro{DRM}{Digital rights management}
+    \acro{mHealth}{Mobile health}
 \end{acronym}
 \newpage
 
@@ -216,12 +217,32 @@ Certain terms are used in the remainder of this thesis that need to be defined:
 % Mobile health applications
 \subsection{Mobile health applications}
 
-
 \subsection{\Sca}
+
+\subsection{Decompilation}
 
 
 % METHODS %
 \section{Methods}
+
+\subsection{Automating the privacy risk assessment}
+
+In order to automate the privacy risk assessment of \mH apps via \sca, it is necessary to gain access the source code of the apps. 
+While uploading a new app to the Apple AppStore, Apple's digital rights management (\acs{DRM}) system encrypts the binary file in a way that makes recovering the source code difficult. 
+There are approaches on decompiling the Apple app binary back into its source code.
+These approaches involve unlocking and jailbreaking
+\footnote{Jailbreaking revers to the action of removing ... \cite{Kweller2010}, p. 1}
+an Apple iPhone or iPad, which is a violation of the Apple terms of service and therefore forbidden\footnote{\cite{Kweller2010}, p. 1}
+
+The Google PlayStore on the other hand hosts Android application in \acs{APK} containers that are non encrypted and allow for decompilation back into the original source files. 
+In order to automate the download process of \acs{APK} files to our local computer, we found a hidden Google \acs{API} that reveals access to the \acs{APK} files from the PlayStore. 
+The \acs{API} can be queried by sending an Android device id along, effectively pretending to be a requesting Android device.
+The result of the query is a binary \acs{APK} file.
+
+\cite{Xu2015} provision a repository of 10000 apps that are extracted from the Google PlayStore within the categories "Health \& Fitness" and "Medical".
+Due to the obstacles of gaining access to the Apple iOS binary files, we restrict the dataset to the available Android apps and conduct our automated privacy risk assessment on these apps.
+
+\subsection{Evaluation}
 
 % STRUCTURE %
 \section{Structure}
