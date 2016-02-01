@@ -241,6 +241,10 @@ The result of the query is a binary \acs{APK} file.
 
 \cite{Xu2015} provision a repository of 10000 apps that are extracted from the Google PlayStore within the categories "Health \& Fitness" and "Medical".
 Due to the obstacles of gaining access to the Apple iOS binary files, we restrict the dataset to the available Android apps and conduct our automated privacy risk assessment on these apps.
+The \cite{Xu2015} dataset contains 5379 Android apps. 
+We exclude paid apps from further proceeding, since downloading paid apps would charge the credit card of the authors, since we use the same \acs{API} that the Google PlayStore itself uses to purchase apps from the store on the Android devices. 
+Downloading all 5379 apps would result in a price of 19904.24 US-dollars. 
+Therefore we reduce the dataset to the 3180 free apps, which is still 59.1\% of the  initial dataset.
 
 \subsection{Evaluation}
 
