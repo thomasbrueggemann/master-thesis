@@ -164,7 +164,9 @@
 \begin{acronym}[TTTTTTTTTTTTTTTTTTTT]
 	\acro{API}{Application programming interface}
 	\acro{APK}{Android application package}
+	\acro{DEX}{Dalvik executable}
 	\acro{DRM}{Digital rights management}
+	\acro{HTTP}{Hypertext Transfer Protocol}
 	\acro{JAR}{Java archive}
 	\acro{JVM}{Java virtual machine}
     \acro{mHealth}{Mobile health}
@@ -206,7 +208,7 @@ It is unclear if, and to what degree, the concepts of static code analysis and p
 This leads to the research question of this master thesis. How and to what degree can the privacy risk assessment of mHealth apps be automated?
 
 \todo{Previous Research}
-Previous research in this field revield...
+Previous research in this field reveald...
 
 % OBJECTIVES %
 \section{Objectives}
@@ -214,20 +216,29 @@ Previous research in this field revield...
 
 % DEFINITIONS %
 \section{Definitions}
-Certain terms are used in the remainder of this thesis that need to be defined:
+Certain terms are used in the remainder of this thesis that have to be defined:
 
-% Mobile health applications
-\subsection{Mobile health applications}
+% Mobile health apps
+\subsection{Mobile health apps}
+Mobile health \acs{mHealth} apps refers to smartphone or tablet apps that are created to support the users by enabling them to gather information and support regarding
 
-\subsection{\Sca}
+% Static code analysis %
+\subsection{Static code analysis}
+Static code analysis refers to the analysis of an applications source code without actually executing the application. 
+This technique is widely used to detect vulnerabilities or to validate the source code at programming time in e.g. the code editor software. \footnote{See \cite{bardas2010static}, p. 2-3}
 
+% Decompilation %
 \subsection{Decompilation}
 
 
 % METHODS %
 \section{Methods}
 
+% Automating the privacy risk assessment %
 \subsection{Automating the privacy risk assessment}
+
+% android decompilation
+\subsubsection{Android decompilation}
 
 In order to automate the privacy risk assessment of \mH apps via \sca, it is necessary to gain access the source code of the apps. 
 While uploading a new app to the Apple AppStore, Apple's digital rights management (\acs{DRM}) system encrypts the binary file in a way that makes recovering the source code difficult. 
@@ -257,7 +268,7 @@ The first step is to recover a java archive (\acs{JAR}) file from the \acs{APK} 
 \acs{JAR} files contain a collection of .class files. 
 These .class files hold Java bytecode that can be interpreted by the Java virtual machine \acs{JVM} at application runtime.\footnote{The previous two sentences follow \cite{Enck2011}, p. 2} 
 In order to extract the Java bytecode .class files, we use the command line tool \textit{dex2jar}\footnote{https://github.com/pxb1988/dex2jar, visited 02/03/2016}. 
-The abbreviation \acs{DEX} stands for \textit{Dalvic execuable} and refers to the binary collection of compiled Java classes within the \acs{APK} file.\footnote{See \cite{xu2013techniques}, p. 6}
+The abbreviation \acs{DEX} stands for \acl{DEX} and refers to the binary collection of compiled Java classes within the \acs{APK} file.\footnote{See \cite{xu2013techniques}, p. 6}
 
 Step two includes the actual decompiling phase of the Java bytecode back into readable .java files. 
 A .java file contains exactly one Java \textit{class} in humanly readable Java code. 
@@ -272,6 +283,29 @@ For the case of manually validating the output of the automated privacy risk ass
 To make manual code inspections easier to read, a tool called \textit{astyle}\footnote{http://astyle.sourceforge.net/, visited 02/03/2016} will be used. 
 \textit{astyle} sets appropriate levels on indenting to the source code.
 
+In the fourth and last step of our decompilation process, a tool called \textit{apktool}\footnote{https://github.com/iBotPeaches/Apktool, visited 03/02/2016} is used to extract all resource files from the \acs{APK} file. Resource files could be images or XML files that are not compiled into application code.\footnote{See \cite{xu2013techniques}, p. 5}
+
+% static code analysis %
+\subsubsection{Static code analysis}
+In order to analyse potential privacy risks, we are going to use a static code analysis tool.
+This tool will scan and parse the Java source code files and make them computer readable.
+
+\cite{Bruggemann2016} identified six potential privacy risk factors that a \mH app could pose and combined them into a privacy risk index formula. 
+The six factors contain three binary factors.
+The first binary factor is whether an app requires a login via username/email or a social media login service such as Facebook. 
+The second binary factor is the question if the app uses secured \acs{HTTP} connections to the servers it is communicating too.
+While the first ones can be assessed at a reasonable level of difficulty via static code analysis, it is challenging to do so for third binary factor: reasonableness of personal data collection. 
+The reasonableness of personal data collection assessment in the study of \cite{Bruggemann2016} was based on usage observation of the app. This might not be feasible in a static code analysis.
+The non-binary factors include the categories of personal data that users have to input into the \mH apps. Examples of personal data categories are: Medication intake, Symptoms, Vital values.
+The last two factors express the target to which the personal data is likely to be sent. 
+This is split in two factors, one for unspecific data targets, which refers to the usage of advertisement banner services or analytics tools within the app. 
+The other data target factor tries to observe immediate data connections after input of personal data. 
+\cite{Bruggemann2016} observed that personal data might be sent to a server of the app provider, advertisement or marketing companies, social media networks (such as Facebook) or to research projects.\footnote{This section follows \cite{Bruggemann2016}, p. 1-99}
+
+Our study aims at identifying the privacy risk factors from \cite{Bruggemann2016} by scanning the source code of each app in our working dataset. 
+In order to identify whether an app required the users to login, the source code will be scanned for text input fields that are labelled with the substrings "login", "register", "password". 
+Additionally, the source code will be scanned for social network login buttons.
+They are identified by the button name "com.facebook.login.widget.LoginButton" for Facebook login, "SignInButton" for Google login and "com.twitter.sdk.android.core.identity.TwitterLoginButton" for Twitter login functionality.
 
 
 \subsection{Evaluation}
