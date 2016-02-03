@@ -165,6 +165,8 @@
 	\acro{API}{Application programming interface}
 	\acro{APK}{Android application package}
 	\acro{DRM}{Digital rights management}
+	\acro{JAR}{Java archive}
+	\acro{JVM}{Java virtual machine}
     \acro{mHealth}{Mobile health}
 \end{acronym}
 \newpage
@@ -239,12 +241,38 @@ In order to automate the download process of \acs{APK} files to our local comput
 The \acs{API} can be queried by sending an Android device id along, effectively pretending to be a requesting Android device.
 The result of the query is a binary \acs{APK} file.
 
-\cite{Xu2015} provision a repository of 10000 apps that are extracted from the Google PlayStore within the categories "Health \& Fitness" and "Medical".
+\cite{Xu2015} provision a repository of apps listings that are extracted from the Google PlayStore within the categories "Health \& Fitness" and "Medical".
 Due to the obstacles of gaining access to the Apple iOS binary files, we restrict the dataset to the available Android apps and conduct our automated privacy risk assessment on these apps.
 The \cite{Xu2015} dataset contains 5379 Android apps. 
-We exclude paid apps from further proceeding, since downloading paid apps would charge the credit card of the authors, since we use the same \acs{API} that the Google PlayStore itself uses to purchase apps from the store on the Android devices. 
-Downloading all 5379 apps would result in a price of 19904.24 US-dollars. 
-Therefore we reduce the dataset to the 3180 free apps, which is still 59.1\% of the  initial dataset.
+We exclude paid apps from further proceeding, since downloading paid apps would charge the credit card of the authors, since we use the same \acs{API} that the Google PlayStore itself uses to purchase apps from the store on Android devices. 
+Downloading all 5379 apps would result in purchasing costs of 19,904.24 US-dollars. 
+Therefore we reduce the dataset to the 3180 free apps, which is still 59.1\% of the  initial dataset. 
+We will download as many apps of these 3180 as possible.
+Potential limitations in downloading could arise from the fact that Google blocks requests on the API as soon as the system detects overly use or misuse. Downloading 3180 apps at a time will likely trigger these security mechanisms of Google, since a normal user could never download that many apps in the same timeframe from the PlayStore.
+
+As soon as the \acs{APK} files are available offline, the decompiling phase of the study will begin.
+Our decompiling process consists of four steps.
+
+The first step is to recover a java archive (\acs{JAR}) file from the \acs{APK} file.
+\acs{JAR} files contain a collection of .class files. 
+These .class files hold Java bytecode that can be interpreted by the Java virtual machine \acs{JVM} at application runtime.\footnote{The previous two sentences follow \cite{Enck2011}, p. 2} 
+In order to extract the Java bytecode .class files, we use the command line tool \textit{dex2jar}\footnote{https://github.com/pxb1988/dex2jar, visited 02/03/2016}. 
+The abbreviation \acs{DEX} stands for \textit{Dalvic execuable} and refers to the binary collection of compiled Java classes within the \acs{APK} file.\footnote{See \cite{xu2013techniques}, p. 6}
+
+Step two includes the actual decompiling phase of the Java bytecode back into readable .java files. 
+A .java file contains exactly one Java \textit{class} in humanly readable Java code. 
+\cite{Enck2011} developed their own Java decompiling toolchain in order to assess security issues and used within their toolchain used a tool called \textit{Soot}.
+\textit{Soot} optimizes the decompiled code to improve the readability by humans.
+Aside from using \textit{Soot}, \cite{Enck2011} propose the idea to use different Android decompiler tools, such as \textit{JD} or \textit{Fernflower} in future research, since \textit{Soot} did not perform well in all cases.  \footnote{For the previous three sentences, see \cite{Enck2011}, p. 5}
+We will use \textit{Fernflower} as the decompiling tool for our study, since it evidentially outperformed \textit{Soot} in a further evaluation by \cite{Enck2011}.\footnote{\cite{Enck2011}, p. 6}
+The result of this second step is a directory full of .java files that represent the source code of an \acs{APK} app.
+
+The decompiling process delivers source code files that lack any formatting.
+For the case of manually validating the output of the automated privacy risk assessment we will have to take a look into the source code files. 
+To make manual code inspections easier to read, a tool called \textit{astyle}\footnote{http://astyle.sourceforge.net/, visited 02/03/2016} will be used. 
+\textit{astyle} sets appropriate levels on indenting to the source code.
+
+
 
 \subsection{Evaluation}
 
