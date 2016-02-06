@@ -162,14 +162,15 @@
 \section*{Index of Abbreviations}
 \addcontentsline{toc}{section}{Index of Abbreviations}
 \begin{acronym}[TTTTTTTTTTTTTTTTTTTT]
-	\acro{API}{Application programming interface}
-	\acro{APK}{Android application package}
-	\acro{DEX}{Dalvik executable}
-	\acro{DRM}{Digital rights management}
+	\acro{API}{Application Programming Interface}
+	\acro{APK}{Android Application Package}
+	\acro{DEX}{Dalvik Executable}
+	\acro{DRM}{Digital Rights Management}
 	\acro{HTTP}{Hypertext Transfer Protocol}
-	\acro{JAR}{Java archive}
-	\acro{JVM}{Java virtual machine}
-    \acro{mHealth}{Mobile health}
+	\acro{JAR}{Java Archive}
+	\acro{JVM}{Java Virtual Machine}
+    \acro{mHealth}{Mobile Health}
+    \acro{XML}{Extensible Markup Language}
 \end{acronym}
 \newpage
 
@@ -213,8 +214,12 @@ Previous research in this field revealed...
 % OBJECTIVES %
 \section{Objectives}
 
-The main objective of this study is to ascertain how or to what degree the assessment of privacy risk factors for \mH apps can be automated.
-This will be done by implementing a software tool that downloads, decompiles and analyses the source code of \mH apps.
+The primary objective of this study is to ascertain how or to what degree the assessment of privacy risk factors for \mH apps can be automated.
+This will be done by implementing a software tool that downloads, decompiles and analyses the source code of \mH apps for privacy risk factors.
+The implementation process might come to a stop at some point due to insurmountable obstacles.
+These possible obstacles will be documented as a result of this study.
+
+As a secondary objective of this study, an evaluation of the privacy risk assessment tool, including an overview of the users’ opinions regarding the potential impact of the tool on their mHealth app decision making, will be given.
 
 
 % DEFINITIONS %
@@ -312,10 +317,27 @@ The other data target factor tries to observe immediate data connections after i
 \cite{Bruggemann2016} observed that personal data might be sent to a server of the app provider, advertisement or marketing companies, social media networks (such as Facebook) or to research projects.\footnote{This section follows \cite{Bruggemann2016}, p. 1-99}
 
 Our study aims at identifying the privacy risk factors from \cite{Bruggemann2016} by scanning the source code of each app in our working dataset. 
+% LOGIN %
 In order to identify whether an app required the users to login, the source code will be scanned for text input fields that are labelled with the substrings "login", "register", "password". 
 Additionally, the source code will be scanned for social network login buttons.
 They are identified by the button name "com.facebook.login.widget.LoginButton" for Facebook login, "SignInButton" for Google login and "com.twitter.sdk.android.core.identity.TwitterLoginButton" for Twitter login functionality.
+% SSL %
+Android uses a \textit{RequestQueue} to dispatch HTTP requests from the main thread. 
+We will scan the source code for requests that are added to the \textit{RequestQueue} and trace the url, that is the request target, back, until we can check if the URL contains the HTTPS prefix.
+This indicates a secure connection.
+% DATA TARGET %
+The URL targets that requests are made to also indicate the personal data target factor.
+Especially if variables that were assigned through user input fields can be traced until they might be sent out in a request.
+% DATA CATEGORIES %
+In order to identify the individual text fields that ask for user input, two source code scanning methods need to be used.
+The Android \textit{EditText} classes can either be declared within the layout \acl{XML} (\acs{XML}) file or added via Java code during application runtime.
+In both cases the label and ID properties of the \textit{EditText} instance can indicate the semantics of the personal data that is requested from the users.
+As soon as we got an overview of the \textit{EditText} labels, we are going to cluster them into the personal data categories proposed by \cite{Bruggemann2016}.
+At this point it would be possible to train a naive Bayes classifier, to judge the personal data categories from the individual data input text field labels.
+% UNSPECIFIC DATA TARGETS %
+To identify if analytics or advertisement services are used within the app, we can simply scan for the inclusion of corresponding libraries. For example the Google Analytics\footnote{https://www.google.com/analytics/, visited 02/05/2015} library is used within Android source code by including the package \textit{com.google.android.gms.analytics.GoogleAnalytics}.
 
+After the implementation attempts of all privacy risk factors are completed
 
 \subsection{Evaluation}
 
@@ -325,10 +347,25 @@ They are identified by the button name "com.facebook.login.widget.LoginButton" f
 % EXPECTED RESULTS %
 \section{Expected Results}
 
+As a result of this master thesis, we expect the implementation process of the automated privacy risk assessment to be at least partially feasible and implemented. 
+Automating the downloading process of \acs{APK} app files from the Google PlayStore is possible to a certain amount, and will be provided.
+The decompilation process is set to gain at least a 94 to 98\% code recovery rate.\footnote{\cite{Enck2011}, p. 5-6} 
+Therefore we expect the majority of \acs{APK} files to be decompilable.
+We expect the static code analysis for privacy risk factors to be success for the majority factors and will provide insights into the possible degree of detail.
+
+Another expected result is an overview of the users' options on the usage of the tool. 
+Depending on the implementation success it will reveal to be either useful or rather not useful to the users decision making process regarding \mH apps.
+
 % PROBLEMS %
 \section{Problems}
-So far there are no open questions or problems. Though, a problem could arise from the fact that the core of this thesis relies on a undocumented Google \acs{API} for downloading the \acs{APK} files of the apps. 
+So far there are no open questions or problems. Though, a problem could arise from the fact that the core of this master thesis relies on a undocumented Google \acs{API} for downloading the \acs{APK} files of the apps. 
 If this \acs{API} is shut down or somehow secured from open usage, it would not be as easy to gather the needed \acs{APK} files for the \sca as it currently is.
+It might be possible to circumvent the usage of undocumented Google \acs{API}s by downloading the \acs{APK} files manually or semi-automated on an Android smartphone. 
+This will be a fallback solution.
+%After downloading the first 1081 apps via the undocumented Google API function, my Google PlayStore account was suspended and I was automatically logged out of my Google account in the PlayStore app on my tablet. 
+%It might be possible to circumvent this by creating another Google account and using that one on my tablet. 
+%The tablet is important, since the undocumented Google API is queried with the unique Android ID of the tablet.
+%As long as the suspension is linked to my Google account and not the Android ID, a realistic chance exists to download more \acs{APK} files.
 
 % --------------------
 % REFERENCES
