@@ -146,6 +146,7 @@
 \newcommand{\pps}{privacy policies}
 \newcommand{\sca}{static code analysis}
 \newcommand{\Sca}{Static code analysis}
+\newcommand{\pra}{privacy risk assessment}
 
 \pagenumbering{Roman}
 
@@ -181,7 +182,7 @@
 
 % PROBLEM STATEMENT %
 \section{Problem Statement}
-The market for mobile smartdevice applications (apps) is growing extensively in recent years.
+The market for mobile smartphone and tablet applications (apps) is growing extensively in recent years.
 It is increasingly easier for companies or even single developers to create unique apps that reach millions of users around the planet via digital app stores.\footnote{Previous two sentences following \cite{Enck2011}, p. 1}
 This market growth effected mobile health (\acs{mHealth}) apps as well. 
 More and more \mH apps are available that support the users in resolving their health related issues and that try to patch information deficiencies. 
@@ -198,19 +199,22 @@ Aside from the data usage beyond users control, it is also challenging for users
 Users have to download the apps of interest and try them out, before it becomes clear what health related information is processed by the app and in what way. 
 This leads to low inter comparability between apps. 
 If users are looking for specific functionality in a \mH app, it is challenging to find the app that offers the desired functionality at an acceptable privacy risk. 
-Even if users would pursue the goal to find and compare \mH apps of similar functionality, the high volume of apps available on the app stores\footnote{\cite{Enck2011}, p. 1} makes it overbearingly hard to review all of them by hand.
+Even if users would pursue the task of finding and comparing \mH apps of similar functionality, the high volume of apps available on the app stores\footnote{\cite{Enck2011}, p. 1} makes it overbearingly hard to review all of them by hand.
 
-Resolving the challenges in evaluating the privacy risk of \mH apps, before usage and of large volumes, will result in an improved decision making process for users. 
+Resolving the challenges in evaluating the privacy risk of large volumes of \mH apps, before usage, will result in an improved decision making process for users. 
+Users will be able to make app usage decisions based on an actual privacy risk measure that empowers comparability.
 It also reduces the danger of exposing vulnerable information. 
-A way to assess privacy risks of \mH apps would be to automate the review of each individual app. 
-Automating the review process for large scale app assessments has the potential to grow new privacy evaluation service markets.\footnote{\cite{Enck2011}, p. 14}
-Automating the app assessment for potential privacy risk factors  can be done by downloading and analyzing the source of each app to trace data leaks. 
-\Sca is used in the field of informatics to analyse application source code to detect faults or vulnerabilities.\footnote{\cite{Baca2008}, p. 79} 
-A \sca could potentially be used to assess the privacy risks that mHealth apps pose.
+A way to assess privacy risks of \mH apps would be to automate the review process of each individual app. 
 
-The automated process of assessing the privacy risk helps to reduce the costs of reviewing each individual app and enhances the information experience users get while researching mHealth apps.Additionally, it exposes new possibilities for research in the privacy risk area. The research could be conducted on providing solutions and best practices for minimizing the privacy risk of apps.
-It is unclear if, and to what degree, the concepts of static code analysis and privacy risk assessment can be combined in order to automate the app assessment.
+A way to overcome the challenge of reviewing large amounts of \mH apps is by automating the assessment.
+Automating the review process for large scale app assessments even has the potential to grow new privacy evaluation service markets.\footnote{\cite{Enck2011}, p. 14}
+The assessment automation can be done by downloading and analyzing the source code of each app and by tracing data leaks. 
+\Sca is used in the field of informatics, to analyse application source code and detect faults or vulnerabilities.\footnote{\cite{Baca2008}, p. 79} 
+A \sca could be used to automatically assess the privacy risks that \mH apps pose.
+It is unclear if, and to what degree, the concepts of \sca and \pra can be combined in order to automate the app assessment.
 This leads to the research question of this master thesis. How and to what degree can the privacy risk assessment of mHealth apps be automated?
+
+The automated process helps to reduce the costs of reviewing each individual app drastically and enhances the information experience users get while researching mHealth apps.Additionally, it exposes new possibilities for research in the privacy risk area. The research could be conducted on providing solutions and best practices for minimizing the privacy risk of apps.
 
 % Related Work %
 \subsection{Related Work}
@@ -221,12 +225,10 @@ Previous research in this field revealed...
 \section{Objectives}
 
 The primary objective of this study is to ascertain how or to what degree the assessment of privacy risk factors for \mH apps can be automated.
-This will be done by implementing a software tool that downloads, decompiles and analyses the source code of \mH apps for privacy risk factors.
+This will be done by implementing a software tool that downloads, decompiles and analyses the source code of \mH apps for privacy risk factors to the furthest degree possible.
 The implementation process might come to a stop at some point due to insurmountable obstacles.
-These possible obstacles will be documented as a result of this study.
 
 As a secondary objective of this study, an evaluation of the privacy risk assessment tool, including an overview of the users’ opinions regarding the potential impact of the tool on their mHealth app decision making, will be given.
-
 
 % DEFINITIONS %
 \section{Definitions}
@@ -235,20 +237,20 @@ Certain terms are used in the remainder of this thesis that have to be defined:
 % Mobile health apps
 \subsection{Mobile health apps}
 
-Mobile health \acs{mHealth} apps are smartphone or tablet applications that support the users by enabling them to gather information and support about medical or health related issues.\footnote{See \cite{Dehling2015b}, p. 1}
+Mobile health \acs{mHealth} apps are smartphone or tablet applications that support the users by enabling them to gather health related information and support the consumer in medical or health related issues.\footnote{See \cite{Dehling2015b}, p. 1}
 
 % Static code analysis %
 \subsection{Static code analysis}
 
 Static code analysis refers to the analysis of an applications source code without actually executing the application. 
-This technique is widely used to detect vulnerabilities or to validate the source code at programming time in e.g. the code editor software. \footnote{See \cite{bardas2010static}, p. 2-3}
+This technique is widely used to detect vulnerabilities or to validate the source code during development in the sourcecode editor software. \footnote{See \cite{bardas2010static}, p. 2-3}
 
 % Decompilation %
 \subsection{Decompilation}
 
 Compilers transfer human readable programming code into machine code and therefore help humans write software applications in understandable text form. 
 Decompilers retrieve the human readable programming code back from the compiled machine code. 
-They aim at reversing the compilation process.
+The compilation process of an application is non reversible. Therefore, decompiling is a reverse engineering technique that outputs source code, similar to the original source code of the application, but with the same functionality.  
 \footnote{This section follows \cite{nolan2012decompiling}, p. 1-2}
 
 % METHODS %
@@ -262,31 +264,32 @@ They aim at reversing the compilation process.
 
 In order to automate the privacy risk assessment of \mH apps via \sca, it is necessary to gain access the source code of the apps. 
 While uploading a new app to the Apple AppStore, Apple's digital rights management (\acs{DRM}) system encrypts the binary file in a way that makes recovering the source code difficult. 
-There are approaches on decompiling the Apple app binary back into its source code.
+There are existing approaches on decompiling the Apple app binary back into its source code.
 These approaches involve unlocking and jailbreaking
 \footnote{Jailbreaking revers to the action of removing ... \cite{Kweller2010}, p. 1}
 an Apple iPhone or iPad, which is a violation of the Apple terms of service and therefore forbidden\footnote{\cite{Kweller2010}, p. 1}
 
 The Google PlayStore on the other hand hosts Android application in \acs{APK} containers that are non encrypted and allow for decompilation back into the original source files. 
-In order to automate the download process of \acs{APK} files to our local computer, we found a hidden Google \acs{API} that reveals access to the \acs{APK} files from the PlayStore. 
-The \acs{API} can be queried by sending an Android device id along, effectively pretending to be a requesting Android device.
-The result of the query is a binary \acs{APK} file.
+In order to automate the download process of \acs{APK} files to our local computer, we make use of an undocumented Google \acs{API} that reveals access to the \acs{APK} files from the Google PlayStore. 
+The \acs{API} can be queried by sending an Android device id, pretending to be a requesting Android device. It is used by the Google PlayStore internally and the result of the query is the binary \acs{APK} file.
 
-\cite{Xu2015} provision a repository of apps listings that are extracted from the Google PlayStore within the categories "Health \& Fitness" and "Medical".
+\cite{Xu2015} provision a repository of app listings that were extracted from the Google PlayStore within the categories "Health \& Fitness" and "Medical".
 Due to the obstacles of gaining access to the Apple iOS binary files, we restrict the dataset to the available Android apps and conduct our automated privacy risk assessment on these apps.
-The \cite{Xu2015} dataset contains 5379 Android apps. 
-We exclude paid apps from further proceeding, since downloading paid apps would charge the credit card of the authors, since we use the same \acs{API} that the Google PlayStore itself uses to purchase apps from the store on Android devices. 
-Downloading all 5379 apps would result in purchasing costs of 19,904.24 US-dollars. 
-Therefore we reduce the dataset to the 3180 free apps, which is still 59.1\% of the  initial dataset. 
-We will download as many apps of these 3180 as possible.
-Potential limitations in downloading could arise from the fact that Google blocks requests on the API as soon as the system detects overly use or misuse. Downloading 3180 apps at a time will likely trigger these security mechanisms of Google, since a normal user could never download that many apps in the same timeframe from the PlayStore.
+The \cite{Xu2015} dataset contains 5,379 Android apps. 
+We exclude paid apps from further proceeding. Downloading paid apps would charge the credit card of the authors, since we use the same \acs{API} that the Google PlayStore itself uses to purchase apps on Android devices. 
+Downloading all 5,379 apps would result in a purchase value of 19,904.24 US-dollars. 
+Therefore, we reduce the dataset to the 3,180 free apps, which is still 59.1\% of the apps from the initial dataset. 
+We will download as many of these 3,180 apps as possible.
+Download limitations could arise from the fact that Google blocks requests on the API as soon as the system detects heavy use or misuse. 
+Downloading 3,180 apps in a short period of time will likely trigger these security mechanisms, since a normal user could never download that many apps in the same timeframe from the PlayStore.
+Careful download rate implementation is necessary.
 
 As soon as the \acs{APK} files are available offline, the decompiling phase of the study will begin.
 Our decompiling process consists of four steps.
 
 The first step is to recover a java archive (\acs{JAR}) file from the \acs{APK} file.
 \acs{JAR} files contain a collection of .class files. 
-These .class files hold Java bytecode that can be interpreted by the Java virtual machine \acs{JVM} at application runtime.\footnote{The previous two sentences follow \cite{Enck2011}, p. 2} 
+These .class files hold Java bytecode that can be interpreted by the Java virtual machine (\acs{JVM}) at application runtime.\footnote{The previous two sentences follow \cite{Enck2011}, p. 2} 
 In order to extract the Java bytecode .class files, we use the command line tool \textit{dex2jar}\footnote{https://github.com/pxb1988/dex2jar, visited 02/03/2016}. 
 The abbreviation \acs{DEX} stands for \acl{DEX} and refers to the binary collection of compiled Java classes within the \acs{APK} file.\footnote{See \cite{xu2013techniques}, p. 6}
 
