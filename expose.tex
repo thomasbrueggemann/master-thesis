@@ -290,82 +290,88 @@ Our decompiling process consists of four steps.
 The first step is to recover a java archive (\acs{JAR}) file from the \acs{APK} file.
 \acs{JAR} files contain a collection of .class files. 
 These .class files hold Java bytecode that can be interpreted by the Java virtual machine (\acs{JVM}) at application runtime.\footnote{The previous two sentences follow \cite{Enck2011}, p. 2} 
-In order to extract the Java bytecode .class files, we use the command line tool \textit{dex2jar}\footnote{https://github.com/pxb1988/dex2jar, visited 02/03/2016}. 
-The abbreviation \acs{DEX} stands for \acl{DEX} and refers to the binary collection of compiled Java classes within the \acs{APK} file.\footnote{See \cite{xu2013techniques}, p. 6}
+In order to extract the Java bytecode .class files, we use the command line tool \textit{dex2jar}\footnote{\cite{Pan2010}}. 
+The abbreviation \acs{DEX} stands for \acl{DEX} and refers to the binary collection of compiled Java classes within the \acs{APK} package file.\footnote{See \cite{xu2013techniques}, p. 6}
 
-Step two includes the actual decompiling phase of the Java bytecode back into readable .java files. 
+Step two includes the actual decompiling phase of the Java bytecode back into .java files. 
 A .java file contains exactly one Java \textit{class} in humanly readable Java code. 
-\cite{Enck2011} developed their own Java decompiling toolchain in order to assess security issues and used within their toolchain used a tool called \textit{Soot}.
+\cite{Enck2011} developed their own Java decompiling toolchain in order to assess security issues of \mH apps, since \textit{dex2jar} was not functioning at the time they conducted their study.\footnote{\cite{Enck2011}, p. 16}
+Within their toolchain, they used a tool called \textit{Soot}.
 \textit{Soot} optimizes the decompiled code to improve the readability by humans.
-Aside from using \textit{Soot}, \cite{Enck2011} propose the idea to use different Android decompiler tools, such as \textit{JD} or \textit{Fernflower} in future research, since \textit{Soot} did not perform well in all cases.  \footnote{For the previous three sentences, see \cite{Enck2011}, p. 5}
-We will use \textit{Fernflower} as the decompiling tool for our study, since it evidentially outperformed \textit{Soot} in a further evaluation by \cite{Enck2011}.\footnote{\cite{Enck2011}, p. 6}
-The result of this second step is a directory full of .java files that represent the source code of an \acs{APK} app.
+Aside from using \textit{Soot}, \cite{Enck2011} propose the idea to use different Android decompiler tools, such as \textit{JD} or \textit{FernFlower} in future research, since \textit{Soot} did not perform well in all cases. \footnote{For the previous three sentences, see \cite{Enck2011}, p. 5}
+We will use \textit{FernFlower} as the decompiling tool for our study, since it evidentially outperformed \textit{Soot} in a further evaluation by \cite{Enck2011}.\footnote{\cite{Enck2011}, p. 6}
+The result of this second step will a directory full of .java files that represents the source code of the \acs{APK} apps.
 
 The decompiling process delivers source code files that lack any formatting.
 For the case of manually validating the output of the automated privacy risk assessment we will have to take a look into the source code files. 
-To make manual code inspections easier to read, a tool called \textit{astyle}\footnote{http://astyle.sourceforge.net/, visited 02/03/2016} will be used. 
-\textit{astyle} sets appropriate levels on indenting to the source code.
+To make manual code inspections easier to read, a tool called \textit{astyle}\footnote{\cite{Davidson2006}} will be used. 
+\textit{astyle} sets appropriate levels on indenting to the source code, to improve the reading experience.
 
-In the fourth and last step of our decompilation process, a tool called \textit{apktool}\footnote{https://github.com/iBotPeaches/Apktool, visited 03/02/2016} is used to extract all resource files from the \acs{APK} file. Resource files could be images or XML files that are not compiled into application code.\footnote{See \cite{xu2013techniques}, p. 5}
+In the last step of our decompilation process, a tool called \textit{apktool}\footnote{\cite{Tumbleson2010}} is used to extract all resource files from the \acs{APK} file. Resource files could be images or XML files that are not compiled into application code.\footnote{See \cite{xu2013techniques}, p. 5}
+The XML files are of interest for the automated privacy risk analysis, because Android text input controls can be defined in an external XML file, rather than in the source code itself.
 
 % static code analysis %
 \subsubsection{Static code analysis}
 In order to analyse potential privacy risks, we are going to use a static code analysis tool.
-This tool will scan and parse the Java source code files and make them computer readable.
+This tool will scan and parse the Java source code files and make them processable for further analysis.
 
-\cite{Bruggemann2016} identified six potential privacy risk factors that a \mH app could pose and combined them into a privacy risk index formula. 
+\cite{Bruggemann2016} identified six potential privacy risk factors that a \mH app can pose and combined them into a privacy risk index equation. 
 The six factors contain three binary factors.
-The first binary factor is whether an app requires a login via username/email or a social media login service such as Facebook. 
-The second binary factor is the question if the app uses secured \acs{HTTP} connections to the servers it is communicating too.
-While the first ones can be assessed at a reasonable level of difficulty via static code analysis, it is challenging to do so for third binary factor: reasonableness of personal data collection. 
-The reasonableness of personal data collection assessment in the study of \cite{Bruggemann2016} was based on usage observation of the app. This might not be feasible in a static code analysis.
-The non-binary factors include the categories of personal data that users have to input into the \mH apps. Examples of personal data categories are: Medication intake, Symptoms, Vital values.
-The last two factors express the target to which the personal data is likely to be sent. 
-This is split in two factors, one for unspecific data targets, which refers to the usage of advertisement banner services or analytics tools within the app. 
-The other data target factor tries to observe immediate data connections after input of personal data. 
+The first binary factor is the question, whether an app requires a login via username/email or a social media login service such as Facebook, Twitter or Google+. 
+The second binary factor asks, if the app uses secured \acs{HTTP} connections to the servers it is communicating too.
+While the first two binary factors can be assessed at a reasonable level of difficulty via static code analysis, it is challenging to do so for third binary factor, the reasonableness of personal data collection. 
+The reasonableness of personal data collection assessment in the study of \cite{Bruggemann2016} was based on usage observation of the app. This might not be feasible for a static code analysis. 
+Our research will find out to what degree it will be possible to evaluate how reasonable the data collection is.
+
+The non-binary factors include the categories of personal data that users have to input into the \mH apps. Examples of personal data categories are the medication intake, symptoms or vital values.
+The last two privacy risk factors express the target to which the personal data is likely to be sent. 
+\cite{Bruggemann2016} refer to target as the host or destination data is sent to.
+The targets are split into two factors, one for unspecific data targets, which refers to the usage of advertisement (ad) banner services or analytics tools within the app. 
+To what extend the inclusion of ad services or analytics tracks the user data is unclear during the assessment and therefore, the data targets are classified as unspecific.
+The second data target factor tries to observe immediate data connections after personal data input. 
 \cite{Bruggemann2016} observed that personal data might be sent to a server of the app provider, advertisement or marketing companies, social media networks (such as Facebook) or to research projects.\footnote{This section follows \cite{Bruggemann2016}, p. 1-99}
 
-Our study aims at identifying the privacy risk factors from \cite{Bruggemann2016} by scanning the source code of each app in our working dataset. 
+Our study aims at identifying the privacy risk factors identified by \cite{Bruggemann2016} by automatically scanning the source code of each app in our working dataset. 
+
 % LOGIN %
-In order to identify whether an app required the users to login, the source code will be scanned for text input fields that are labelled with the substrings "login", "register", "password". 
+In order to identify whether an app requires the users to login, the source code will be scanned for text input fields that are labelled with the substrings "login", "register", "password". 
 Additionally, the source code will be scanned for social network login buttons.
-They are identified by the button name "com.facebook.login.widget.LoginButton" for Facebook login, "SignInButton" for Google login and "com.twitter.sdk.android.core.identity.TwitterLoginButton" for Twitter login functionality.
+They can be identified by the button classname \textit{com.facebook.login.widget.LoginButton} for Facebook login, \textit{com.twitter.sdk.android.core.identity.TwitterLoginButton} for Twitter login functionality and \textit{SignInButton} for Google login.
 % SSL %
 Android uses a \textit{RequestQueue} to dispatch HTTP requests from the main thread. 
-We will scan the source code for requests that are added to the \textit{RequestQueue} and trace the url, that is the request target, back, until we can check if the URL contains the HTTPS prefix.
-This indicates a secure connection.
+We will scan the source code for requests that are added to the \textit{RequestQueue} and trace the url, that is the request target, back, until we can check if the target web address contains a secure HTTPS prefix.
+This indicates an encrypted connection.
 % DATA TARGET %
-The URL targets that requests are made to also indicate the personal data target factor.
-Especially if variables that were assigned through user input fields can be traced until they might be sent out in a request.
+The targets web addresses, that requests are made to, also indicate the personal data target factor. The web address domain name usually points out if the web request is made to the app providers server (usually the company name, or alike) or e.g. to a click analytics service.
+Especially if variables that were assigned through user input fields can be traced until they are sent out in web request.
 % DATA CATEGORIES %
-In order to identify the individual text fields that ask for user input, two source code scanning methods need to be used.
+In order to identify the individual text fields that call for user input, two source code scanning strategies need to be used.
 The Android \textit{EditText} classes can either be declared within the layout \acl{XML} (\acs{XML}) file or added via Java code during application runtime.
 In both cases the label and ID properties of the \textit{EditText} instance can indicate the semantics of the personal data that is requested from the users.
-As soon as we got an overview of the \textit{EditText} labels, we are going to cluster them into the personal data categories proposed by \cite{Bruggemann2016}.
-At this point it would be possible to train a naive Bayes classifier, to judge the personal data categories from the individual data input text field labels.
+As soon as we get an overview of the \textit{EditText} labels, we are going to cluster them into the personal data categories proposed by \cite{Bruggemann2016}.
+At this point it would be possible to train a naive Bayes classifier, to segment the individual data input text field labels to the personal data categories.
 % UNSPECIFIC DATA TARGETS %
-To identify if analytics or advertisement services are used within the app, we can simply scan for the inclusion of corresponding libraries. For example the Google Analytics\footnote{https://www.google.com/analytics/, visited 02/05/2015} library is used within Android source code by including the package \textit{com.google.android.gms.analytics.GoogleAnalytics}.
+To identify if analytics or advertisement services are used within the app, we can scan the source code for the inclusion of corresponding libraries. For example, the Google Analytics\footnote{https://www.google.com/analytics/, visited 02/05/2015} library is used within Android source code by including the library package \textit{com.google.android.gms.analytics.GoogleAnalytics}.
 
-After the implementation attempts of all privacy risk factors are completed
+After the implementation of is completed, the explored privacy risk factors will be combined into the privacy risk index weighted-sum equation, proposed by \cite{Bruggemann2016} and will be displayed within their user interface.\footnote{See\cite{Bruggemann2016}, p. 99}
+This enables the \mH apps to be compared, regarding their privacy risk.
 
 \subsection{Evaluation}
 
-The evaluation phase starts with an overview of the degree of privacy risk assessment automation that has been accomplished. 
-The evaluation will be based on the feasability and obstacles detected in implementing the automated privacy risk assessment.
-The explored privacy risk factors will be combined into the privacy risk index weighted-sum equation, proposed by \cite{Bruggemann2016} and will be displayed within their user interface.\footnote{\cite{Bruggemann2016}, p. 99}
-Using the \cite{Bruggemann2016} user interface allows the users to explore and compare \mH apps in a table view format. 
+First, we want to evaluate the degree of privacy risk assessment automation that has been accomplished. 
+The evaluation will be based on the feasibility and the obstacles detected in implementing the automated privacy risk assessment. We will outline which privacy risk factors can be detected automatically and which factors can not and why.
+
+Using the \cite{Bruggemann2016} user interface allows users to explore and compare \mH apps in a table view format. 
 It can be used in addition to downloading apps from the Google PlayStore.
 
-In order to further evaluate the automated privacy risk assessment, we will expose 15 potential users to the user interface and let them discover our detected privacy risks.
-We will give an overview of the users options towards the presence of enhanced privacy risk information, that might change the users decision making process regarding the selection of \mH apps.
+In order to further evaluate the automated privacy risk assessment and its impact on users, we will expose 15 potential users to the user interface and let them discover our detected privacy risks.
+We will then give an overview of the users options towards the presence of enhanced privacy risk information, that might change the users decision making process regarding the selection of \mH apps.
 
 % STRUCTURE %
 \section{Structure}
 
-Es folgt eine Erläuterung der Gliederung der Bachelorarbeit. In Klammern steht jeweils der geschätzte bzw. anvisierte Umfang des jeweiligen Kapitels.
-\newline\newline
-
-
+In this section we would like to introduce the structure of the final thesis chapters.
+\newline
 \begin{longtable}{>{\bfseries}p{5.2cm} p{9.1cm}}
     \arrayrulecolor{lightgray}
     1 Introduction & The introduction provides an overview of the problem statement, the objectives, the methods used and the structure of the thesis.\\\hline
@@ -376,17 +382,17 @@ Es folgt eine Erläuterung der Gliederung der Bachelorarbeit. In Klammern steht 
     
     1.3 Objectives & This section describes the primary objective of the thesis and the subsequent secondary objectives, that we will aim at reaching.\\\hline
     
-    1.4 Methods & An overview of the research approach of this master thesis that reflects the main part of the thesis.\\\hline
+    1.4 Methods & An overview of the research approach of this master thesis that will be used in the main part of the thesis.\\\hline
     
     1.5 Structure & The formal structure of the thesis to provide the reader with an  overview of the thesis.\\\hline\hline
     
-    2 Automated Privacy Risk Assessment & This chapter describes the main implementation phase of the thesis.\\\hline
+    2 Automated Privacy Risk Assessment & This chapter describes the main implementation phase of the automated privacy risk assessment tool.\\\hline
     
     2.1 Privacy Risk Factors & Introduction of the privacy risk factors identified by \cite{Bruggemann2016} and a further explanation on their relevance to \mH app assessments.\\\hline
     
-    2.2 Implementation & Details on the implementation of the automated \mH privacy risk assessment tool.\\\hline
+    2.2 Implementation & Details on the implementation of the automated \mH privacy risk assessment tool itself.\\\hline
     
-    2.2.1 Download Phase & Description of the \acs{APK} file discovery and download phase of the tool. While free Android apps are available for everybody with an Android smartphone, we want to feed \mH apps into our automated system and therefore need to download the \acs{APK} files automatically.\\\hline
+    2.2.1 Download Phase & Description of the \acs{APK} file discovery and download phase of the tool. Free Android apps are available for everybody with an Android smartphone. We want to feed \mH apps into our automated system and therefore need to download the \acs{APK} files automatically.\\\hline
     
     2.2.2 Decompilation Phase & This section provides information on the decompilation phase of the \acs{APK} files and the methods used to regain the source code of Android apps. This is a crucial step, since the source code is our main and only resource to perform the static code analysis on, in chapter 2.2.3.\\\hline
     
