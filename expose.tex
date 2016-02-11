@@ -218,8 +218,18 @@ The automated process helps to reduce the costs of reviewing each individual app
 
 % Related Work %
 \subsection{Related Work}
-\todo{Related Work bei \cite{xu2013techniques} abschauen}
-Previous research in this field revealed...
+\mH apps have been subject of various research studies, that aim at providing insights for developers as well as users into how private information is processed.
+First of all \cite{Khalid2015} found out, that privacy issues are the number one most impactful user complaint, while using mobile apps.\footnote{\cite{Khalid2015}, p. 5}
+This encourages research to address privacy risks and data leaks.
+\cite{He2014} analyze the top 160 free Android \mH apps by potential attack points to users private data. They focus on the technical side of privacy risks, for example the storage of \mH data in internal Android log files or the storage card used within the phone or tablet.\footnote{For the previous two sentences, see \cite{He2014}, p. 645-646}
+\cite{Mcclurg2012} study Android data leaks on a technical level and apply decompilation tools to automate the leak detection process, rather than reviewing apps manually by hand. They found out that Android apps leak private information, e.g. the device identification to app provider servers.\footnote{\cite{Mcclurg2012}, p. 1, 5}
+This reveals decompilation to be a feasible assessment technique for privacy risks and data leaks.
+A similar method is used by \cite{Enck2011}, as they develop their own Android decompilation tool to assess misuse of the phone identifier, location data and advertising or analytics networks.\footnote{\cite{Enck2011}, p. 1}.
+Their insight into the decompilation toolchain will act as a technical foundation for our thesis.
+\cite{Mitchell2013} step into the analysis of specifically \mH apps and try to identify private user data that can be accessed unauthorizedly while the application is installed on a mobile device and after it was removed.\footnote{\cite{Mitchell2013}, p. 6-7}
+A detailed privacy leak detection in Android apps is conducted by \cite{Kim2012} by building a static code analysis tool, that is able to trace inputs, such as location data or the phone identifier to the point where this data is sent out to a remote server.\footnote{\cite{Kim2012}, p. 1-2}
+\cite{Bruggemann2016} identified six factors of privacy risk within \mH apps and proposed an equation to combine those factors into an equation.
+Our study to combine the decompilation steps of \cite{Enck2011} with a detailed static code analysis that \cite{Kim2012} proposed and apply this on the automated identification of the privacy risk factors \cite{Bruggemann2016} identified.
 
 % OBJECTIVES %
 \section{Objectives}
