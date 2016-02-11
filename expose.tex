@@ -392,21 +392,21 @@ In this section we would like to introduce the structure of the final thesis cha
     
     2.2 Implementation & Details on the implementation of the automated \mH privacy risk assessment tool itself.\\\hline
     
-    2.2.1 Download Phase & Description of the \acs{APK} file discovery and download phase of the tool. Free Android apps are available for everybody with an Android smartphone. We want to feed \mH apps into our automated system and therefore need to download the \acs{APK} files automatically.\\\hline
+    2.2.1 Download Phase & Description of the \acs{APK} file discovery and download phase of the tool. Free Android apps are available for everybody with an Android smartphone. We want to feed \mH apps into our automated assessment system and therefore need to download the \acs{APK} files automatically.\\\hline
     
-    2.2.2 Decompilation Phase & This section provides information on the decompilation phase of the \acs{APK} files and the methods used to regain the source code of Android apps. This is a crucial step, since the source code is our main and only resource to perform the static code analysis on, in chapter 2.2.3.\\\hline
+    2.2.2 Decompilation Phase & This section provides information on the decompilation of the \acs{APK} files and the methods used to regain the source code of Android apps. This is a crucial step, since the source code is our main resource to perform the static code analysis on, as outlined in chapter 2.2.3.\\\hline
     
-    2.2.3 Static Code Analysis Phase & Information on the different approaches to gather information on the individual privacy risk factors, explained in chapter 2.1. We will try to identify via a static code analysis, if the \mH app requires a login to tailor the user experience or not. Furthermore we want to find out if personal health data is collected and if so, what kind of data. Via source code analysis we aim at identifying the targets, where data is sent and if advertisement or click-analytics services are used.\\\hline
+    2.2.3 Static Code Analysis Phase & Information on the different approaches to gather information on the individual privacy risk factors, explained in chapter 2.1. We will try to identify via the static code analysis, if the \mH app requires a login to tailor the user experience or not. Furthermore, we want to find out if personal health data is collected and if so, what kind of data. Via source code analysis we aim at identifying the targets, where data is sent and if advertisement or click-analytics services are used.\\\hline
     
     2.3 Results & Explaining the outcome of the implementation step. How many apps could be automatically assessed? How many factors could be automatically identified? Was it possible to compute information on all of the privacy risk factors from chapter 2.1?\\\hline\hline
     
-    3 Evaluation & Evaluating the outcomes of this thesis by critically appreciating the results of the implementation and the opinions of potential users.\\\hline
+    3 Evaluation & Evaluating the results of this thesis by critically appreciating the results of the implementation and the opinions of potential users.\\\hline
     
     3.1 Evaluation of Implementation & Information on the feasibility of implementing an automated \mH privacy risk assessment tool, the challenges and obstacles. \\\hline
     
-    3.2 Overview of Users' Opinions & Further evaluation of the automated privacy risk assessment tool is given by presenting an overview of the users' options on the tool. We will expose 15 users with our novel tool and share their option on the implications this tool has on \mH app decision making.\\\hline\hline
+    3.2 Overview of the Users' Opinions & Further evaluation of the automated privacy risk assessment tool is given by presenting an overview of the users' options on the tool. We will expose 15 users with the tool and share their option on the implications this tool has on \mH app decision making.\\\hline\hline
 
-    4 Conclusion & A critical reflection on the thesis. Are all the objectives reached and are the methods used coherent? \\\hline
+    4 Conclusion & A critical reflection on the thesis. Were all the objectives reached and are the methods used coherent? \\\hline
     
     4.1 Limitations & Explanations in what way the research approach and execution was limited or constrained during this thesis.\\\hline
     
@@ -419,23 +419,22 @@ In this section we would like to introduce the structure of the final thesis cha
 
 As a result of this master thesis, we expect the implementation process of the automated privacy risk assessment to be at least partially feasible and implemented. 
 Automating the downloading process of \acs{APK} app files from the Google PlayStore is possible to a certain amount, and will be provided.
-The decompilation process is set to gain at least a 94 to 98\% code recovery rate.\footnote{\cite{Enck2011}, p. 5-6} 
-Therefore we expect the majority of \acs{APK} files to be decompilable.
+The decompilation process is expected to gain at least a code recovery rate of above 90\%.\footnote{\cite{Enck2011}, p. 5-6} 
+Therefore, we expect the majority of \acs{APK} files to be assessable.
 We expect the static code analysis for privacy risk factors to be success for the majority factors and will provide insights into the possible degree of detail.
 
-Another expected result is an overview of the users' options on the usage of the tool. 
+Another anticipated result is an overview of the users' options on the usage of the automated privacy risk assessment tool. 
 Depending on the implementation success it will reveal to be either useful or rather not useful to the users decision making process regarding \mH apps.
 
 % PROBLEMS %
 \section{Problems}
-So far there are no open questions or problems. Though, a problem could arise from the fact that the core of this master thesis relies on a undocumented Google \acs{API} for downloading the \acs{APK} files of the apps. 
+So far, only one problem arose from the fact that the core of this master thesis relies on an undocumented Google \acs{API} for downloading the \acs{APK} files of the apps. 
+After testing the \acs{APK} download \acs{API}, it became clear that Google is limiting the request rate to the API. 
+The extend to which requests are limited and blocked is unknown.
+After exceeding the limit on one day, it was possible to resume downloading on another day.
 If this \acs{API} is shut down or somehow secured from open usage, it would not be as easy to gather the needed \acs{APK} files for the \sca as it currently is.
 It might be possible to circumvent the usage of undocumented Google \acs{API}s by downloading the \acs{APK} files manually or semi-automated on an Android smartphone. 
-This will be a fallback solution.
-%After downloading the first 1081 apps via the undocumented Google API function, my Google PlayStore account was suspended and I was automatically logged out of my Google account in the PlayStore app on my tablet. 
-%It might be possible to circumvent this by creating another Google account and using that one on my tablet. 
-%The tablet is important, since the undocumented Google API is queried with the unique Android ID of the tablet.
-%As long as the suspension is linked to my Google account and not the Android ID, a realistic chance exists to download more \acs{APK} files.
+This could be a fallback solution.
 
 % --------------------
 % REFERENCES
