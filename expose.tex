@@ -182,33 +182,33 @@
 
 % PROBLEM STATEMENT %
 \section{Problem Statement}
-The market for mobile smartphone and tablet applications (apps) is growing extensively in recent years.
-It is increasingly easier for companies or even single developers to create unique apps that reach millions of users around the planet via digital app stores.\footnote{Previous two sentences following \cite{Enck2011}, p. 1}
-This market growth effected mobile health (\acs{mHealth}) apps as well. 
-More and more \mH apps are available that support the users in resolving their health related issues and that try to patch information deficiencies. 
-The data tools and information systems that have been used and maintained in hospitals for decades are recently carried out to distributed cloud services for virtually everyone to consume.\footnote{\cite{He2014}, p. 645}
+The market for mobile phone and tablet applications (apps) is growing extensively since recent years.
+It is increasingly easier for companies or even single developers to create unique apps that reach millions of users around the planet via digital app stores.\footnote{Previous two sentences following \cite{Enck2011}, p. 1.}
+This market growth affected mobile health (\acs{mHealth}) apps as well. 
+More and more \mH apps are available that support the users in resolving their health-related issues and that try to remedy information deficiencies. 
+% this has an effect on the users as well %
 
-Users are asked to expose their personal health related information, in order to receive a tailored app that fits their custom preferences.\footnote{\cite{Chen2012}, p. 2}
-The users reveal vulnerable information about their health status, while it remains mostly unclear how and where the data is sent, processed and stored.\footnote{\cite{He2014}, p. 652}
+Users are asked to expose their personal health related information, in order to receive a tailored app that fits their preferences.\footnote{See \cite{Chen2012}, p. 2.}
+The users reveal vulnerable information about their health status, while it remains mostly unclear how and where the data is sent, processed and stored.\footnote{See \cite{He2014}, p. 652.}
 
 The information about these privacy related practices of \ap s and their offered apps should be stated in the privacy policy document, provided by the \ap.
 Processing these \pps requires a higher level of education and time to read through large bodies of text, in order to find the relevant information. 
-Additionally, the important information is hidden in legal language or insufficiently addressed, if at all.\footnote{This paragraph follows \cite{Dehling2014}, p. 11}
+Additionally, the important information is hidden in legal language or insufficiently addressed, if at all.\footnote{This paragraph follows \cite{Dehling2014}, p. 11.}
 
 Aside from the data usage beyond the control of the users, it is also challenging for users to assess what kind of private information an app asks for, prior to the app usage. 
 Users have to download the apps of interest and try them out, before it becomes clear what health related information is processed by the app and in what way. 
 This leads to low inter comparability between apps. 
 If users are looking for specific functionality in an \mH app, it is challenging to find the app that offers the desired functionality at an acceptable privacy risk. 
-Even if users would pursue the task of finding and comparing \mH apps of similar functionality, the high volume of apps available on the app stores\footnote{\cite{Enck2011}, p. 1} makes it laborious to review all of them by hand.
+Even if users would pursue the task of finding and comparing \mH apps of similar functionality, the high volume of apps available on the app stores\footnote{See \cite{Enck2011}, p. 1.} makes it laborious to review all of them by hand.
 
 Resolving the challenges in evaluating the privacy risk of large volumes of \mH apps, before usage, will result in an improved decision making process for users. 
 Users will be able to make app usage decisions based on an actual privacy risk measure that empowers comparability and the danger of exposing vulnerable information is reduced. 
 One way to assess privacy risks of \mH apps is to automate the review process of each individual app. 
 
 A means to overcome the challenge of reviewing large amounts of \mH apps is by automating the assessment.
-Automating the review process for large scale app assessments even has the potential to grow new privacy evaluation service markets.\footnote{\cite{Enck2011}, p. 14}
+Automating the review process for large scale app assessments even has the potential to grow new privacy evaluation service markets.\footnote{See \cite{Enck2011}, p. 14.}
 The assessment automation can be done by downloading and analyzing the source code of each app and by tracing data leaks. 
-\Sca is used in the field of informatics, to analyse application source code and detect faults or vulnerabilities.\footnote{\cite{Baca2008}, p. 79} 
+\Sca is used in the field of informatics, to analyse application source code and detect faults or vulnerabilities.\footnote{See \cite{Baca2008}, p. 79.} 
 A \sca could be used to automatically assess the privacy risks that \mH apps pose.
 It is unclear if, and to what degree, the concepts of \sca and \pra can be combined in order to automate the app assessment.
 This leads to the research question of this master thesis: How and to what degree can the privacy risk assessment of mHealth apps be automated?
@@ -218,15 +218,15 @@ The automated process helps to reduce the costs of reviewing each individual app
 % Related Work %
 \subsection{Related Work}
 \mH apps have been subject of various research studies, that aim at providing insights for developers as well as users into how private information is processed.
-First of all \cite{Khalid2015} found out, that privacy issues are the number one most impactful user complaint, while using mobile apps.\footnote{\cite{Khalid2015}, p. 5}
+First of all \cite{Khalid2015} found out, that privacy issues are the number one most impactful user complaint, while using mobile apps.\footnote{See \cite{Khalid2015}, p. 5.}
 This encourages research to address privacy risks and data leaks.
-\cite{He2014} analyzed the top 160 free Android \mH apps by potential attack points to users' private data. They focus on the technical side of privacy risks, for example the storage of \mH data in internal Android log files or the storage card used within the phone or tablet.\footnote{For the previous two sentences, see \cite{He2014}, p. 645-646}
-\cite{Mcclurg2012} study Android data leaks on a technical level and apply decompilation tools to automate the leak detection process, rather than reviewing apps manually by hand. They found out that Android apps leak private information, e.g. the device identification, to app provider servers.\footnote{\cite{Mcclurg2012}, p. 1, 5}
+\cite{He2014} analyzed the top 160 free Android \mH apps by potential attack points to users' private data. They focus on the technical side of privacy risks, for example the storage of \mH data in internal Android log files or the storage card used within the phone or tablet.\footnote{For the previous two sentences, see \cite{He2014}, p. 645-646.}
+\cite{Mcclurg2012} study Android data leaks on a technical level and apply decompilation tools to automate the leak detection process, rather than reviewing apps manually by hand. They found out that Android apps leak private information, e.g. the device identification, to app provider servers.\footnote{See \cite{Mcclurg2012}, p. 1, 5.}
 This reveals decompilation to be a feasible assessment technique for privacy risks and data leaks.
-A similar method is used by \cite{Enck2011}, as they develop their own Android decompilation tool to assess misuse of the phone identifier, location data and advertising or analytics networks.\footnote{\cite{Enck2011}, p. 1}.
+A similar method is used by \cite{Enck2011}, as they develop their own Android decompilation tool to assess misuse of the phone identifier, location data and advertising or analytics networks.\footnote{See \cite{Enck2011}, p. 1.}.
 Their insight into the decompilation toolchain will act as a technical foundation for our thesis.
-\cite{Mitchell2013} step into the analysis of specifically \mH apps and try to identify private user data that can be accessed without proper authorization, while the application is installed on a mobile device and after it was removed.\footnote{\cite{Mitchell2013}, p. 6-7}
-A detailed privacy leak detection in Android apps is conducted by \cite{Kim2012} by building a static code analysis tool that is able to trace inputs, such as location data or the phone identifier to the point where this data is sent out to a remote server.\footnote{\cite{Kim2012}, p. 1-2}
+\cite{Mitchell2013} step into the analysis of specifically \mH apps and try to identify private user data that can be accessed without proper authorization, while the application is installed on a mobile device and after it was removed.\footnote{\cite{Mitchell2013}, p. 6-7.}
+A detailed privacy leak detection in Android apps is conducted by \cite{Kim2012} by building a static code analysis tool that is able to trace inputs, such as location data or the phone identifier to the point where this data is sent out to a remote server.\footnote{See \cite{Kim2012}, p. 1-2.}
 \cite{Bruggemann2016} identified six factors of privacy risk within \mH apps and proposed a formula to combine those factors into an equation.
 Our study is to combine the decompilation steps of \cite{Enck2011} with a detailed static code analysis that \cite{Kim2012} proposed and apply this on the automated identification of the privacy risk factors which \cite{Bruggemann2016} identified.
 
@@ -244,15 +244,15 @@ As a secondary objective of this study, an evaluation of the privacy risk assess
 Certain terms are used in the remainder of this thesis that have to be defined:
 
 % Mobile health apps
-\subsection{Mobile health apps}
+\subsection{Mobile Health Apps}
 
-Mobile health \acs{mHealth} apps are smartphone or tablet applications that support the users by enabling them to gather health related information and support the consumer in medical or health related issues.\footnote{See \cite{Dehling2015b}, p. 1}
+Mobile health \acs{mHealth} apps are smartphone or tablet applications that support the users by enabling them to gather health related information and support the consumer in medical or health related issues.\footnote{See \cite{Dehling2015b}, p. 1.}
 
 % Static code analysis %
-\subsection{Static code analysis}
+\subsection{Static Code Analysis}
 
 Static code analysis refers to the analysis of an applications source code without actually executing the application. 
-This technique is widely used to detect vulnerabilities or to validate the source code during development in the sourcecode editor software. \footnote{See \cite{bardas2010static}, p. 2-3}
+This technique is widely used to detect vulnerabilities or to validate the source code during development in the sourcecode editor software. \footnote{See \cite{bardas2010static}, p. 2-3.}
 
 % Decompilation %
 \subsection{Decompilation}
@@ -260,22 +260,22 @@ This technique is widely used to detect vulnerabilities or to validate the sourc
 Compilers transfer human readable programming code into machine code and therefore help humans write software applications in understandable text form. 
 Decompilers retrieve the human readable programming code back from the compiled machine code. 
 The compilation process of an application is non-reversible. Therefore, decompiling is a reverse engineering technique that outputs source code, similar to the original source code of the application, but with the same functionality.  
-\footnote{This section follows \cite{nolan2012decompiling}, p. 1-2}
+\footnote{This section follows \cite{nolan2012decompiling}, p. 1-2.}
 
 % METHODS %
 \section{Methods}
 
 % Automating the privacy risk assessment %
-\subsection{Automating the privacy risk assessment}
+\subsection{Automating the Privacy Risk Assessment}
 
 % android decompilation
-\subsubsection{Android decompilation}
+\subsubsection{Android Decompilation}
 
 In order to automate the privacy risk assessment of \mH apps via \sca, it is necessary to gain access the source code of the apps. 
 While uploading a new app to the Apple AppStore, Apple's digital rights management (\acs{DRM}) system encrypts the binary file in a way that makes recovering the source code difficult. 
 There are existing approaches to decompiling the Apple app binary back into its source code.
-These approaches involve unlocking and jailbreaking\footnote{Jailbreaking revers to the action of removing ... \cite{Kweller2010}, p. 1}
-an Apple iPhone or iPad, which is a violation of the Apple terms of service and therefore forbidden.\footnote{\cite{Kweller2010}, p. 1}
+These approaches involve unlocking and jailbreaking\footnote{Jailbreaking refers to the action of unlocking the iOS device firmware to gain unrestricted access to the bootloader. See \cite{Kweller2010}, p. 1.}
+an Apple iPhone or iPad, which is a violation of the Apple terms of service and therefore forbidden.\footnote{See \cite{Kweller2010}, p. 1.}
 
 The Google PlayStore on the other hand hosts Android application in \acs{APK} containers that are non-encrypted and allow for decompilation back into the original source files. 
 In order to automate the download process of \acs{APK} files to our local computer, we make use of an undocumented Google \acs{API} that reveals access to the \acs{APK} files from the Google PlayStore. 
@@ -297,29 +297,29 @@ Our decompiling process consists of four steps.
 
 The first step is to recover a java archive (\acs{JAR}) file from the \acs{APK} file.
 \acs{JAR} files contain a collection of .class files. 
-These .class files hold Java bytecode that can be interpreted by the Java virtual machine (\acs{JVM}) at application runtime.\footnote{The previous two sentences follow \cite{Enck2011}, p. 2} 
-In order to extract the Java bytecode .class files, we use the command line tool \textit{dex2jar}\footnote{\cite{Pan2010}}. 
-The abbreviation \acs{DEX} stands for \acl{DEX} and refers to the binary collection of compiled Java classes within the \acs{APK} package file.\footnote{See \cite{xu2013}, p. 6}
+These .class files hold Java bytecode that can be interpreted by the Java virtual machine (\acs{JVM}) at application runtime.\footnote{The previous two sentences follow \cite{Enck2011}, p. 2.} 
+In order to extract the Java bytecode .class files, we use the command line tool \textit{dex2jar}\footnote{\cite{Pan2010}.}. 
+The abbreviation \acs{DEX} stands for \acl{DEX} and refers to the binary collection of compiled Java classes within the \acs{APK} package file.\footnote{See \cite{xu2013}, p. 6}.
 
 Step two includes the actual decompiling phase of the Java bytecode back into .java files. 
 A .java file contains exactly one Java \textit{class} in humanly readable Java code. 
-\cite{Enck2011} developed their own Java decompiling toolchain in order to assess security issues of \mH apps, since \textit{dex2jar} was not functioning at the time they conducted their study.\footnote{\cite{Enck2011}, p. 16}
+\cite{Enck2011} developed their own Java decompiling toolchain in order to assess security issues of \mH apps, since \textit{dex2jar} was not functioning at the time they conducted their study.\footnote{See \cite{Enck2011}, p. 16.}
 Within their toolchain, they used a tool called \textit{Soot}.
 \textit{Soot} optimizes the decompiled code to improve the readability by humans.
-Aside from using \textit{Soot}, \cite{Enck2011} propose the idea to use different Android decompiler tools, such as \textit{JD} or \textit{FernFlower} in future research, since \textit{Soot} did not perform well in all cases. \footnote{For the previous three sentences, see \cite{Enck2011}, p. 5}
-We will use \textit{FernFlower} as the decompiling tool for our study, since it evidentially outperformed \textit{Soot} in a further evaluation by \cite{Enck2011}.\footnote{\cite{Enck2011}, p. 6}
+Aside from using \textit{Soot}, \cite{Enck2011} propose the idea to use different Android decompiler tools, such as \textit{JD} or \textit{FernFlower} in future research, since \textit{Soot} did not perform well in all cases. \footnote{For the previous three sentences, see \cite{Enck2011}, p. 5.}
+We will use \textit{FernFlower} as the decompiling tool for our study, since it evidentially outperformed \textit{Soot} in a further evaluation by \cite{Enck2011}.\footnote{See \cite{Enck2011}, p. 6.}
 The result of this second step will be a directory full of .java files that represents the source code of the \acs{APK} apps.
 
 The decompiling process delivers source code files that lack any formatting.
 For the case of manually validating the output of the automated privacy risk assessment, we will have to take a look into the source code files. 
-To make manual code inspections easier to read, a tool called \textit{astyle}\footnote{\cite{Davidson2006}} will be used. 
+To make manual code inspections easier to read, a tool called \textit{astyle}\footnote{\cite{Davidson2006}.} will be used. 
 \textit{astyle} sets appropriate levels on indenting to the source code, to improve the reading experience.
 
-In the last step of our decompilation process, a tool called \textit{apktool}\footnote{\cite{Tumbleson2010}} is used to extract all resource files from the \acs{APK} file. Resource files could be images or XML files that are not compiled into application code.\footnote{See \cite{xu2013}, p. 5}
+In the last step of our decompilation process, a tool called \textit{apktool}\footnote{\cite{Tumbleson2010}.} is used to extract all resource files from the \acs{APK} file. Resource files could be images or XML files that are not compiled into application code.\footnote{See \cite{xu2013}, p. 5.}
 The XML files are of interest for the automated privacy risk analysis, because Android text input controls can be defined in an external XML file, rather than in the source code itself.
 
 % static code analysis %
-\subsubsection{Static code analysis}
+\subsubsection{Static Code Analysis}
 In order to analyse potential privacy risks, we are going to use a static code analysis tool.
 This tool will scan and parse the Java source code files and make them processable for further analysis.
 
@@ -337,7 +337,7 @@ The last two privacy risk factors express the target to which the personal data 
 The targets are split into two factors, one for unspecific data targets, which refers to the usage of advertisement (ad) banner services or analytics tools within the app. 
 To what extent the inclusion of ad services or analytics tracks the user data is unclear during the assessment and therefore the data targets are classified as unspecific.
 The second data target factor tries to observe immediate data connections after personal data input. 
-\cite{Bruggemann2016} observed that personal data might be sent to a server of the app provider, advertisement or marketing companies, social media networks (such as Facebook) or to research projects.\footnote{This section follows \cite{Bruggemann2016}, p. 7-9}
+\cite{Bruggemann2016} observed that personal data might be sent to a server of the app provider, advertisement or marketing companies, social media networks (such as Facebook) or to research projects.\footnote{This section follows \cite{Bruggemann2016}, p. 7-9.}
 
 Our study aims at identifying the privacy risk factors identified by \cite{Bruggemann2016} by automatically scanning the source code of each app in our working dataset. 
 
@@ -359,9 +359,9 @@ In both cases the label and ID properties of the \textit{EditText} instance can 
 As soon as we get an overview of the \textit{EditText} labels, we are going to cluster them into the personal data categories proposed by \cite{Bruggemann2016}.
 At this point it would be possible to train a naive Bayes classifier, to segment the individual data input text field labels to the personal data categories.
 % UNSPECIFIC DATA TARGETS %
-To identify if analytics or advertisement services are used within the app, we can scan the source code for the inclusion of corresponding libraries. For example, the Google Analytics\footnote{https://www.google.com/analytics/, visited 02/05/2015} library is used within Android source code by including the library package \textit{com.google.android.gms.analytics.GoogleAnalytics}.
+To identify if analytics or advertisement services are used within the app, we can scan the source code for the inclusion of corresponding libraries. For example, the Google Analytics\footnote{https://www.google.com/analytics/, visited 02/05/2015.} library is used within Android source code by including the library package \textit{com.google.android.gms.analytics.GoogleAnalytics}.
 
-After the implementation is completed, the explored privacy risk factors will be combined into the privacy risk index weighted-sum equation, proposed by \cite{Bruggemann2016} and will be displayed within a user interface.\footnote{See\cite{Bruggemann2016}, p. 10, 15-16}
+After the implementation is completed, the explored privacy risk factors will be combined into the privacy risk index weighted-sum equation, proposed by \cite{Bruggemann2016} and will be displayed within a user interface.\footnote{See\cite{Bruggemann2016}, p. 10, 15-16.}
 This enables the \mH apps to be compared, regarding their privacy risk.
 
 \subsection{Evaluation}
@@ -386,39 +386,37 @@ In this section we would like to introduce the structure of the final thesis cha
     
     1.1 Problem Statement & Description of the research cycle of the master thesis to further stress the practice problem and its relevance, as well as the research problem and its relevance.\\\hline
     
-    1.2 Related Work & Overview of previous research and related work that has covered the topic of analysing \mH privacy risks or even using automated techniques on gathering privacy risk information\\\hline
+    1.2 Objectives & This section describes the primary objective of the thesis and the subsequent secondary objectives, that we hope to reach.\\\hline
     
-    1.3 Objectives & This section describes the primary objective of the thesis and the subsequent secondary objectives, that we hope to reach.\\\hline
+    1.3 Structure & The formal structure of the thesis, used to provide the reader with an overview of the thesis.\\\hline\hline
     
-    1.4 Methods & An overview of the research approach of this master thesis that will be used in the main part of the thesis.\\\hline
+    2 Related Work & Overview of previous research and related work that has covered the topic of analysing \mH privacy risks or even using automated techniques on gathering privacy risk information\\\hline\hline
     
-    1.5 Structure & The formal structure of the thesis, used to provide the reader with an overview of the thesis.\\\hline\hline
+    3 Method & This chapter describes the main implementation phase of the automated privacy risk assessment tool.\\\hline
     
-    2 Automated Privacy Risk Assessment & This chapter describes the main implementation phase of the automated privacy risk assessment tool.\\\hline
+    3.1 Privacy Risk Factors & Introduction of the privacy risk factors identified by \cite{Bruggemann2016} and a further explanation of their relevance to \mH app assessments.\\\hline
     
-    2.1 Privacy Risk Factors & Introduction of the privacy risk factors identified by \cite{Bruggemann2016} and a further explanation of their relevance to \mH app assessments.\\\hline
+    3.2 Implementation & Details on the implementation of the automated \mH privacy risk assessment tool itself.\\\hline
     
-    2.2 Implementation & Details on the implementation of the automated \mH privacy risk assessment tool itself.\\\hline
+    3.2.1 Download Phase & Description of the \acs{APK} file discovery and download phase of the tool. Free Android apps are available for everybody with an Android smartphone. We want to feed \mH apps into our automated assessment system and therefore need to download the \acs{APK} files automatically.\\\hline
     
-    2.2.1 Download Phase & Description of the \acs{APK} file discovery and download phase of the tool. Free Android apps are available for everybody with an Android smartphone. We want to feed \mH apps into our automated assessment system and therefore need to download the \acs{APK} files automatically.\\\hline
+    3.2.2 Decompilation Phase & This section provides information on the decompilation of the \acs{APK} files and the methods used to regain the source code of Android apps. This is a crucial step, since the source code is our main resource to perform the static code analysis on, as outlined in chapter 2.2.3.\\\hline
     
-    2.2.2 Decompilation Phase & This section provides information on the decompilation of the \acs{APK} files and the methods used to regain the source code of Android apps. This is a crucial step, since the source code is our main resource to perform the static code analysis on, as outlined in chapter 2.2.3.\\\hline
+    3.2.3 Static Code Analysis Phase & Information on the different approaches to gather information on individual privacy risk factors, explained in chapter 2.1. We will try to identify via the static code analysis, if the \mH app requires a login to tailor the user experience or not. Furthermore, we want to find out if personal health data is collected and if so, what kind of data. Via source code analysis we aim at identifying the targets, where data is sent and if advertisement or click-analytics services are used.\\\hline
     
-    2.2.3 Static Code Analysis Phase & Information on the different approaches to gather information on individual privacy risk factors, explained in chapter 2.1. We will try to identify via the static code analysis, if the \mH app requires a login to tailor the user experience or not. Furthermore, we want to find out if personal health data is collected and if so, what kind of data. Via source code analysis we aim at identifying the targets, where data is sent and if advertisement or click-analytics services are used.\\\hline
+    4 Results & Explaining the outcome of the implementation step. How many apps could be automatically assessed? How many factors could be automatically identified? Was it possible to compute information on all of the privacy risk factors from chapter 2.1?\\\hline\hline
     
-    2.3 Results & Explaining the outcome of the implementation step. How many apps could be automatically assessed? How many factors could be automatically identified? Was it possible to compute information on all of the privacy risk factors from chapter 2.1?\\\hline\hline
-    
-    3 Evaluation & Evaluating the results of this thesis by critically appreciating the results of the implementation and the opinions of potential users.\\\hline
-    
-    3.1 Evaluation of Implementation & Information on the feasibility of implementing an automated \mH privacy risk assessment tool, the challenges and obstacles. \\\hline
-    
-    3.2 Overview of the Users' Opinions & Further evaluation of the automated privacy risk assessment tool is given by presenting an overview of the users' options on the tool. We will expose 15 users with the tool and share their option on the implications this tool has on \mH app decision making.\\\hline\hline
+    4.1 Overview of the Users' Opinions & Further evaluation of the automated privacy risk assessment tool is given by presenting an overview of the users' options on the tool. We will expose 15 users with the tool and share their option on the implications this tool has on \mH app decision making.\\\hline\hline
 
-    4 Conclusion & A critical reflection on the thesis. Were all the objectives reached and are the methods used coherent? \\\hline
+    5 Discussion & A critical reflection on the thesis. Were all the objectives reached and are the methods used coherent? \\\hline
     
-    4.1 Limitations & Explanations in what way the research approach and execution was limited or constrained during this thesis.\\\hline
+    5.1 Evaluation of Implementation & Information on the feasibility of implementing an automated \mH privacy risk assessment tool, the challenges and obstacles. \\\hline
     
-    4.2 Future Research & This section will provide hints to future researchers on how to continue or extend the current study in this thesis and further develop the implemented tool and its implications.\\\hline
+    5.2 Limitations & Explanations in what way the research approach and execution was limited or constrained during this thesis.\\\hline
+    
+    5.3 Future Research & This section will provide hints to future researchers on how to continue or extend the current study in this thesis and further develop the implemented tool and its implications.\\\hline
+    
+    5.4 Conclusion & Test. \\\hline
 \end{longtable}
 
 
@@ -427,9 +425,9 @@ In this section we would like to introduce the structure of the final thesis cha
 
 As a result of this master thesis, we expect the implementation process of the automated privacy risk assessment to be at least partially feasible and implemented. 
 Automating the downloading process of \acs{APK} app files from the Google PlayStore is possible to a certain extent, and will be provided.
-The decompilation process is expected to gain at least a code recovery rate of above 90\%.\footnote{\cite{Enck2011}, p. 5-6} 
+The decompilation process is expected to gain at least a code recovery rate of above 90\%.\footnote{See \cite{Enck2011}, p. 5-6.} 
 Therefore, we expect the majority of \acs{APK} files to be assessable.
-We expect the static code analysis for privacy risk factors to be successfull for the majority factors and will provide insights into the possible degree of detail.
+We expect the static code analysis for privacy risk factors to be successful for the majority factors and will provide insights into the possible degree of detail.
 
 Another anticipated result is an overview of the users' options on the usage of the automated privacy risk assessment tool. 
 Depending on the implementation success it will reveal to be either useful or rather useless to the users decision making process regarding \mH apps.
