@@ -215,17 +215,23 @@ The automated process furthermore helps to reduce the costs of reviewing each in
 
 % RELATED WORK %
 \section{Related Work}
-\mH apps have been examined in various research studies, that aim at providing insights for developers as well as users into how private information is processed.
-\cite{Khalid2015} found out that privacy issues are the number one most impactful user complaint while using mobile apps.\footnote{See \cite{Khalid2015}, p. 5.}
+\mH apps have been examined in various research studies that aim at providing insights for developers as well as users into how private information is processed.
+Privacy issues are the number one most impactful user complaint while using mobile apps.\footnote{See \cite{Khalid2015}, p. 5.}
 This encourages research to address privacy risks and data leaks.
-\cite{He2014} analyzed the top 160 free Android \mH apps by potential attack points to users' private data. They focus on the technical side of privacy risks, for example the storage of \mH data in internal Android log files or the storage card used within the phone or tablet.\footnote{For the previous two sentences, see \cite{He2014}, p. 645-646.}
-\cite{Mcclurg2012} study Android data leaks on a technical level and apply decompilation tools to automate the leak detection process, rather than reviewing apps manually by hand. They found out that Android apps leak private information, e.g. the device identification, to app provider servers.\footnote{See \cite{Mcclurg2012}, p. 1, 5.}
-This reveals decompilation to be a feasible assessment technique for privacy risks and data leaks.
-A similar method is used by \cite{Enck2011}, as they develop their own Android decompilation tool to assess misuse of the phone identifier, location data and advertising or analytics networks.\footnote{See \cite{Enck2011}, p. 1.}
-\cite{Mitchell2013} step into the analysis of specifically \mH apps and try to identify private user data that can be accessed without proper authorization, while the application is installed on a mobile device and after it was removed.\footnote{\cite{Mitchell2013}, p. 6-7.}
-A detailed privacy leak detection in Android apps is conducted by \cite{Kim2012} by building a static code analysis tool that is able to trace inputs, such as location data or the phone identifier to the point where this data is sent out to a remote server.\footnote{See \cite{Kim2012}, p. 1-2.}
-\cite{Bruggemann2016} identified six factors of privacy risk within \mH apps and proposed a formula to combine those factors into an equation.
+
+The technical side of data leaks has been studied extensively. 
+An analysis of \mH data storage in internal Android log files or the memory card used within the phone or tablet has been conducted. \footnote{For the previous two sentences, see \cite{He2014}, p. 645-646.}
+Technical evaluation of mobile apps even goes further into the topics of decompilation to analyze device identification or geolocation data leaks.\footnote{See \cite{Mcclurg2012}, p. 1, 5., \cite{Enck2011}, p. 1. and \cite{Mitchell2013}, p.6-7.}
+Decompilation reveals to be a feasible assessment technique for privacy risks and data leaks.
+
+In informatics and software development contexts, \sca has been used to analyze source code and provide feedback on coding styles to the users ('linting') while programming or "to find defects in programs"\footnote{\cite{Bardas2010}, p. 1.}
+\Sca provides a fast way to analyze source code\footnote{See \cite{Bardas2010}, p. 5.}, which makes it suitable to automate the analysis on large datasets.
+\Sca has been used in the context of mobile apps to trace the leakage of device features, such as the location data and phone identifier before.\footnote{See \cite{Kim2012}, p. 1-2.}
+
 Our study will combine the decompilation steps of \cite{Enck2011} with a detailed static code analysis that \cite{Kim2012} proposed and apply this on the automated identification of the privacy risk factors which \cite{Bruggemann2016} identified.
+\cite{Bruggemann2016} identified six factors of privacy risk within \mH apps and proposed a formula to combine those factors into an equation.
+These privacy risk factors are less of a technical risk but rather focus on the user data input and where this data is sent.
+It is unclear if \sca is a viable tool to analyze the user input data privacy risk.
 
 % OBJECTIVES %
 \section{Objectives}
@@ -262,7 +268,7 @@ A privacy risk factor of an app is a factor or a circumstance that increases the
 \subsection{Static Code Analysis}
 
 Static code analysis refers to the analysis of an applications source code without actually executing the application. 
-This technique is widely used to detect vulnerabilities or to validate the source code during development in the sourcecode editor software. \footnote{See \cite{bardas2010static}, p. 2-3.}
+This technique is widely used to detect vulnerabilities or to validate the source code during development in the sourcecode editor software. \footnote{See \cite{Bardas2010}, p. 2-3.}
 
 % METHODS %
 \section{Methods}
