@@ -146,8 +146,13 @@
 \newcommand{\pps}{privacy policies }
 \newcommand{\sca}{static code analysis }
 \newcommand{\Sca}{Static code analysis }
-\newcommand{\pra}{privacy risk assessment }
-\newcommand{\prfs}{privacy risk factors }
+\newcommand{\pra}{information privacy risk assessment }
+\newcommand{\prfs}{information privacy risk factors }
+\newcommand{\ipr}{information privacy risks }
+\newcommand{\iprfs}{information privacy risk factors }
+\newcommand{\iprs}{information privacy risk score }
+\newcommand{\gui}{graphical user interface }
+\newcommand{\ipp}{information privacy practices }
 
 \pagenumbering{Roman}
 
@@ -183,63 +188,67 @@
 
 % PROBLEM STATEMENT %
 \section{Problem Statement}
-The market for mobile phone and tablet applications (apps) grows extensively since recent years.
-It is increasingly easier for companies or even single developers to create unique apps that reach millions of users around the planet via digital app stores.\footnote{Previous two sentences following \cite{Enck2011}, p. 1.}
+The market for mobile phone and tablet applications (apps) has grown extensively since recent years.\footnote{See for this and the following sentence \cite{Enck2011}, p. 1.}
+It is increasingly easier for companies or even single developers to create unique apps that reach millions of users around the planet via digital app stores.
 This market growth affected mobile health (\acs{mHealth}) apps as well. 
 More and more \mH apps are available that support the users in resolving their health-related issues and that try to remedy health-related information deficiencies. 
-% this has an effect on the users as well %
-%In order for users to receive a tailored information experience regarding their health stiation, they are
-Receiving health-related information does not come at no costs for the users.
-Users are asked to expose their personal health-related information in order to receive a tailored app that fits their preferences.\footnote{See \cite{Chen2012}, p. 2.}
-Users reveal vulnerable information about their health status while it remains mostly unclear how and where the data is sent, processed and stored.\footnote{See \cite{He2014}, p. 652.}
 
-The information about these privacy related practices of app providers and their offered apps should be stated in the privacy policy document, provided by the app provider.\footnote{This paragraph follows \cite{Dehling2014}, p. 11.}
+But receiving personal health-related information yields information privacy risks to users.
+Users are asked to expose personal health-related information, e.g. information on disease symptoms or medical appointments in order to receive a tailored app that fits their needs.\footnote{See \cite{Chen2012}, p. 2.}
+It remains however unclear how and where the vulnerable user information is sent, processed and stored.\footnote{See \cite{He2014}, p. 652.}
+
+The information about these privacy related practices of app providers and their offered apps should be stated in the privacy policy document provided by the app provider.\footnote{This paragraph follows \cite{Dehling2014}, p. 11.}
 Processing these \pps requires a higher level of education and time to read through large bodies of text, in order to find the relevant information. 
-Additionally, the important information is hidden in legal language or is  insufficiently addressed, if at all.
-Aside from data usage beyond the control of the users, it is also challenging for users to assess what kind of private information an app asks for, prior to the app usage. 
-Users have to download the apps of interest and try them out, before it becomes clear what health related information is processed by the app and in what way. 
+Additionally, the important information is hidden in legal language or is  insufficiently addressed, if at all.\footnote{See \cite{Pollach2007}, p. 104.}
+Aside from data usage beyond the control of the users, it is also challenging to assess what kind of private information an app asks for, prior to the app usage. 
+Users have to download the apps of interest and try them out, before it becomes clear what health-related information is processed by the app and in which  way. 
 This leads to low comparability between apps. 
-When users are looking for specific functionality in an \mH app, it is challenging to find the app that offers the desired functionality at an acceptable privacy risk. 
+When users are looking for specific functionality in an \mH app, it is challenging to find the app that offers the desired functionality at an acceptable information privacy risk. 
 Even if users would pursue the task of finding and comparing \mH apps of similar functionality, the high volume of apps available in the app stores\footnote{See \cite{Enck2011}, p. 1.} makes it laborious to review all of them by hand.
-One way to assess privacy risks of the large amount of \mH apps is to automate the review process of each individual app. 
+One way to assess \ipr of the large amount of \mH apps is to automate the review process of each individual app. 
 The assessment automation can be done by downloading and analyzing the source code of each app and by tracing data leaks. 
-\Sca is used in the field of informatics to analyse application source code and detect faults or vulnerabilities.\footnote{See \cite{Baca2008}, p. 79.} 
-It is yet unclear if and to what degree the concepts of \sca and \pra can be combined in order to automate the app assessment.
-A \sca could, in theory, be used to automatically assess some of the privacy risks that \mH apps pose.
-Previous research has not shown if the combination of \sca is feasible in the field of \mH app \pra and therefore the aim of this study is to explore the possibilities of static code analysis for privacy risk assessment. 
-This leads to the research question of this master thesis: How and to what degree can the privacy risk assessment of mHealth apps be automated?
+\Sca is used in the field of informatics to analyze application source code and detect faults or vulnerabilities.\footnote{See \cite{Baca2008}, p. 79.} 
+It is yet unclear how and to what degree the concepts of \sca and \pra can be combined in order to automate app assessment.
+A \sca could, in theory, be used to automatically assess some of the \ipr that \mH apps pose.
+Previous research has not shown how and to what degree the combination of \sca and \ipr assessment is feasible in the field of \mH app \pra and therefore the aim of this study is to explore the possibilities of static code analysis for information privacy risk assessment. 
+This leads to the research question: How and to what degree can the \ipr of mHealth apps be automatically assessed?
+The 'degree' refers to the amount and the level of detail that \iprfs can be automatically assessed.
 
-The automated process furthermore helps to drastically reduce the costs of reviewing each individual app and enhances the information experience users receive while looking for mHealth apps.Additionally, it exposes new possibilities for research in the privacy risk area. The research could be conducted on providing solutions and best practices for minimizing the privacy risk of apps.
+The automated process furthermore can help to drastically reduce the effort of reviewing each individual app and can enhance the information experience users receive while looking for mHealth apps.Additionally, it exposes new possibilities for research in the \ipr area. 
+The research could be conducted on providing solutions and best practices for further enhancing the \ipr communication of apps.
 
 % RELATED WORK %
 \section{Related Work}
 \mH apps have been examined in various research studies that aim at providing insights for developers as well as users into how private information is processed.
 Privacy issues are the most impactful user complaint while using mobile apps.\footnote{See \cite{Khalid2015}, p. 5.}
-This encourages research to address privacy risks and data leaks.
+This encourages research to address information privacy risks.
 
-The technical side of data leaks has been extensively studied. 
-An analysis of \mH data storage in internal Android log files or the memory card used within the phone or tablet has been conducted.\footnote{For the previous two sentences, see \cite{He2014}, p. 645-646.}
+Research focus has been put on the technical side of information privacy breach. 
+It has been analyzed, to what degree the data storage in internal Android log files or on the memory card within a phone or tablet poses a threat to users information privacy.\footnote{For the previous two sentences, see \cite{He2014}, p. 645-646.}
 Technical evaluation of mobile apps even goes further into the topics of decompilation to analyze device identification or geolocation data leaks.\footnote{See \cite{Mcclurg2012}, p. 1, 5., \cite{Enck2011}, p. 1. and \cite{Mitchell2013}, p.6-7.}
-Decompilation reveals to be a feasible assessment technique for privacy risks and data leaks.
+Decompilation reveals to be a feasible assessment technique for \ipr and data leaks.
 
 In informatics and software development contexts, \sca has been used to analyze source code and provide feedback on coding styles to the users  while programming or "to find defects in programs"\footnote{\cite{Bardas2010}, p. 1.}.
-\Sca provides a fast way to analyze source code\footnote{See \cite{Bardas2010}, p. 5.}, which makes it suitable to automate the analysis on large datasets.
-\Sca has been used in the context of mobile apps to trace the leakage of device features, such as the location data and phone identifier.\footnote{See \cite{Kim2012}, p. 1-2.}
+\Sca provides a fast way to analyze source code\footnote{See \cite{Bardas2010}, p. 5.}, which makes it suitable to automate the assessment of large datasets.
+A further benefit of using \sca to retrieve information from software is that the software does not need to be executed during the analyzation process.
+This additionally supports the development of fast performing assessment tools that are suitable for application on large datasets of source code since there is no need to wait for the application runtime to execute the software.
 
-Our study will combine the decompilation steps of \cite{Enck2011} with a detailed static code analysis that \cite{Kim2012} proposed and apply this on the automated identification of the privacy risk factors which \cite{Bruggemann2016} identified.
-\cite{Bruggemann2016} identified six factors of privacy risk within \mH apps and proposed a formula to combine those factors into an equation.
-These privacy risk factors are less of a technical risk but rather focus on the user data input and where this data is sent.
-It is unclear if \sca is a viable tool to analyze the user input data privacy risk.
+Our study will use the benefits of \sca and apply them to the assessment of \mH information privacy risks.
+It is unclear if \sca is a viable tool to analyze and identify information privacy risk factors.
+We will use the comprehensive privacy-risk-relevant information privacy practices that \cite{Dehling2016} identified\footnote{See \cite{Dehling2016}, p. 8-17.} and try to implement \sca strategies to identify those risks automatically.
+This will be a vital addition to current research, since there is yet no holistic approach to apply \sca to \ipr detection that takes an ample amount of \iprfs into account.
 
 % OBJECTIVES %
 \section{Objectives}
 
-The main objective of this study is to ascertain how and to what degree the assessment of privacy risk factors for \mH apps can be automated.
+The main objective of this study is to ascertain how and to what degree the assessment of \iprfs for \mH apps can be automated.
 In order to reach this objective, the following sub-objectives have to be met.
 
-The first sub-objective is to download and decompile as many Android apps as possible. This step is necessary to gain access to the app source code for further evaluation.
-After decompilation, the second sub-objective is to apply \sca to identify \prfs within the apps' source code.
-As a third sub-objective of this study, an evaluation of the privacy risk assessment tool, including an overview of the users’ opinions regarding the potential impact of the tool on their mHealth app decision making, will be given.
+The first sub-objective is to extract \iprfs from the \ipp that \cite{Dehling2016} identified and that are relevant for automated information privacy risk assessment.
+As a second sub-objective we will develop strategies to identify the \iprfs within the source code of \mH apps via static code analysis.
+This is necessary since it is yet unclear how and to what degree the \sca can help to identify \iprfs of \mH apps. 
+Finally we will evaluate how well the automated \pra tool can identify \iprfs in comparison to two human reviewers.
+In order to fully ascertain the degree \sca can identify information privacy risk factors, a manual review of the results of the \sca is necessary.
 
 % DEFINITIONS %
 \section{Definitions}
@@ -248,54 +257,54 @@ Certain terms are used in the remainder of this thesis that have to be defined:
 % Decompilation %
 \subsection{Decompilation}
 
-Compilers transfer human readable programming code into machine code and therefore help humans write software applications in understandable text form. 
+Compilers transfer human readable programming code into machine code and therefore help humans write software applications in understandable text form.\footnote{This section follows \cite{nolan2012decompiling}, p. 1-2.}
 Decompilers retrieve the human readable programming code back from the compiled machine code. 
 The compilation process of an application is non-reversible. Therefore, decompiling is a reverse engineering technique that outputs source code, similar to the original source code of the application, but with the same functionality.  
-\footnote{This section follows \cite{nolan2012decompiling}, p. 1-2.}
 
 % Mobile health apps
 \subsection{Mobile Health Apps}
 
-Mobile health (\acs{mHealth}) apps are smartphone or tablet applications that support users by enabling them to gather health related information and support the consumer in medical or health related issues.\footnote{See \cite{Dehling2015b}, p. 1.}
+Mobile health (\acs{mHealth}) apps are smartphone or tablet applications that support users by enabling them to gather health-related information and support the consumer in dealing with medical or health-related issues.\footnote{See \cite{Dehling2015b}, p. 1.}
 
-% Privacy Risk Factr %
-\subsection{Privacy Risk Factor}
-A privacy risk factor of an app is a factor or a circumstance that increases the risk of private user data being leaked. An example for a privacy risk factor is the usage of an unencrypted HTTP data connection. 
-
+% Information Privacy Risk Factor %
+\subsection{Information Privacy Risk Factor}
+An information privacy risk factor is an indicator of a potential threat or a circumstance that increases the risk of an information privacy breach.
+Information privacy is defined as the fact that people are able to control if, how and where information and knowledge about themselves is gathered, stored and processed \footnote{See \cite{Fischer1998}, p. 421-422.}.
+Additionally society and social structure must establish an information regulation architecture that allows people to enforce their information privacy rights \footnote{\cite{Solove2002}, p. 1115.}.
+Threats to information privacy in digital services can happen at application level (e.g. by sharing users' personal information with third-parties), as well as at communication level (e.g. by using an unencrypted data connection).\footnote{See \cite{Fischer1998}, p. 423-427.}
 % Static code analysis %
 \subsection{Static Code Analysis}
 
-Static code analysis refers to the analysis of an applications source code without actually executing the application. 
-This technique is widely used to detect vulnerabilities or to validate the source code during development in the sourcecode editor software. \footnote{See \cite{Bardas2010}, p. 2-3.}
+Static code analysis refers to the analysis of application source code without actually executing the application. 
+This technique is widely used to detect vulnerabilities or to validate the source code during development in the source code editor software.\footnote{See \cite{Bardas2010}, p. 2-3.}
 
 % METHODS %
 \section{Methods}
 
-% Automating the privacy risk assessment %
-\subsection{Automating the Privacy Risk Assessment}
+% Automating the information privacy risk assessment %
+\subsection{Automating the Information Privacy Risk Assessment}
 
 % android decompilation
 \subsubsection{Android Decompilation}
 
-In order to automate the privacy risk assessment of \mH apps via \sca, it is necessary to gain access the source code of the apps. 
-While uploading a new app to the Apple AppStore, Apple's digital rights management (\acs{DRM}) system encrypts the binary file in a way that makes recovering the source code difficult. 
+In order to automate the \pra of \mH apps via static code analysis, it is necessary to gain access to the source code of the apps. 
+For this study we focus on Android apps, since Apple's digital rights management (\acs{DRM}) system encrypts the binary app file in a way that makes recovering the source code difficult. 
 There are existing approaches to decompiling the Apple app binary back into its source code.
 These approaches involve unlocking and jailbreaking\footnote{Jailbreaking refers to the action of unlocking the iOS device firmware to gain unrestricted access to the bootloader. See \cite{Kweller2010}, p. 1.}
 an Apple iPhone or iPad, which is a violation of the Apple terms of service and therefore forbidden.\footnote{See \cite{Kweller2010}, p. 1.}
 
-The Google PlayStore on the other hand hosts Android application in \acs{APK} containers that are non-encrypted and allow for decompilation back into the original source files. 
+The Google PlayStore on the other hand hosts Android applications in \acs{APK} containers that are non-encrypted and allow for decompilation back into the original source files. 
 In order to automate the download process of \acs{APK} files, we make use of an undocumented Google \acs{API} that reveals access to the \acs{APK} files from the Google PlayStore. 
 The \acs{API} can be queried by sending an Android device id, pretending to be a requesting Android device. It is used by the Google PlayStore internally and the result of the query is the binary \acs{APK} file.
 
 To get an overview of the APK files available on the Google PlayStore, we use the repository of app listings by \cite{Xu2015} that was extracted from the Google PlayStore from the categories 'Health \& Fitness' and 'Medical'.
-Due to the obstacles of gaining access to the Apple iOS binary files, we restrict the dataset to the available Android apps and conduct our automated privacy risk assessment on these apps.
+Due to the obstacles of gaining access to the Apple iOS binary files, we restrict the dataset to the available Android apps and conduct our automated \pra on these apps.
 The \cite{Xu2015} dataset contains 5,379 Android apps. 
 We exclude paid apps from our study. Downloading paid apps would charge the credit card of the authors since we use the same \acs{API} that the Google PlayStore itself uses to purchase apps on Android devices. 
-Downloading all 5,379 apps would result in a purchase value of 19,904.24 US-dollars. 
+Downloading all 2,199 paid apps would result in a purchase value of 19,904.24 US-dollars. 
 Therefore, we reduce the dataset to the 3,180 free apps, which is still 59.1\% of the apps from the initial dataset. 
 We will download as many of these 3,180 apps as possible.
-%Download limitations could arise from the fact that Google blocks requests on the API as soon as the system detects heavy use or misuse. 
-Downloading 3,180 apps in a short period of time triggers Googles security mechanisms, since a normal user could never download that many apps in the same timeframe from the PlayStore.
+Attempting to download 3,180 apps in a short period of time triggers Googles security mechanisms, since a normal user could not download that many apps in the same timeframe from the PlayStore.
 We will apply a careful downloading technique and allow for pauses in between app downloads to not over-use the Google API.
 
 As soon as the \acs{APK} files are available offline, the decompiling phase of the study will begin.
@@ -317,75 +326,43 @@ We will use \textit{FernFlower} as the decompiling tool for our study, since it 
 The result of this second step will be a directory full of .java files that represents the source code of the \acs{APK} apps.
 
 The decompiling process delivers source code files that lack any formatting.
-For the case of manually validating the output of the automated privacy risk assessment, we will have to take a look into the source code files. 
+For the case of manually validating the output of the automated information privacy risk assessment, we will have to take a look into the source code files. 
 To make manual code inspections easier to read, a tool called \textit{astyle}\footnote{\cite{Davidson2006}.} will be used. 
 \textit{astyle} sets appropriate levels on indenting to the source code, to improve the reading experience.
 
 In the last step of our decompilation process, a tool called \textit{apktool}\footnote{\cite{Tumbleson2010}.} is used to extract all resource files from the \acs{APK} file. Resource files could be images or XML files that are not compiled into application code.\footnote{See \cite{xu2013}, p. 5.}
-The XML files are of interest for the automated privacy risk analysis, because Android text input controls can be defined in an external XML file, rather than in the source code itself.
+The XML files are of interest for the automated information privacy risk assessment, because Android text input controls can be defined in an external XML file, rather than in the source code itself.
 
 % static code analysis %
 \subsubsection{Static Code Analysis}
-In order to analyse potential privacy risks, we are going to use a static code analysis tool.
+In order to analyze potential information privacy risks, we are going to use a static code analysis tool.
 This tool will scan and parse the Java source code files and make them processable for further analysis.
-
 The \sca tool will not be able to identify new \prfs by itself, but rather has to be individually programmed to scan the source code for privacy risk factors.
-\cite{Bruggemann2016} identified six potential privacy risk factors that a \mH app can pose and combined them into a privacy risk index equation. 
-We will focus on identifying these \prfs with our \sca tool.
-The six factors contain three binary factors.
-The first binary factor is the question, whether an app requires a login via username/email or a social media login service such as Facebook, Twitter or Google+. 
-The second binary factor asks, if the app uses secured \acs{HTTP} connections to the servers it is communicating too.
-While the first two binary factors can be assessed at a reasonable level of difficulty via static code analysis, it is challenging to do so for third binary factor, the reasonableness of personal data collection. 
-The reasonableness of personal data collection assessment in the study of \cite{Bruggemann2016} was based on usage observation of the app. 
-Since this is not feasible to be detected by a static code analysis, we will leave the reasonableness assessment to the users of our tool. 
 
-The non-binary factors include the categories of personal data that users have to input into the \mH apps. Examples of personal data categories are the medication intake, symptoms or vital values.
-The last two privacy risk factors express the target to which the personal data is likely to be sent. 
-\cite{Bruggemann2016} refer to target as the host or destination data is sent to.
-The targets are split into two factors, one for unspecific data targets, which refers to the usage of advertisement (ad) banner services or analytics tools within the app. 
-To what extent the inclusion of ad services or analytics tracks the user data is unclear during the assessment and therefore the data targets are classified as unspecific.
-The second data target factor tries to observe immediate data connections after personal data input. 
-\cite{Bruggemann2016} observed that personal data might be sent to a server of the app provider, advertisement or marketing companies, social media networks (such as Facebook) or to research projects.\footnote{This section follows \cite{Bruggemann2016}, p. 7-9.}
+\cite{Dehling2016} compiled a list of \ipp that current research literature proposes to be contained in privacy policies and implemented by app providers.\footnote{This section follows \cite{Dehling2016}, p. 8-17.}
+The \ipp are listed hierarchically in the categories 'data handling', 'information collection', 'meta information', 'privacy controls' and 'rationale' of information privacy practices.
+We argue that, if literature proposes to include certain \ipp in privacy policies, these \ipp might indicate an information privacy risk.
+While not all of the risk-bearing \cite{Dehling2016} \ipp will be eligible for automated static code analysis, we will classify the relevant practices and include them into our \sca assessment.
 
-Our study aims at exemplary identifying the privacy risk factors identified by \cite{Bruggemann2016} by automatically scanning the source code of each app in our working dataset. 
-
-% LOGIN %
-In order to identify whether an app requires the users to login, the source code will be scanned for text input fields that are labelled with the substrings 'login', 'register', 'password'. 
-Additionally, the source code will be scanned for social network login buttons.
-They can be identified by the button classname \textit{com.facebook.login.widget.LoginButton} for Facebook login, \textit{com.twitter.sdk.android.core.identity.TwitterLoginButton} for Twitter login functionality and \textit{SignInButton} for Google login.
-% SSL %
-Android uses a \textit{RequestQueue} to dispatch HTTP requests from the main thread. 
-We will scan the source code for requests that are added to the \textit{RequestQueue} and trace the url, that is the request target, back, until we can check if the target web address contains a secure HTTPS prefix.
-This indicates an encrypted connection.
-% DATA TARGET %
-The targets web addresses, that requests are made to, also indicate the personal data target factor. The web address domain name usually points out if the web request is sent to the app providers server (usually the company name, or alike) or e.g. to a click analytics service.
-These web requests are of special interest if user input data is transmitted.
-% DATA CATEGORIES %
-In order to identify the individual text fields that call for user input, two source code scanning strategies need to be used.
-The Android \textit{EditText} classes can either be declared within the layout \acl{XML} (\acs{XML}) file or added via Java code during application runtime.
-In both cases the label and ID properties of the \textit{EditText} instance can indicate the semantics of the personal data that is requested from the users.
-As soon as we get an overview of the \textit{EditText} labels, we are going to cluster them into the personal data categories proposed by \cite{Bruggemann2016}.
-At this point it would be possible to train a naive Bayes classifier, to segment the individual data input text field labels to the personal data categories.
-% UNSPECIFIC DATA TARGETS %
-To identify if analytics or advertisement services are used within the app, we can scan the source code for the inclusion of corresponding libraries. For example, the Google Analytics\footnote{https://web.archive.org/web/20160205060303/https://www.google.com/analytics/, visited cached version on 02/05/2016.} library is used within Android source code by including the library package \textit{com.google.android.gms.analytics.GoogleAnalytics}.
-
-After the implementation is completed, the explored privacy risk factors will be combined into the privacy risk index weighted-sum equation, proposed by \cite{Bruggemann2016} and will be displayed within a user interface.\footnote{See \cite{Bruggemann2016}, p. 10, 15-16.}
-This enables the \mH apps to be compared, regarding their privacy risk.
+To name one example strategy of identifying a \ipp that bears an information privacy risk, we will take a look at 'SharingWithAnalystContent'.
+'SharingWithAnalystContent' is located in the \ipp hierarchy under 'Content', 'InformationSharingContent' and expresses the information privacy risk of personal user data being shared with analytic software services, e.g. click tracking services or app usage services.
+To identify such an information privacy risk within the source code of an app, we will compile a list of common Android analytics libraries and create a \sca strategy to scan our app dataset source codes for these libraries.
+For each individual risk-assessment strategy we will seek for patterns that can identify even more features than than we originally searched for.
+In the example of 'SharingWithAnalystContent' this means seeking for a pattern in the source code that can identify Android analytics libraries beyond the predefined list of common libraries.
+A pattern for analytics libraries could be based on the naming of libraries, e.g. libraries that contain the phrase "analytics". 
+Another pattern could be based on common method names other analytics libraries used, e.g. '.track()' or '.trackView()'.
 
 \subsection{Evaluation}
 
-First, we want to evaluate the degree of privacy risk assessment automation that has been accomplished. 
-The evaluation will be based on the feasibility and obstacles detected in implementing the automated privacy risk assessment. 
-We will outline which privacy risk factors can and can not be detected automatically, as well as the reasons for this.
+First, we want to evaluate the degree of \pra automation that has been accomplished. 
+The evaluation will be based on the feasibility and obstacles detected in implementing the automated information privacy risk assessment and a performance comparison against human assessment.
+We will outline which \iprfs can and can not be detected automatically, as well as the reasons for this.
 Furthermore, we will evaluate for which \prfs the automated \sca is superior to using manual assessment techniques.
 
-The \cite{Bruggemann2016} user interface allows users to explore and compare \mH apps in a table view format. 
-It can be used in addition to downloading apps from the Google PlayStore.
-
-In order to further evaluate the automated privacy risk assessment and its impact on users, we will expose 15 potential users to the user interface and let them discover our detected privacy risks.
-The 15 users will be interviewed in terms of their experience using the \pra tool. 
-The interview questions will ask the users about their perception on the impact such a tool, and the information it provides, has on the app store usage.
-We will then give an overview of the users' options towards the presence of enhanced privacy risk information, that might change the users decision making process regarding the selection of \mH apps.
+For evaluation of the accuracy of automated \sca of the apps, we will look at a selection of 15 apps in greater detail and manually review the results of the static code analysis.
+The manual assessment of the test app sample will be conducted by two researchers individually and the results will be presented.
+We will assess if the \sca managed to identify all of the prevailing \ipr within the app and if not, what the reasons for failure are.
+This will give a sense of how well the \sca performs in identifying the information privacy risks in comparison to a human reviewer.
 
 % STRUCTURE %
 \section{Structure}
@@ -402,58 +379,62 @@ In this section we would like to introduce the structure of the final thesis cha
     
     1.3 Structure & The formal structure of the thesis, used to provide the reader with an overview of the thesis.\\\hline\hline
     
-    2 Related Work & Overview of previous research and related work that has covered the topic of analysing \mH privacy risks or even using automated techniques on gathering privacy risk information\\\hline\hline
+    2 Combining Source Code Analysis with Information Privacy Risk Assessment & Overview of previous research and related work that has covered the topic of analyzing \mH information privacy risks or using automated techniques on gathering privacy risk information as well as the usage of static code analysis.\\\hline
     
-    3 Method & This chapter describes the main implementation phase of the automated privacy risk assessment tool.\\\hline
+    2.1 Information Privacy Risk Assessment & Overview of literature that already covered the topics of \ipr assessent.\\\hline
     
-    3.1 Privacy Risk Factors & Introduction of the privacy risk factors identified by \cite{Bruggemann2016} and a further explanation of their relevance to \mH app assessments.\\\hline
-    
-    3.2 Implementation & Details on the implementation of the automated \mH privacy risk assessment tool itself.\\\hline
-    
-    3.2.1 Download Phase & Description of the \acs{APK} file discovery and download phase of the tool. Free Android apps are available for everybody with an Android smartphone. We want to feed \mH apps into our automated assessment system and therefore need to download the \acs{APK} files automatically.\\\hline
-    
-    3.2.2 Decompilation Phase & This section provides information on the decompilation of the \acs{APK} files and the methods used to regain the source code of Android apps. This is a crucial step, since the source code is our main resource to perform the static code analysis on, as outlined in chapter 2.2.3.\\\hline
-    
-    3.2.3 Static Code Analysis Phase & Information on the different approaches to gather information on individual privacy risk factors, explained in chapter 2.1. We will try to identify via the static code analysis, if the \mH app requires a login to tailor the user experience or not. Furthermore, we want to find out if personal health data is collected and if so, what kind of data. Via source code analysis we aim at identifying the targets, where data is sent and if advertisement or click-analytics services are used.\\\hline
-    
-    3.3 User Interviews & Describing how we interview the 15 users regarding their opinions on the automated privacy risk assessment.\\\hline\hline
-    
-    4 Results &  How many apps could be automatically assessed? How many factors could be automatically identified? Was it possible to compute information on all of the privacy risk factors from chapter 2.1?\\\hline\hline
-    
-    4.1 Privacy Risk Factors & Results on what privacy risk factors are identifiable via static code analysis.\\\hline
-    
-    4.2 Implementation & Explaining the outcome of the implementation step. \\\hline
-    
-    4.2.1 Download Phase & Results on how many \mH apps could be downloaded and how the download phase went. \\\hline
-    
-    4.2.2 Decompilation Phase & Results on how many \mH could be decompiled and at what degree of quality.\\\hline
-    
-    4.2.3 Static Code Analysis Phase & Results on the outcome of the \sca\\\hline
+    2.2 Static Code Analysis & Overview of literature concerning static code analysis in use as a code analysis tool in the field of informatics.\\\hline
         
-    4.3 User Interviews & Further evaluation of the automated privacy risk assessment tool is given by presenting an overview of the users' options on the tool. We will expose 15 users with the tool and share their option on the implications this tool has on \mH app decision making.\\\hline\hline
+    2.3 Relevant Information Privacy Risk Factors & Introducing the \cite{Dehling2016} \ipp and filtering out the ones that pose an information privacy risk.\\\hline
+    
+    3 Implementation and Evaluation of an Automated Information Privacy Risk Assessment Tool & This chapter describes the main implementation phase of the automated \pra tool.\\\hline
+    
+    3.1 Implementation of an Automated Information Privacy Risk Assessment Tool & Details on the implementation of the automated \mH \pra tool itself.\\\hline
+    
+    3.1.1 Download Phase & Description of the \acs{APK} file discovery and download phase of the tool. Free Android apps are available for everybody with an Android smartphone. We want to feed \mH apps into our automated assessment system and therefore need to download the \acs{APK} files automatically.\\\hline
+    
+    3.1.2 Decompilation Phase & This section provides information on the decompilation of the \acs{APK} files and the methods used to regain the source code of Android apps. This is a crucial step, since the source code is our main resource to perform the static code analysis on.\\\hline
+    
+    3.1.3 Static Code Analysis Phase & Information on the different approaches to gather information on individual information privacy risk factors, explained in chapter 3.1. We will try to identify via the static code analysis, if the \mH app requires a login to tailor the user experience or not. Furthermore, we want to find out if personal health data is collected and if so, what kind of data. Via source code analysis we aim at identifying the targets, where data is sent and if advertisement or click-analytics services are used.\\\hline
+    
+    3.2 Evaluation of an Automated Information Privacy Risk Assessment Tool & Information on how we manually review the outcome of the \sca by checking a random set of apps from the initial dataset.\\\hline\hline
+    
+    4 Feasibility of Automated Information Privacy Risk Assessment &  How many apps could be automatically assessed? How many factors could be automatically identified? Was it possible to compute information on all of the \iprfs from chapter 2.3?\\\hline\hline
+    
+    4.1 The Automated Information Privacy Risk Assessment of Free Android \mH Apps & Explaining the outcome of the implementation step. \\\hline
+    
+    4.1.1 Download Phase & Results on how many \mH apps could be downloaded and how the download phase went. \\\hline
+    
+    4.1.2 Decompilation Phase & Results on how many \mH could be decompiled and at what degree of quality.\\\hline
+    
+    4.1.3 Static Code Analysis Phase & Results on the outcome of the \sca\\\hline
+    
+    4.2 Evaluation of the Automated Information Privacy Risk Assessment Tool & Results of how well the automated \sca performed in identifying \iprfs by manually surveying a set of apps and comparing the \iprfs to the \sca results.\\\hline\hline
 
     5 Discussion &  \\\hline
     
-    5.1 Evaluation of Implementation & Information on the feasibility of implementing an automated \mH privacy risk assessment tool, the challenges and obstacles. \\\hline
+    5.1 Principle Findings & Information on the feasibility of implementing an automated \mH \pra tool, the challenges and obstacles. \\\hline
     
-    5.2 Limitations & Explanations in what way the research approach and execution was limited or constrained during this thesis.\\\hline
+    5.2 Contributions & Outlining the contributions to research and practice this thesis has. \\\hline
     
-    5.3 Future Research & This section will provide hints to future researchers on how to continue or extend the current study in this thesis and further develop the implemented tool and its implications.\\\hline
+    5.3 Limitations & Explanations in what way the research approach and execution was limited or constrained during this thesis.\\\hline
     
-    5.4 Conclusion & A critical reflection on the thesis. Were all the objectives reached and are the methods used coherent? \\\hline
+    5.4 Future Research & This section will provide hints to future researchers on how to continue or extend the current study in this thesis and further develop the implemented tool and its implications.\\\hline
+    
+    5.5 Conclusion & A critical reflection on the thesis. Were all the objectives reached and are the methods used coherent? \\\hline
 \end{longtable}
 
 
 % EXPECTED RESULTS %
 \section{Expected Results}
-The results of this master thesis will be the implementation of the automated \pra tool and an evaluation of the users' options on the usage of the automated privacy risk assessment tool.
-Part of the expected results will be the answer to the question, if \sca is a viable tool to assess privacy risk factors of \mH apps.
+The results of this master thesis will be the implementation of the automated \pra tool.
+Part of the expected results will be the answer to the question, if \sca is a viable approach to assess \iprfs of \mH apps.
 
-We expect the implementation process of the automated privacy risk assessment to be at least partially feasible and implemented. 
+We expect the implementation process of the automated \pra to be at least partially feasible and implemented. 
 Automating the downloading process of \acs{APK} app files from the Google PlayStore is possible to a certain extent, and will be provided.
 The decompilation process is expected to gain at least a code recovery rate of above 90\%.\footnote{See \cite{Enck2011}, p. 5-6.} 
 Therefore, we expect the majority of \acs{APK} files to be assessable.
-We expect the static code analysis for privacy risk factors to be successful for the majority of factors and will provide insights into the possible degree of detail.
+We expect the static code analysis for \iprfs to be successful for the majority of factors and will provide insights into the possible degree of detail.
 
 % PROBLEMS %
 \section{Problems}
