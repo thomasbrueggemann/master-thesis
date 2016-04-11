@@ -1,16 +1,11 @@
 %
-% Expose: Bachelor Thesis
+% Master Thesis
 % Thomas Brüggemann
 %
 
-% -----------
-% 1. Präambel
-% -----------
-
-% Allgemeine Einstellungen
+% Common Settings
 % ------------------------
 \documentclass[
-    pdftex,
 	a4paper,
 	oneside,
 	12pt,
@@ -19,17 +14,16 @@
 \usepackage{times}            % Times New Roman
 
 \usepackage[utf8]{inputenc}   % utf-8
-\usepackage[T1]{fontenc}      % Umlauttrennung
-\usepackage[german]{babel}    % deutsche Silbentrennung
-\selectlanguage{german}       % deutsche Betitelung
+\usepackage[english]{babel}
+\selectlanguage{english}
 \usepackage{nicefrac}
 
-% Titel-Font-Größen
+% Title font sizes
 \usepackage{titlesec}
 \titleformat{\section}{\bfseries}{\thesection.}{12pt}{}
 \titleformat{\subsection}{\bfseries}{\thesubsection }{12pt}{}
 
-% Seitenränder
+% Margins
 \usepackage[
     top=2.5cm, 
     bottom=2.5cm, 
@@ -37,7 +31,7 @@
     right=1cm
 ]{geometry} 
 
-% Fussnoten
+% Footnotes
 \usepackage[hang,flushmargin]{footmisc}    
 \renewcommand*{\footnotelayout}{\footnotesize} % size of text
 \renewcommand{\footnotemargin}{2.2em}          % margin between text and number
@@ -45,11 +39,11 @@
 \setlength{\skip\footins}{2.5em}               % space between text & footnotes
 \usepackage{savefnmark}
 
-% Abkürzungen
+% Acronyms
 \usepackage[printonlyused]{acronym}    
 \renewcommand{\bflabel}[1]{{#1\hfill}}
 
-% Seitennummerierung oben
+% Page numeration oben
 \usepackage{scrpage2} 
 \usepackage[dvips]{color}
 \clearscrheadfoot 
@@ -99,7 +93,7 @@
 {\titlerule*[1mm]{.}\contentspage}
 
 
-% Literaturverzeichnis
+% References
 \usepackage[
     bibstyle=authortitle,
     citestyle=authoryear,
@@ -109,13 +103,13 @@
     maxcitenames=3,
     maxbibnames=30
 ]{biblatex}
-\addbibresource{literature.bib}
+\addbibresource{library.bib}
 \let\cite\textcite
 
 \usepackage{caption}
 \usepackage{chngcntr}
 
-% Tabellenpackete
+% Tables
 \usepackage{array}
 \usepackage{xcolor}
 \usepackage{longtable}
@@ -123,7 +117,7 @@
 \counterwithin{table}{section}
 \usepackage{multirow}
 
-% Grafiken anzeigen
+% Figures
 \usepackage[pdftex]{graphicx}
 \graphicspath{{figures}}
 \counterwithin{figure}{section}
@@ -131,67 +125,52 @@
 
 \begin{document}
 
-\shorthandoff{"}
-
 % Renews
-\renewcommand{\figurename}{Abb.}
-\renewcommand{\tablename}{}
+\renewcommand{\figurename}{Figure}
+\renewcommand{\tablename}{Table}
 \renewcommand\thefigure{\arabic{section}-\arabic{figure}}
 \renewcommand\thetable{Tab. \arabic{section}-\arabic{table}}
 \newcommand{\todo}[1]{\textbf{\textsc{\textcolor{red}{TODO: #1}}}}
 
 % Variables
-\newcommand{\CC}{Cloud Computing }
-\newcommand{\CCs}{Cloud Computings }
-\newcommand{\CCComma}{Cloud Computing, }
-\newcommand{\TCC}{Themengebiet Cloud Computing }
-\newcommand{\HiTCC}{Herausforderungen im Themengebiet Cloud Computing }
-\newcommand{\TCCComma}{Themengebiet Cloud Computing, }
-\newcommand{\CSP}{Cloud-Service-Provider }
-\newcommand{\CSPComma}{Cloud-Service-Provider, }
-\newcommand{\CSPDot}{Cloud-Service-Provider. }
-\newcommand{\CSPn}{Cloud-Service-Providern }
-\newcommand{\CSp}{Cloud-Service-Provider}
-\newcommand{\CSPs}{Cloud-Service-Providers }
-\newcommand{\CSPsDot}{Cloud-Service-Providers. }
-\newcommand{\CSPsComma}{Cloud-Service-Providers, }
-\newcommand{\CSU}{Cloud-Service-Nutzer }
-\newcommand{\CSUDot}{Cloud-Service-Nutzer. }
-\newcommand{\CSUs}{Cloud-Service-Nutzers }
-\newcommand{\CSUn}{Cloud-Service-Nutzern }
-\newcommand{\CSUComma}{Cloud-Service-Nutzer, }
-\newcommand{\CSUsComma}{Cloud-Service-Nutzers, }
-\newcommand{\CSUsDot}{Cloud-Service-Nutzers. }
-\newcommand{\CSUnDot}{Cloud-Service-Nutzern. }
-\newcommand{\CS}{Cloud-Service }
-\newcommand{\Cs}{Cloud-Service}
-\newcommand{\CSComma}{Cloud-Service, }
-\newcommand{\CSs}{Cloud-Services }
+\newcommand{\mH}{mHealth }
+\newcommand{\ap}{app provider }
+\newcommand{\pp}{privacy policy }
+\newcommand{\pps}{privacy policies }
+\newcommand{\sca}{static code analysis }
+\newcommand{\Sca}{Static code analysis }
+\newcommand{\pra}{information privacy risk assessment }
+\newcommand{\prfs}{information privacy risk factors }
+\newcommand{\ipr}{information privacy risks }
+\newcommand{\iprfs}{information privacy risk factors }
+\newcommand{\iprs}{information privacy risk score }
+\newcommand{\gui}{graphical user interface }
+\newcommand{\ipp}{information privacy practices }
 
 \pagenumbering{Roman}
 
 % ---------
-% Deckblatt
+% Cover pages
 % ---------
 \include{titlepages/cover}
 
 % ------------------
-% Inhaltsverzeichnis
+% Table of Contents
 % ------------------
 \tocloftpagestyle{scrheadings}
 \tableofcontents
 \newpage
 
 % ---------------------
-% Abkürzungsverzeichnis
+% Acronyms
 % ---------------------
 \include{titlepages/acronyms}
 
 % -------------------
-% Tabellenverzeichnis
+% Table of tables
 % -------------------
 \listoftables
-\addcontentsline{toc}{section}{Tabellenverzeichnis}
+\addcontentsline{toc}{section}{Table of tables}
 \newpage
 
 \normalsize
@@ -199,27 +178,28 @@
 \pagenumbering{arabic}
 
 % ------
-% Inhalt
+% Chapters
 % ---------
-\include{chapters/1-einleitung}
-\include{chapters/2-cloudcomputing}
-\include{chapters/3-stateoftheartanalyse}
-\include{chapters/4-schlussbetrachtung}
+\include{chapters/1-introduction}
+\include{chapters/2-relatedwork}
+\include{chapters/3-method}
+\include{chapters/4-results}
+\include{chapters/5-discussion}
 \newpage
 
 % --------------------
-% Literaturverzeichnis
+% References
 % --------------------
 \newpage
 \patchcmd{\bibsetup}{\interlinepenalty=5000}{\interlinepenalty=10000}{}{}
-\printbibliography[title={Literaturverzeichnis}]
-\addcontentsline{toc}{section}{Literaturverzeichnis}
+\printbibliography[title={References}]
+\addcontentsline{toc}{section}{References}
 \newpage
 
 % ---------
-% Anhang
+% Appendix
 % ---------
-\include{titlepages/erklaerung}
-\include{titlepages/lebenslauf}
+\include{titlepages/declaration}
+\include{titlepages/cv}
 
 \end{document}
