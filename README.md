@@ -1,3 +1,3 @@
 # Master-Thesis
 
-Automatic privacy risk assessment for mobile health apps
+Automated Information Privacy Risk Assessment of Android Health Applications
