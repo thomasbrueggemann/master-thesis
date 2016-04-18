@@ -2,6 +2,44 @@
 
 \subsection{Problem Statement}
 
+The market for mobile phone and tablet applications (apps) has grown extensively since recent years.\footnote{See for this and the following sentence \cite{Enck2011}, p. 1.}
+It is increasingly easier for companies or even single developers to create unique apps that reach millions of users around the planet via digital app stores.
+This market growth affected mobile health (\acs{mHealth}) apps as well. 
+More and more \mH apps are available that support the users in resolving their health-related issues and that try to remedy health-related information deficiencies. 
+
+But receiving personal health-related information yields information privacy risks to users.
+Users are asked to expose personal health-related information, e.g. information on disease symptoms or medical appointments in order to receive a tailored app that fits their needs.\footnote{See \cite{Chen2012}, p. 2.}
+It remains however unclear how and where the vulnerable user information is sent, processed and stored.\footnote{See \cite{He2014}, p. 652.}
+
+The information about these privacy related practices of app providers and their offered apps should be stated in the privacy policy document provided by the app provider.\footnote{This paragraph follows \cite{Dehling2014}, p. 11.}
+Processing these \pps requires a higher level of education and time to read through large bodies of text, in order to find the relevant information. 
+Additionally, the important information is hidden in legal language or is  insufficiently addressed, if at all.\footnote{See \cite{Pollach2007}, p. 104.}
+Aside from data usage beyond the control of the users, it is also challenging to assess what kind of private information an app asks for, prior to the app usage. 
+Users have to download the apps of interest and try them out, before it becomes clear what health-related information is processed by the app and in which  way. 
+This leads to low comparability between apps. 
+When users are looking for specific functionality in an \mH app, it is challenging to find the app that offers the desired functionality at an acceptable information privacy risk. 
+Even if users would pursue the task of finding and comparing \mH apps of similar functionality, the high volume of apps available in the app stores\footnote{See \cite{Enck2011}, p. 1.} makes it laborious to review all of them by hand.
+One way to assess \ipr of the large amount of \mH apps is to automate the review process of each individual app. 
+The assessment automation can be done by downloading and analyzing the source code of each app and by tracing data leaks. 
+\Sca is used in the field of informatics to analyze application source code and detect faults or vulnerabilities.\footnote{See \cite{Baca2008}, p. 79.} 
+It is yet unclear how and to what degree the concepts of \sca and \pra can be combined in order to automate app assessment.
+A \sca could, in theory, be used to automatically assess some of the \ipr that \mH apps pose.
+Previous research has not shown how and to what degree the combination of \sca and \ipr assessment is feasible in the field of \mH app \pra and therefore the aim of this study is to explore the possibilities of static code analysis for information privacy risk assessment. 
+This leads to the research question: How and to what degree can the \ipr of mHealth apps be automatically assessed?
+The 'degree' refers to the amount and the level of detail that \iprfs can be automatically assessed.
+
+The automated process furthermore can help to drastically reduce the effort of reviewing each individual app and can enhance the information experience users receive while looking for mHealth apps.Additionally, it exposes new possibilities for research in the \ipr area. 
+The research could be conducted on providing solutions and best practices for further enhancing the \ipr communication of apps.
+
 \subsection{Objectives}
+
+The main objective of this study is to ascertain how and to what degree the assessment of \iprfs for \mH apps can be automated.
+In order to reach this objective, the following sub-objectives have to be met.
+
+The first sub-objective is to extract \iprfs from the \ipp that \cite{Dehling2016} identified and that are relevant for automated information privacy risk assessment.
+As a second sub-objective we will develop strategies to identify the \iprfs within the source code of \mH apps via static code analysis.
+This is necessary since it is yet unclear how and to what degree the \sca can help to identify \iprfs of \mH apps. 
+Finally we will evaluate how well the automated \pra tool can identify \iprfs in comparison to two human reviewers.
+In order to fully ascertain the degree \sca can identify information privacy risk factors, a manual review of the results of the \sca is necessary.
 
 \subsection{Structure}
