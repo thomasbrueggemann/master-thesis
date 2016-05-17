@@ -1,4 +1,4 @@
-\section{Implementation and Evaluation of an Automated In- formation Privacy Risk Assessment Tool}
+\section{Implementation and Evaluation of an Automated Information Privacy Risk Assessment Tool}
 
 % Implementation of an Automated Information Privacy Risk Assessment Tool
 \subsection{Implementation of an Automated Information Privacy Risk Assessment Tool}
@@ -7,6 +7,12 @@ The implementation of an \aiprat is structured in three phases.
 In the first phase, Android APK files need to be downloaded to acquire the foundation of a static code analysis: the source code.
 While APK files are binary representations of source code, it is necessary, in a second phase, to decompile to binary code back into actual source files.
 The third phase is the analysis phase, where the information privacy risk assessment takes place.
+
+\begin{figure}[h]
+	\caption{A picture of a gull.}
+	\centering
+	\includegraphics[keepaspectratio=true,width=400pt]{figures/ImplementationFlow.png}
+\end{figure}
 
 % Download Phase
 \subsubsection{Download Phase}
@@ -63,5 +69,8 @@ The expected result of the decompilation phase is a directory named after the pa
 
 % Static Code Analysis Phase
 \subsubsection{\Sca Phase}
+
+The \sca phase is the main analysis phase of the thesis and uses the output of the previous decompilation phase to perform the static code analysis.
+The \sca tool is implemented in Java, since most of the sorrounding tools are implemented in Java and Android apps are naturally written in Java.
 
 \subsection{Evaluation of an Automated Information Privacy Risk Assessment Tool}
