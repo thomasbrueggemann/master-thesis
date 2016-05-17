@@ -1,11 +1,67 @@
 \section{Implementation and Evaluation of an Automated In- formation Privacy Risk Assessment Tool}
 
+% Implementation of an Automated Information Privacy Risk Assessment Tool
 \subsection{Implementation of an Automated Information Privacy Risk Assessment Tool}
 
+The implementation of an \aiprat is structured in three phases.
+In the first phase, Android APK files need to be downloaded to acquire the foundation of a static code analysis: the source code.
+While APK files are binary representations of source code, it is necessary, in a second phase, to decompile to binary code back into actual source files.
+The third phase is the analysis phase, where the information privacy risk assessment takes place.
+
+% Download Phase
 \subsubsection{Download Phase}
 
+The download phase is the first of the three implementation phases and comprises the acquisition of Android APK files. 
+The APK files hold the necessary Java source code that we will perform the \sca on.
+Since this thesis emphases on Android mHealth apps, we used the repository database of \cite{Xu2015} as our main app datasource.\footnote{This paragraph follows \cite{Xu2015}.}
+\cite{Xu2015} list mHealth apps from the Apple AppStore and Android PlayStore and update their repository quarterly by scraping the app stores.
+The list contains information for example on the app's id, category in the app stores, description, email address of the developer, price and the user rating of the app.
+
+We used the repository database to loop over the available mHealth app listings and filtered out the apps that were available for free, indicated by a price of \$0.00.
+As soon as the package name of an app is gathered, the download of the APK file can begin. 
+While there is no official source to download APK files for Android apps, a multitude of websites exist that host copies of APK files to download for free.
+Unfortunately, all of these websites implement mechanisms that make it impossible to browse and download the APK files programatically within a download script.
+Instead, we used a open source Python implementation of an undocumented Google PlayStore API.\footnote{https://github.com/egirault/googleplay-api, visited 05/12/2016} 
+The undocumented part of the Google API allows users to download APK files 
+Even though the project has not been maintained for four years, the software is still in working order.
+The Python script authenticates to the Google API via the hardware ID of an Android smartphone or tablet and pretends to request data from this smartphone or tablet, even though the requests are sent from a desktop computer.
+We used a real Android tablet to detect its hardware ID and authenticate the Google API requests with this hardware ID.
+The main issue that has to be taken care of during the download phase is not to run into Google API limitations. 
+Google allows an API user to only request a certain amount requests per time unit. 
+After this limit is exceeded, the requests will just return a HTTP error code and no APK file will be downloaded.
+In order to mitigate this circumstance, we ran our download script multiple times, always until the Google API returns error codes. 
+We then waited a couple of hours and tried the download script again, which would pick up the download process where it had stopped on the last run.
+
+% Decompilation Phase
 \subsubsection{Decompilation Phase}
 
+In order to decompile the amount of APK files available, it is necessary to automate the process. 
+The automation script\footnote{https://github.com/thomasbrueggemann/AIPRAT/blob/master/decompile/decompile.sh} uses a chain of tools to gather access to the source code files from an APK file.
+The tools used to decompile the APK files follow closely the tools described and used by \cite{Enck2011}.\footnote{See \cite{Enck2011}, p. 5.}
+
+In a first step, we use the tool \textit{dex2jar} to extract the JAR file from the APK file.
+The JAR file contains the java bytecode representations of the app which is just one part of the contents of an APK file.
+The next step is to extract resource files, such as the \textit{Android Manifest} file from the APK file.
+The \textit{Android Manifest} contains meta information about the app in a structeured XML format.\footnote{This and the next sentence follow \cite{xu2013}, p. 7.}
+The meta information include the package name of the app, the permissions the app requests, e.g. camera usage, internet access or geolocation usage.
+The \textit{Android Manifest} file is therefore an important indicator for high level activities within the given app.
+In order to extract the \textit{Android Manifest} file from the APK file along with other resources such as images, icons, xml files or other files used within the app, we use the \textit{apktool}\footnote{http://ibotpeaches.github.io/Apktool/}.
+\textit{apktool} is a frequently updated Android reverse engineering tool that is used to extract resources from APK files.
+At the core of the decompilation process is the usage of \textit{fernflower}\footnote{https://github.com/fesh0r/fernflower}.
+\textit{fernflower} is the recommended java decompiler by \cite{Enck2011}. 
+They used the tool to decompile a test sample of apps and gained a significantly higher code recovery rate than by using other decompiling tools.\footnote{See \cite{Enck2011}, p. 6.}
+An obstacle in decompiling java source code is obfuscation. 
+Java developers can make use of a security feature called obfuscation that aims at hiding away the logic of java classes by renaming classes, variables and method names and disassembling the code into pieces that are difficult to read for an human interpreter.
+The idea is to make it more difficult to retrieve and make sense of the original source code by decompiling the byte code.
+\textit{fernflower} uses a renaming approach by assigning every obfuscated class with a new naming pattern. 
+Member variables and methods will be automatically renamed and therefore provide an easier and more unique way of reading the source code.
+Optionally the decompilation process can use an automatic code formatting tool called \textit{astyle}\footnote{http://astyle.sourceforge.net/} to format the source code.
+This helps humans to read the source code files more easily, since the formatting and indentation of all source code files is identical and therefore very structured.
+Formatting the source code will help in the evaluation phase of this thesis to support the manual inspection the source code for \ipr by human researchers.
+
+The expected result of the decompilation phase is a directory named after the package name of a given app that contains the resource files, including the \textit{Android Manifest} and the decompiled source code of the app.
+
+% Static Code Analysis Phase
 \subsubsection{\Sca Phase}
 
 \subsection{Evaluation of an Automated Information Privacy Risk Assessment Tool}
