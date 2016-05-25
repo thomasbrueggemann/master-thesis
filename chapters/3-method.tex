@@ -8,10 +8,14 @@ In the first phase, Android APK files need to be downloaded to acquire the found
 While APK files are binary representations of source code, it is necessary, in a second phase, to decompile to binary code back into actual source files.
 The third phase is the analysis phase, where the information privacy risk assessment takes place.
 
+Figure \ref{fig:implementationPhases} shows the implementation phases over time including the tools used within each phase. 
+The tools will be described in greater detail within the following chapters.
+
 \begin{figure}[h]
-	\caption{A picture of a gull.}
+	\caption{Diagram of implementation phases over time.}
 	\centering
 	\includegraphics[keepaspectratio=true,width=400pt]{figures/ImplementationFlow.png}
+	\label{fig:implementationPhases}
 \end{figure}
 
 % Download Phase
@@ -71,6 +75,23 @@ The expected result of the decompilation phase is a directory named after the pa
 \subsubsection{\Sca Phase}
 
 The \sca phase is the main analysis phase of the thesis and uses the output of the previous decompilation phase to perform the static code analysis.
-The \sca tool is implemented in Java, since most of the sorrounding tools are implemented in Java and Android apps are naturally written in Java.
+The \sca tool is implemented as a Java software project, since the used analysis libraries are implemented in Java and Android source code is written in Java too.
+The output of the \sca Java project is an executable Java archive file called \textit{AIPRAT.jar} that can be executed in the command line terminal.
+In order for \textit{AIPRAT.jar} to perform the \sca on APK files, two preparation steps are required.
+
+The first preparation step is to run an Android data flow analysis tool over the APK files that extract potential data flows.
+The data flow analysis is achieved with an open source tool called \textit{FlowDroid}, introduced by \cite{Arzt2014}.\footnote{See \cite{Arzt2014}, p. 259-269.}
+\textit{FlowDroid} extends the Java optimization framework \textit{Soot}, which was already used by \cite{Enck2011} for post-decompilation optimization tasks.\footnote{See \cite{Enck2011}, p. 5.}
+The data flow is analysed by scanning an intermediate byte code format provided by \textit{Soot} for so called "sources" and "sinks".\footnote{See \cite{Arzt2014}, p. 264.}
+A source is the origin of a data flow, e.g. the user input of data via a textfield and a sink is the destination that data flows.
+An example for a sink is a HTTP internet connection or a local log file.
+\textit{FlowDroid} is also able to emulate the Android lifecycle entry points.
+While a regular Java program has a single entry point to start the application from, the \textit{main()} function, Android apps provide multiple entry points.
+The entry points of an Android app are determined by the states an app can be in. 
+It can e.g. return from being in the background, do a fresh start and return from being offline.
+
+
+
+
 
 \subsection{Evaluation of an Automated Information Privacy Risk Assessment Tool}
