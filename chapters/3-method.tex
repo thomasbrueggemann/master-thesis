@@ -52,7 +52,7 @@ The tools used to decompile the APK files follow closely the tools described and
 In a first step, we use the tool \textit{dex2jar} to extract the JAR file from the APK file.
 The JAR file contains the java bytecode representations of the app which is just one part of the contents of an APK file.
 The next step is to extract resource files, such as the \textit{Android Manifest} file from the APK file.
-The \textit{Android Manifest} contains meta information about the app in a structeured XML format.\footnote{This and the next sentence follow \cite{xu2013}, p. 7.}
+The \textit{Android Manifest} contains meta information about the app in a structured XML format.\footnote{This and the next sentence follow \cite{xu2013}, p. 7.}
 The meta information include the package name of the app, the permissions the app requests, e.g. camera usage, internet access or geolocation usage.
 The \textit{Android Manifest} file is therefore an important indicator for high level activities within the given app.
 In order to extract the \textit{Android Manifest} file from the APK file along with other resources such as images, icons, xml files or other files used within the app, we use the \textit{apktool}\footnote{http://ibotpeaches.github.io/Apktool/}.
@@ -82,16 +82,29 @@ In order for \textit{AIPRAT.jar} to perform the \sca on APK files, two preparati
 The first preparation step is to run an Android data flow analysis tool over the APK files that extract potential data flows.
 The data flow analysis is achieved with an open source tool called \textit{FlowDroid}, introduced by \cite{Arzt2014}.\footnote{See \cite{Arzt2014}, p. 259-269.}
 \textit{FlowDroid} extends the Java optimization framework \textit{Soot}, which was already used by \cite{Enck2011} for post-decompilation optimization tasks.\footnote{See \cite{Enck2011}, p. 5.}
-The data flow is analysed by scanning an intermediate byte code format provided by \textit{Soot} for so called "sources" and "sinks".\footnote{See \cite{Arzt2014}, p. 264.}
+The data flow is analysed by scanning an intermediate byte code format provided by \textit{Soot} for so called 'sources' and 'sinks'.\footnote{See \cite{Arzt2014}, p. 264.}
 A source is the origin of a data flow, e.g. the user input of data via a textfield and a sink is the destination that data flows.
 An example for a sink is a HTTP internet connection or a local log file.
-\textit{FlowDroid} is also able to emulate the Android lifecycle entry points.
+\textit{FlowDroid} is also able to emulate Android lifecycle entry points.
 While a regular Java program has a single entry point to start the application from, the \textit{main()} function, Android apps provide multiple entry points.
 The entry points of an Android app are determined by the states an app can be in. 
 It can e.g. return from being in the background, do a fresh start and return from being offline.
+All these entry points are being emulated by \textit{FlowDroid} into a single \textit{main()} function call.
+The output of the data flow analysis is one XML file per analysed APK file that contains a list of sinks and the coherent sources of data flows to that sink.
+The XML file will be parsed by the main \sca tool later on and the sink and source methods will be interpreted in the context of information privacy risks.
 
+Within the next preparation step the machine learning text classifiers will be trained.
+During the \sca phase of this study, we will be making great use of the naive Bayes classifier.
+A machine learning text-classifier classifies text segments into distinct categories. 
+The categories are predefined in the training phase of the classifier, since every trained text segment is assigned with a training category.
+These training categories are the categories the classifier can assign to new, previously unseen, text segments.
+The incisive feature of a Bayes classifier is the fact, that it chooses to classify a category to a new segment of text by picking the most probable category.\footnote{For this and the following two sentences see \cite{Rish2001}, p. 41.}
+A \nbc furthermore assumes that all categories are distinct and independent of each other. 
+Even though this might not always be the case in a real life usage scenario, the \nbc still performs well enough for a wide range of use cases.
 
-
+In the case of the \sca in this study, we will be using the \nbc to classify URLs into categories.
+The categories that URLs can belong to, in the context of this study, are: advertisement, delivery services, government, instant-messaging, (data-) aggregation services, search engines and social networks.
+ While the set of categories might not complete in 
 
 
 \subsection{Evaluation of an Automated Information Privacy Risk Assessment Tool}
