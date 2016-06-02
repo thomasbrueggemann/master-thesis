@@ -28,10 +28,10 @@ Since this thesis emphases on Android mHealth apps, we used the repository datab
 The list contains information for example on the app's id, category in the app stores, description, email address of the developer, price and the user rating of the app.
 
 We used the repository database to loop over the available mHealth app listings and filtered out the apps that were available for free, indicated by a price of \$0.00.
-As soon as the package name of an app is gathered, the download of the APK file can begin. 
-While there is no official source to download APK files for Android apps, a multitude of websites exist that host copies of APK files to download for free.
+As soon as the package name of an app is gathered, the download of the \acs{APK} file can begin. 
+While there is no official source to download \acs{APK} files for Android apps, a multitude of websites exist that host copies of \acs{APK} files to download for free.
 Unfortunately, all of these websites implement mechanisms that make it impossible to browse and download the APK files programatically within a download script.
-Instead, we used a open source Python implementation of an undocumented Google PlayStore API.\footnote{https://github.com/egirault/googleplay-api, visited 05/12/2016} 
+Instead, we used a open source Python implementation of an undocumented Google PlayStore \acs{API}.\footnote{https://github.com/egirault/googleplay-api, visited 05/12/2016} 
 The undocumented part of the Google API allows users to download APK files 
 Even though the project has not been maintained for four years, the software is still in working order.
 The Python script authenticates to the Google API via the hardware ID of an Android smartphone or tablet and pretends to request data from this smartphone or tablet, even though the requests are sent from a desktop computer.
@@ -49,8 +49,8 @@ In order to decompile the amount of APK files available, it is necessary to auto
 The automation script\footnote{https://github.com/thomasbrueggemann/AIPRAT/blob/master/decompile/decompile.sh} uses a chain of tools to gather access to the source code files from an APK file.
 The tools used to decompile the APK files follow closely the tools described and used by \cite{Enck2011}.\footnote{See \cite{Enck2011}, p. 5.}
 
-In a first step, we use the tool \textit{dex2jar} to extract the JAR file from the APK file.
-The JAR file contains the java bytecode representations of the app which is just one part of the contents of an APK file.
+In a first step, we use the tool \textit{dex2jar} to extract the \acs{JAR} file from the APK file.
+The JAR file contains the java bytecode representations of the app which is just one part of the contents of an \acs{APK} file.
 The next step is to extract resource files, such as the \textit{Android Manifest} file from the APK file.
 The \textit{Android Manifest} contains meta information about the app in a structured XML format.\footnote{This and the next sentence follow \cite{xu2013}, p. 7.}
 The meta information include the package name of the app, the permissions the app requests, e.g. camera usage, internet access or geolocation usage.
@@ -93,7 +93,7 @@ All these entry points are being emulated by \textit{FlowDroid} into a single \t
 The output of the data flow analysis is one XML file per analysed APK file that contains a list of sinks and the coherent sources of data flows to that sink.
 The XML file will be parsed by the main \sca tool later on and the sink and source methods will be interpreted in the context of information privacy risks.
 
-Within the next preparation step the machine learning text classifiers will be trained.
+The machine learning text classifiers will be trained within the second preparation step.
 During the \sca phase of this study, we will be making great use of the naive Bayes classifier.
 A machine learning text-classifier classifies text segments into distinct categories. 
 The categories are predefined in the training phase of the classifier, since every trained text segment is assigned with a training category.
@@ -104,7 +104,18 @@ Even though this might not always be the case in a real life usage scenario, the
 
 In the case of the \sca in this study, we will be using the \nbc to classify URLs into categories.
 The categories that URLs can belong to, in the context of this study, are: advertisement, delivery services, government, instant-messaging, (data-) aggregation services, search engines and social networks.
- While the set of categories might not complete in 
+While the set of categories might not complete in terms of all possible and available categories, it is sufficient for the classification of URLs within this \sca to classify into the mentioned category-set.
+In oder for the \nbc to classify text into categories we trained a \nbc implementation with meta-information about URLs from the previously mentioned categories.
+First, it was necessary to collect URLs for the categories to train the \nbc and we used a collection of \acs{URL}s from \textit{URLBlacklist.com}\footnote{http://www.urlblacklist.com/?sec=download, visited 05/30/2016}.
+\textit{URLBlacklist.com} provides URL lists for the categories advertisement, government, instant-messaging, search engines and social networks.
+\textit{programmableweb.com} catalogues API descriptions including the service providers' URL.
+We developed a program to automatically download and store the API directory for the two remaining categories, from \textit{programmableweb.com}.
+
+Next, to acquire meta-information for all the URLs, we implement a downloader for the HTML source-code of all URLs and store the 'description' HTML-meta tag content in a file.
+The 'description' meta-tag contains a small amount of text, provided by the website owner, that describes the content or function of the website topic.
+We use this 'description' meta-information to train the classifier with the associated categories.
+\newline\newline
+As soon as the preparation steps are finished, the main \sca tool is ready to run.
 
 
 \subsection{Evaluation of an Automated Information Privacy Risk Assessment Tool}
