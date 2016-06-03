@@ -120,12 +120,18 @@ We call the main \sca tool '\textit{AIPRAT}', short for \aiprat from here on.
 The fundamental concept of \AIPRAT is to iterate over all available apps and apply a set of analysis operations, called 'strategies', to the source code of these apps.
 A strategy tries to identify \iprfs by applying algorithms, e.g. feature extraction or text search, to parts of the app source code.
 There are two types of strategies in \AIPRAT, generic and specific strategies.
-Generic strategies are strategies contain algorithms that are configurable and usable by other specific strategies.
+Generic strategies are strategies that contain algorithms that are configurable and usable by other specific strategies.
 An example for a generic strategy is the Java-class \textit{analyze.src.strategies.ExistanceStrategy}. 
 The \textit{ExistanceStrategy} is able to scan through all source code files of an app and search for a set of words.
 If one or more of the source code files contains one or more of the search words, the \textit{ExistanceStrategy} returns a set of source code snippets that contain the lines of code containing the search words.
+In total \AIPRAT contains four generic strategies in the Java-package \textit{analyze.src.strategies}: DataFlowStrategy, ExistanceStrategy, PermissionStrategy and UrlCategoryStrategy.
 
-A specific strategy on the other hand directly targets the exploration of an \ipp and contains the \ipp hierarchy identifier, introduced by \textcite{Dehling2016}, in its Java-classname.\footnote{See \cite{Dehling2016}, p. 6.}
-The Java-class \textit{analyze.src.strategies.CI213Strategy} contains a search pattern for the \ipp with the hierarchy identifier CI213, which refers to the \ipp Content (C) \rightarrow{} InformationCollectionContent (I) \rightarrow InformationCollectionSensorContent (2) \rightarrow EnvironmentSensorContent (1) \rightarrow MicrophoneContent (3).
+
+A specific strategy, on the other hand, targets the exploration of an \ipp directly and contains the \ipp hierarchy identifier, introduced by \textcite{Dehling2016}, in its Java-classname.\footnote{See \cite{Dehling2016}, p. 6.}
+The Java-class \textit{analyze.src.strategies.CI213\textunderscore Strategy} contains a search pattern for the \ipp with the hierarchy identifier CI213, which refers to the \ipp Content (C) $\rightarrow$ InformationCollectionContent (I) $\rightarrow$ InformationCollectionSensorContent (2) $\rightarrow$ EnvironmentSensorContent (1) $\rightarrow$ MicrophoneContent (3).
+Therefore a specific strategy may contain a combination of one or many generic strategies to try to identify the risk the associated \ipp is posing through static code analysis.
+In the example of the specific strategy \textit{analyze.src.strategies.CI213\textunderscore Strategy}, the class extends the generic strategy class \textit{analyze.src.strategies.ExistanceStrategy} and sets the search parameters of the \textit{ExistanceStrategy} to 'MediaRecorder.setAudioSource(' and 'MediaRecorder.AudioSource.MIC'.
+The \textit{CI213\textunderscore Strategy} class scans via the parent-class \textit{ExistanceStrategy} all of the source code files off the app for source code that uses the Android microphone \acs{API}.
+
 
 \subsection{Evaluation of an Automated Information Privacy Risk Assessment Tool}
