@@ -23,7 +23,7 @@ The tools will be described in greater detail within the following chapters.
 
 The download phase is the first of the three implementation phases and comprises the acquisition of Android APK files. 
 The APK files hold the necessary Java source code that we will perform the \sca on.
-Since this thesis emphases on Android mHealth apps, we used the repository database of \cite{Xu2015} as our main app datasource.\footnote{This paragraph follows \cite{Xu2015}.}
+Since this thesis emphases on Android mHealth apps, we used the repository database of \cite{Xu2015} as our main app data source.\footnote{This paragraph follows \cite{Xu2015}.}
 \cite{Xu2015} list mHealth apps from the Apple AppStore and Android PlayStore and update their repository quarterly by scraping the app stores.
 The list contains information for example on the app's id, category in the app stores, description, email address of the developer, price and the user rating of the app.
 
@@ -39,7 +39,7 @@ We used a real Android tablet to detect its hardware ID and authenticate the Goo
 The main issue that has to be taken care of during the download phase is not to run into Google API limitations. 
 Google allows an API user to only request a certain amount requests per time unit. 
 After this limit is exceeded, the requests will just return a HTTP error code and no APK file will be downloaded.
-In order to mitigate this circumstance, we ran our download script multiple times, always until the Google API returns error codes. 
+In order to work around this circumstance, we ran our download script multiple times, always until the Google API returns error codes. 
 We then waited a couple of hours and tried the download script again, which would pick up the download process where it had stopped on the last run.
 
 % Decompilation Phase

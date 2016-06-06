@@ -1,11 +1,26 @@
 \section{Feasibility of Automated Information Privacy Risk Assessment}
 
+Within the following chapter we want to express the results of the implementation and evaluation phase and assess to what degree the automation of information privacy risk assessment is feasible.
+We will also present the results on how well the \aiprat performs in comparison to human researchers.
+
 \subsection{The Automated Information Privacy Risk Assessment of Free Android mHealth Apps}
 
 \subsubsection{Download Phase}
 
+The original dataset from the \cite{Xu2015} repository of app store listings contains 5379 app entries from the Google PlayStore in the category 'Medical' and 'Health and Fitness'.
+From this original dataset we extracted the 3180 free apps for further inspection.
+It was possible to download 2250 app APK files via the undocumented Google API.
+The remaining 930 APK files either returned a Google authentication error or were not available on the Google PlayStore anymore.
+
+Downloading the 2250 APK files took multiple download-runs over the whole dataset, since the Google API only allows a certain amount of download requests per time unit.
+The number of allowed download requests varied throughout the download phase and could not be detected exactly.
+Various tests downloading APK files automatically via websites like apkpure.com\footnote{https://apkpure.com/, visited 06/05/2016} or apk-dl.com\footnote{https://apk-dl.com, visited 06/05/2016} failed due to those websites effectively blocking automated non-browser traffic.
+The download of the 2250 APK files took 11 days in total and 18 restarts of the download script.
+
 \subsubsection{Decompilation Phase}
 
 \subsubsection{Static Code Analysis Phase}
+
+\todo{Live data flow analysis does not work because of computation resources}
 
 \subsection{Evaluation of the Automated Information Privacy Risk Assessment Tool}
