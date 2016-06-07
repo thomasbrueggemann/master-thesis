@@ -25,6 +25,10 @@ This will be a vital addition to current research, since there is yet no holisti
 
 \subsection{Relevant Information Privacy Risk Factors}
 
+\todo{Wenn es etwas ist über das ich den Nutzer irgendwie informieren sollte, dann ist es ja auch in irgendeiner Form ein Privacy Risiko}
+\todo{Auch Fälle identifizieren, die man vielleicht noch nicht verstanden hat!}
+\todo{Nicht nur was anderes mit SCA umsetzen, sondern was kann ich weiter damit machen.}
+
 For this thesis, we will use the set of \ipp extracted from literature, the Platform for Privacy Preferences (\acs{P3P})\footnote{https://www.w3.org/TR/P3P/, visited 06/06/2016} and app reviews by \cite{Dehling2016} as a source to derive \iprfs from. \footnote{For this and the following sentence, see \cite{Dehling2016}, p. 1-2.} 
 \Ipp are common practices that app providers should follow in order to achieve transparency of information practices.
 A hierarchy of \ipp is formed by clustering the \ipp by their content aspects. 
@@ -36,4 +40,7 @@ Since not all of the enlisted \ipp express or imply an information privacy risk 
 We will further limit the \ipp by excluding \ipp that are technically infeasible to detect via static code analysis.
 An example for such an exclusion is the \ipp 'InformationRetentionContent', which captures, if an app provider carries out a certain information retention policy or not.\footnote{See \cite{Dehling2016}, p. 8.}
 This is a feature that is undetectable by \sca and beyond the scope of app source code analysis.
-We include a full list of all \ipp in Appendix A with a detailed comment on the technical limitations, if any, towards each \ipp.
+We include a full list of all \ipp in Appendix A including detailed comments on the technical limitations, if any, towards the \sca detection each information privacy practice.
+
+The following \ipp were identified as relevant to the \sca and further inspection within this thesis:
+
