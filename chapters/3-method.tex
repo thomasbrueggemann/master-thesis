@@ -57,6 +57,10 @@ The meta information include the package name of the app, the permissions the ap
 The \textit{Android Manifest} file is therefore an important indicator for high level activities within the given app.
 In order to extract the \textit{Android Manifest} file from the APK file along with other resources such as images, icons, xml files or other files used within the app, we use the \textit{apktool}\footnote{http://ibotpeaches.github.io/Apktool/}.
 \textit{apktool} is a frequently updated Android reverse engineering tool that is used to extract resources from APK files.
+Another important part of the extraction of resource files is retrieving the layout and localization files.
+These files include information on the user interface components used within the app as well as text content for labels and text fields.
+The text content will be used to train machine learning algorithms to classify features of the app, further described in the analysis phase section below.
+
 At the core of the decompilation process is the usage of \textit{fernflower}\footnote{https://github.com/fesh0r/fernflower}.
 \textit{fernflower} is the recommended java decompiler by \cite{Enck2011}. 
 They used the tool to decompile a test sample of apps and gained a significantly higher code recovery rate than by using other decompiling tools.\footnote{See \cite{Enck2011}, p. 6.}
