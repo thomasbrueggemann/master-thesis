@@ -124,13 +124,27 @@ We call the main \sca tool '\textit{AIPRAT}', short for \aiprat from here on.
 The fundamental concept of \AIPRAT is to iterate over all available apps and apply a set of analysis operations, called 'strategies', to the source code of these apps.
 A strategy tries to identify \iprfs by applying algorithms, e.g. feature extraction or text search, to parts of the app source code.
 There are two types of strategies in \AIPRAT, generic and specific strategies.
+
 Generic strategies are strategies that contain algorithms that are configurable and usable by other specific strategies.
 An example for a generic strategy is the Java-class \textit{analyze.src.strategies.ExistanceStrategy}. 
 The \textit{ExistanceStrategy} is able to scan through all source code files of an app and search for a set of words.
 If one or more of the source code files contains one or more of the search words, the \textit{ExistanceStrategy} returns a set of source code snippets that contain the lines of code containing the search words.
-In total \AIPRAT contains four generic strategies in the Java-package \textit{analyze.src.strategies}: DataFlowStrategy, ExistanceStrategy, PermissionStrategy and UrlCategoryStrategy.
+In total \AIPRAT contains eight generic strategies in the Java-package \textit{analyze.src.strategies}: DataFlowStrategy, ExistanceStrategy, InputStrategy, TraceBackStrategy, InformationCollectionStrategy, PermissionStrategy, ProviderUrlStrategy, and UrlCategoryStrategy.
 The DataFlowStrategy parses the pre-extracted dataflow \acs{XML} from the \textit{FlowDroid} preparation phase and allows iterating over all identified dataflow sources and sinks.
 Thereby, the DataFlowStrategy allows to pass parameters along that filter the sources and sinks for certain search words and provide feedback if the search words were found within sources and sinks.
+To find strings within the source code of an app, one can make use of the ExistanceStrategy. 
+This generic strategy scans the full source code of an app an collects source code lines that match a given search pattern.
+The InputStrategy iterates over all \acs{XML} layout configuration files of an app. 
+User interface controls that are displayed within an app are declared in these \acs{XML} layout configuration files.
+The InputStrategy tries to identify all user input fields and therefore scans the layout files for the search terms 'EditText', 'AutoCompleteTextView', 'CheckBox' and 'RadioButton'.
+As soon as a user input field has been found, the InputStrategy extracts all meta information about this input field possible.
+The input fields meta information generally contain the user interface control 'id', a 'hint' field and a 'text' field. 
+The meta information are collected and stored together with the input field information.
+
+
+With making use of the InputStrategy and the TracebackStrategy, the InputInformationCollectionStrategy takes the user input fields analysis one step further.
+First, all user input fields are detected and stored. 
+In a second step, the InputInformationCollectionStrategy 
 
 A specific strategy, on the other hand, targets the exploration of an \ipp directly and contains the \ipp hierarchy identifier, introduced by \textcite{Dehling2016}, in its Java-classname.\footnote{See \cite{Dehling2016}, p. 6.}
 The Java-class \textit{analyze.src.strategies.CI213\textunderscore Strategy} contains a search pattern for the \ipp with the hierarchy identifier CI213, which refers to the \ipp Content (C) $\rightarrow$ InformationCollectionContent (I) $\rightarrow$ InformationCollectionSensorContent (2) $\rightarrow$ EnvironmentSensorContent (1) $\rightarrow$ MicrophoneContent (3).
@@ -138,5 +152,5 @@ Therefore a specific strategy may contain a combination of one or many generic s
 In the example of the specific strategy \textit{analyze.src.strategies.CI213\textunderscore Strategy}, the class extends the generic strategy class \textit{analyze.src.strategies.ExistanceStrategy} and sets the search parameters of the \textit{ExistanceStrategy} to 'MediaRecorder.setAudioSource(' and 'MediaRecorder.AudioSource.MIC'.
 The \textit{CI213\textunderscore Strategy} class scans via the parent-class \textit{ExistanceStrategy} all of the source code files off the app for source code that uses the Android microphone \acs{API}.
 
-
+% Evaluation of an Automated Information Privacy Risk Assessment Tool
 \subsection{Evaluation of an Automated Information Privacy Risk Assessment Tool}
