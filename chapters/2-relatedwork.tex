@@ -23,11 +23,11 @@ This will be a vital addition to current research, since there is yet no holisti
 
 \subsection{Static Code Analysis}
 
+\todo{Nicht nur was anderes mit SCA umsetzen, sondern was kann ich weiter damit machen.}
+
 \subsection{Relevant Information Privacy Risk Factors}
 
-\todo{Wenn es etwas ist über das ich den Nutzer irgendwie informieren sollte, dann ist es ja auch in irgendeiner Form ein Privacy Risiko}
 \todo{Auch Fälle identifizieren, die man vielleicht noch nicht verstanden hat!}
-\todo{Nicht nur was anderes mit SCA umsetzen, sondern was kann ich weiter damit machen.}
 
 For this thesis, we will use the set of \ipp extracted from literature, the Platform for Privacy Preferences (\acs{P3P}) guide\footnote{https://www.w3.org/TR/P3P/, visited 06/06/2016} and app reviews by \cite{Dehling2016} as a source to derive \iprfs from. \footnote{For this and the following sentence, see \cite{Dehling2016}, p. 1-2.} 
 \Ipp are common practices of informing users about the information privacy practices of an app that app providers should follow in order to achieve higher levels of transparency.
@@ -43,9 +43,17 @@ An example for such an exclusion is the \ipp 'InformationRetentionContent', whic
 This is a feature that is undetectable by \sca and beyond the scope of app source code analysis.
 An analysis of the app providers backend system would be necessary to ensure that the collection information is retained according to the app providers policy promise.
 
-We include a full list of all \ipp in Appendix A including detailed comments on the technical limitations, if any, towards the \sca detection of each information privacy practice.
+We include a full list of all \ipp in Appendix A including detailed comments on the technical limitations, if any, towards the \sca detection of each \ipp and wether they express a risk or not.
 
 The following \ipp were identified as relevant to the \sca and further inspection within this thesis:
 
-The complete hierarchy \textit{H2} 'InformationSecurityContent' can be analysed via \sca including the \ipp 'SecurityDuringProcessingContent', 'SecurityDuringStorageContent' and 'SecurityDuringTransferContent'.
-Partially supported will be the hierarchy \textit{H3} 'InformationSharingContent'. Analysis will be applied to the containing \ipp 'SharingWithAdvertiserContent', 'SharingWithAggregatorContent', 'SharingWithAnalystContent', 'SharingWithDeliveryContent', 'SharingWithGovernmentContent', 'SharingWithOtherUsersContent', 'SharingWithProviderAgentsContent', 'SharingWithPublicContent' and 'SharingWithUserAuthorizedContent'.
+The complete hierarchy \textit{CH2} 'InformationSecurityContent' can be analysed via \sca including the \ipp 'SecurityDuringProcessingContent', 'SecurityDuringStorageContent' and 'SecurityDuringTransferContent'.
+Partially supported will be the hierarchy \textit{CH3} 'InformationSharingContent'. Analysis will be applied to the containing \ipp \textit{CH33} 'SharingWithAdvertiserContent', \textit{CH34} 'SharingWithAggregatorContent', \textit{CH35} 'SharingWithAnalystContent', \textit{CH36} 'SharingWithDeliveryContent', \textit{CH37} 'SharingWithGovernmentContent', \textit{CH38} 'SharingWithOtherUsersContent', \textit{CH310} 'SharingWithPublicContent' and \textit{CH312} 'SharingWithUserAuthorizedContent'.
+The hierarchy \textit{CH4} 'InformationStorageContent' is relevant and can be analysed via static code analysis, as well as the hierarchies \textit{CI21} 'EnvironmentSensorContent', \textit{CI22} 'LocationSensorContent', \textit{CI23} 'UserSensorContent' and all their coherent sub-hierarchies.
+For the hierarchy \textit{CI24} 'SoftwareUseSensorContent' only partial support for the sub-hierarchies \textit{CI242} 'CookiesContent' and \textit{CI243} 'SurveysContent' are feasible to be analyzed by static code analysis.
+With the exception of one \ipp in the hierarchy level \textit{CI31} 'InformationFormContent' all other \ipp are relevant for this thesis: \textit{CI311} 'AudioInformationContent', \textit{CI312} 'ImageInformationContent', \textit{CI314} 'TextInformationContent' and \textit{CI315} 'VideoInformationContent'.
+The next hierarchy level \textit{CI32} 'IdentifierContent' is fully relevant and all coherent sub-hierarchies will be analyzed.
+More difficult to analyze via \sca will be the hierarchy level \textit{CI33} 'OperationalContent', because only two \ipp were identified as relevant to static code analysis: \textit{CI333} 'LocationContent' and \textit{CI335} 'OnlineContactsContent'.
+Finally the hierarchy \textit{CI34} 'UserDetailsContent' is partially relevant, namely the \ipp \textit{I341} 'DemographicsContent', \textit{CI343} 'HealthContent', \textit{CI344} 'IdeologicalContent', \textit{CI345} 'PreferencesContent' and \textit{CI346} 'UserDeviceContent'.
+
+All relevant \ipp and their \sca identification strategies will be explained further in chapter \ref{sssec:SCAP} of this thesis.
