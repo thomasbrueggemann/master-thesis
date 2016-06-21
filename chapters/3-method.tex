@@ -141,10 +141,26 @@ As soon as a user input field has been found, the InputStrategy extracts all met
 The input fields meta information generally contain the user interface control 'id', a 'hint' field and a 'text' field. 
 The meta information are collected and stored together with the input field information.
 
-
-With making use of the InputStrategy and the TracebackStrategy, the InputInformationCollectionStrategy takes the user input fields analysis one step further.
+An important feature in static code analysis, especially for assessing information privacy risks, is to the ability to trace data flows from a source to a sink.
+With the help of the call graph construction feature of FlowDroid, the TraceBackStrategy starts at a given set of start-sinks and traverses the call graph back until either a source is found or a given search pattern is matched.
+This allows consequent strategies to define a search pattern for data flows to specific sinks.
+In the case of this thesis, we will mainly use the TraceBackStrategy to find data flows that end in a information collection scenario. 
+We define information collection as a data flow that results in storing the information either locally on the smart device the app is run, or that results in sending the information to a remote server.
+With making use of the InputStrategy and the TracebackStrategy, the InputInformationCollectionStrategy takes the user input fields analysis one step further and allows for information collection analysis.
 First, all user input fields are detected and stored. 
-In a second step, the InputInformationCollectionStrategy 
+In a second step, the InputInformationCollectionStrategy executes a TraceBackStrategy that starts at all available information collection sinks (local file storage and remote server connections) and traces back the call graph in an attempt to identify the user input field 'ids' within the call graph path.
+If a user input field 'id' is found, a data flow towards an information collection sink is identified and a potential \ipr revealed.
+A less sophisticated approach is being used by the PermissionStrategy.
+It is required for Android apps to declare permissions to use certain features, such as the \acs{GPS} location or internet access, within the 'manifest' file.
+The PermissionStrategy enables a search through these permissions by a given search pattern.
+
+The last two generic strategies concern the \acs{URL}s that are listed within the app source code and that are potentially target to information transfers.
+The ProviderUrlStrategy iterates over all extracted URLs from the source code and checks how similar the URL host is in comparison to the app package name.
+The package name is often similar to the hostname of the app provider or contains similar name parts. 
+The ProviderUrlStrategy takes these potential sub-parts of the package name into account and returns a probability that a URL connection to the app provider is established.
+Finally, the URLCategoryStrategy enables a search for a given category of URLs within the app source code.
+All URLs are classified into distinct categories upon loading the app into the \sca tool via a machine learning text classification technique.
+In order to check if a URL of a certain category exists, the iterates over all classified URLs and matches their categories to the search category.
 
 A specific strategy, on the other hand, targets the exploration of an \ipp directly and contains the \ipp hierarchy identifier, introduced by \textcite{Dehling2016}, in its Java-classname.\footnote{See \cite{Dehling2016}, p. 6.}
 The Java-class \textit{analyze.src.strategies.CI213\textunderscore Strategy} contains a search pattern for the \ipp with the hierarchy identifier CI213, which refers to the \ipp Content (C) $\rightarrow$ InformationCollectionContent (I) $\rightarrow$ InformationCollectionSensorContent (2) $\rightarrow$ EnvironmentSensorContent (1) $\rightarrow$ MicrophoneContent (3).
