@@ -164,7 +164,7 @@ In order to check if a URL of a certain category exists, the iterates over all c
 
 A specific strategy, on the other hand, targets the exploration of an \ipp directly and contains the \ipp hierarchy identifier, introduced by \textcite{Dehling2016}, in its Java-classname.\footnote{See \cite{Dehling2016}, p. 6.}
 The Java-class \textit{analyze.src.strategies.CI213\textunderscore Strategy} contains a search pattern for the \ipp with the hierarchy identifier CI213, which refers to the \ipp Content (C) $\rightarrow$ InformationCollectionContent (I) $\rightarrow$ InformationCollectionSensorContent (2) $\rightarrow$ EnvironmentSensorContent (1) $\rightarrow$ MicrophoneContent (3).
-Therefore a specific strategy may contain a combination of one or many generic strategies to try to identify the risk the associated \ipp is posing through static code analysis.
+Therefore a specific strategy may contain a combination of one or many generic strategies to try to identify the risk of the associated \ipp is posing through static code analysis.
 In the example of the specific strategy \textit{analyze.src.strategies.CI213\textunderscore Strategy}, the class extends the generic strategy class \textit{analyze.src.strategies.ExistanceStrategy} and sets the search parameters of the \textit{ExistanceStrategy} to 'MediaRecorder.setAudioSource(' and 'MediaRecorder.AudioSource.MIC'.
 The \textit{CI213\textunderscore Strategy} class scans via the parent-class \textit{ExistanceStrategy} all of the source code files off the app for source code that uses the Android microphone \acs{API}.
 
