@@ -12,10 +12,10 @@ Figure \ref{fig:implementationPhases} shows the implementation phases over time 
 The tools will be described in greater detail within the following chapters.
 
 \begin{figure}[h]
-	\caption{Diagram of implementation phases of the \aiprat over time.}
 	\centering
 	\includegraphics[keepaspectratio=true,width=400pt]{figures/ImplementationFlow.png}
 	\label{fig:implementationPhases}
+	\caption{Diagram of implementation phases of the \aiprat over time.}
 \end{figure}
 
 % Download Phase
@@ -169,11 +169,9 @@ In the example of the specific strategy \textit{analyze.src.strategies.CI213\tex
 The \textit{CI213\textunderscore Strategy} class scans via the parent-class \textit{ExistanceStrategy} all of the source code files off the app for source code that uses the Android microphone \acs{API}.
 
 \begin{table}
-
-	\caption{Specific strategies in relation to the generic strategies they make use of.} 
 	\begin{center}
 
-	\begin{tabular}{ | p{4.8cm} | p{6cm} | }
+	\begin{tabular}{ | p{4.8cm} | p{9cm} | }
 	\hline
 		DataFlowStrategy & CI221 \\ \hline
 		ExistanceStrategy & CH23, CH310, CH312, CH33, CH35, CH37, CH38, CH43, CH44, CI212, CI213, CI214, CI221, CI222, CI223, CI231, CI242, CI243 \\ \hline
@@ -184,8 +182,9 @@ The \textit{CI213\textunderscore Strategy} class scans via the parent-class \tex
 		TraceBackStrategy & CH21, CH22, CH42, CH45, CI311, CI312, CI315, CI333, CI335 \\ \hline
 		UrlCategoryStrategy & CH34, CH36, CH46 \\ \hline
 	\end{tabular}
-	
 	\end{center}
+	
+	\caption{Specific strategies in relation to the generic strategies they make use of.} 
 \end{table}
 
 
