@@ -54,7 +54,7 @@ The JAR file contains the java bytecode representations of the app which is just
 The next step is to extract resource files, such as the \textit{Android Manifest} file from the APK file.
 The \textit{Android Manifest} contains meta information about the app in a structured XML format.\footnote{This and the next sentence follow \cite{xu2013}, p. 7.}
 The meta information include the package name of the app, the permissions the app requests, e.g. camera usage, internet access or geolocation usage.
-The \textit{Android Manifest} file is therefore an important indicator for high level activities within the given app.
+The \textit{Android Manifest} file is therefore an important indicator at a high level view on activities within a given app.
 In order to extract the \textit{Android Manifest} file from the APK file along with other resources such as images, icons, xml files or other files used within the app, we use the \textit{apktool}\footnote{http://ibotpeaches.github.io/Apktool/}.
 \textit{apktool} is a frequently updated Android reverse engineering tool that is used to extract resources from APK files.
 Another important part of the extraction of resource files is retrieving the layout and localization files.
@@ -125,6 +125,7 @@ The fundamental concept of \AIPRAT is to iterate over all available apps and app
 A strategy tries to identify \iprfs by applying algorithms, e.g. feature extraction or text search, to parts of the app source code.
 There are two types of strategies in \AIPRAT, generic and specific strategies.
 
+% Generic strategies
 Generic strategies are strategies that contain algorithms that are configurable and usable by other specific strategies.
 An example for a generic strategy is the Java-class \textit{analyze.src.strategies.ExistanceStrategy}. 
 The \textit{ExistanceStrategy} is able to scan through all source code files of an app and search for a set of words.
@@ -162,6 +163,7 @@ Finally, the URLCategoryStrategy enables a search for a given category of URLs w
 All URLs are classified into distinct categories upon loading the app into the \sca tool via a machine learning text classification technique.
 In order to check if a URL of a certain category exists, the iterates over all classified URLs and matches their categories to the search category.
 
+% Specific strategy
 A specific strategy, on the other hand, targets the exploration of an \ipp directly and contains the \ipp hierarchy identifier, introduced by \textcite{Dehling2016}, in its Java-classname.\footnote{See \cite{Dehling2016}, p. 6.}
 The Java-class \textit{analyze.src.strategies.CI213\textunderscore Strategy} contains a search pattern for the \ipp with the hierarchy identifier CI213, which refers to the \ipp Content (C) $\rightarrow$ InformationCollectionContent (I) $\rightarrow$ InformationCollectionSensorContent (2) $\rightarrow$ EnvironmentSensorContent (1) $\rightarrow$ MicrophoneContent (3).
 Therefore a specific strategy may contain a combination of one or many generic strategies to try to identify the risk of the associated \ipp is posing through static code analysis.
@@ -173,20 +175,31 @@ The \textit{CI213\textunderscore Strategy} class scans via the parent-class \tex
 
 	\begin{tabular}{ | p{4.8cm} | p{9cm} | }
 	\hline
-		DataFlowStrategy & CI221 \\ \hline
 		ExistanceStrategy & CH23, CH310, CH312, CH33, CH35, CH37, CH38, CH43, CH44, CI212, CI213, CI214, CI221, CI222, CI223, CI231, CI242, CI243 \\ \hline
 		InputInformationCollection-Strategy & CI321, CI322, CI323, CI324, CI325, CI326, CI341, CI343, CI344, CI345, CI346 \\ \hline
 		InputStrategy & CI314 \\ \hline
 		PermissionsStrategy & CH43, CH44, CI211, CI212, CI214, CI231 \\ \hline
 		ProviderUrlStrategy & CH45 \\ \hline
-		TraceBackStrategy & CH21, CH22, CH42, CH45, CI311, CI312, CI315, CI333, CI335 \\ \hline
+		TraceBackStrategy & CH21, CH22, CH42, CH45, CI221, CI311, CI312, CI315, CI333, CI335 \\ \hline
 		UrlCategoryStrategy & CH34, CH36, CH46 \\ \hline
 	\end{tabular}
 	\end{center}
 	
 	\caption{Specific strategies in relation to the generic strategies they make use of.} 
+	\label{table:specStrategies}
 \end{table}
 
+% Explain specific strategies in more detail
+In the following section we will introduce the specific strategies implemented in the \aiprat in greater detail.
+Table \ref{table:specStrategies} displays and overview of the generic strategies in the first column and the specific strategies that make use of the coherent generic strategies in the second column.
+The specific strategy classes in this chapter and in table \ref{table:specStrategies} are abbreviated with the \ipp hierarchy identifier of the matching strategy. 
+\textit{CH21} for example stands for \textit{CH21\textunderscore Strategy.java} in this chapter.
+
+\textit{ExistanceStrategy}.
+The generic ExistanceStratagy ist the most widely used strategy within the analysis tool.
+Strategy \textit{CH23} uses the ExistanceStrategy twice to check if data transfers are secure. 
+First strategy \textit{CH23} checks for the existence count of HTTP connections and second, it check for the existence count of HTTPS connections.
+The result of \textit{CH23} is the ratio of \acs{HTTP} to \acs{HTTPS} connections.
 
 
 % Evaluation of an Automated Information Privacy Risk Assessment Tool
