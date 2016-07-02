@@ -31,7 +31,7 @@ We used the repository database to loop over the available mHealth app listings 
 As soon as the package name of an app is gathered, the download of the \acs{APK} file can begin. 
 While there is no official source to download \acs{APK} files for Android apps, a multitude of websites exist that host copies of \acs{APK} files to download for free.
 Unfortunately, all of these websites implement mechanisms that make it impossible to browse and download the APK files programatically within a download script.
-Instead, we used a open source Python implementation of an undocumented Google PlayStore \acs{API}.\footnote{https://github.com/egirault/googleplay-api, visited 05/12/2016} 
+Instead, we used a open source Python implementation of an undocumented Google PlayStore \acs{API}.\footnote{\url{https://web.archive.org/web/20140920061441/https://github.com/egirault/googleplay-api}, visited 05/12/2016} 
 The undocumented part of the Google API allows users to download APK files 
 Even though the project has not been maintained for four years, the software is still in working order.
 The Python script authenticates to the Google API via the hardware ID of an Android smartphone or tablet and pretends to request data from this smartphone or tablet, even though the requests are sent from a desktop computer.
@@ -46,7 +46,7 @@ We then waited a couple of hours and tried the download script again, which woul
 \subsubsection{Decompilation Phase}
 
 In order to decompile the amount of APK files available, it is necessary to automate the process. 
-The automation script\footnote{https://github.com/thomasbrueggemann/AIPRAT/blob/master/decompile/decompile.sh} uses a chain of tools to gather access to the source code files from an APK file.
+The automation script\footnote{\url{https://github.com/thomasbrueggemann/AIPRAT/blob/master/decompile/decompile.sh}} uses a chain of tools to gather access to the source code files from an APK file.
 The tools used to decompile the APK files follow closely the tools described and used by \cite{Enck2011}.\footnote{See \cite{Enck2011}, p. 5.}
 
 In a first step, we use the tool \textit{dex2jar} to extract the \acs{JAR} file from the APK file.
@@ -55,13 +55,13 @@ The next step is to extract resource files, such as the \textit{Android Manifest
 The \textit{Android Manifest} contains meta information about the app in a structured XML format.\footnote{This and the next sentence follow \cite{xu2013}, p. 7.}
 The meta information include the package name of the app, the permissions the app requests, e.g. camera usage, internet access or geolocation usage.
 The \textit{Android Manifest} file is therefore an important indicator at a high level view on activities within a given app.
-In order to extract the \textit{Android Manifest} file from the APK file along with other resources such as images, icons, xml files or other files used within the app, we use the \textit{apktool}\footnote{http://ibotpeaches.github.io/Apktool/}.
+In order to extract the \textit{Android Manifest} file from the APK file along with other resources such as images, icons, xml files or other files used within the app, we use the \textit{apktool}\footnote{\url{https://web.archive.org/web/20160617041519/http://ibotpeaches.github.io/Apktool/}, visited 06/17/2016}.
 \textit{apktool} is a frequently updated Android reverse engineering tool that is used to extract resources from APK files.
 Another important part of the extraction of resource files is retrieving the layout and localization files.
 These files include information on the user interface components used within the app as well as text content for labels and text fields.
 The text content will be used to train machine learning algorithms to classify features of the app, further described in the analysis phase section below.
 
-At the core of the decompilation process is the usage of \textit{fernflower}\footnote{https://github.com/fesh0r/fernflower}.
+At the core of the decompilation process is the usage of \textit{fernflower}\footnote{\url{https://web.archive.org/web/20150808204302/https://github.com/fesh0r/fernflower}, visited 05/24/2016}.
 \textit{fernflower} is the recommended java decompiler by \cite{Enck2011}. 
 They used the tool to decompile a test sample of apps and gained a significantly higher code recovery rate than by using other decompiling tools.\footnote{See \cite{Enck2011}, p. 6.}
 An obstacle in decompiling java source code is obfuscation. 
@@ -69,7 +69,7 @@ Java developers can make use of a security feature called obfuscation that aims 
 The idea is to make it more difficult to retrieve and make sense of the original source code by decompiling the byte code.
 \textit{fernflower} uses a renaming approach by assigning every obfuscated class with a new naming pattern. 
 Member variables and methods will be automatically renamed and therefore provide an easier and more unique way of reading the source code.
-Optionally the decompilation process can use an automatic code formatting tool called \textit{astyle}\footnote{http://astyle.sourceforge.net/} to format the source code.
+Optionally the decompilation process can use an automatic code formatting tool called \textit{astyle}\footnote{\url{https://web.archive.org/web/20160422015538/http://astyle.sourceforge.net/}, visited 05/25/2016} to format the source code.
 This helps humans to read the source code files more easily, since the formatting and indentation of all source code files is identical and therefore very structured.
 Formatting the source code will help in the evaluation phase of this thesis to support the manual inspection the source code for \ipr by human researchers.
 
@@ -110,7 +110,7 @@ In the case of the \sca in this study, we will be using the \nbc to classify URL
 The categories that URLs can belong to, in the context of this study, are: advertisement, delivery services, government, instant-messaging, (data-) aggregation services, search engines and social networks.
 While the set of categories might not complete in terms of all possible and available categories, it is sufficient for the classification of URLs within this \sca to classify into the mentioned category-set.
 In oder for the \nbc to classify text into categories we trained a \nbc implementation with meta-information about URLs from the previously mentioned categories.
-First, it was necessary to collect URLs for the categories to train the \nbc and we used a collection of \acs{URL}s from \textit{URLBlacklist.com}\footnote{http://www.urlblacklist.com/?sec=download, visited 05/30/2016}.
+First, it was necessary to collect URLs for the categories to train the \nbc and we used a collection of \acs{URL}s from \textit{URLBlacklist.com}\footnote{\url{https://web.archive.org/web/20160617050003/http://urlblacklist.com/?sec=download}, visited 06/17/2016}.
 \textit{URLBlacklist.com} provides URL lists for the categories advertisement, government, instant-messaging, search engines and social networks.
 \textit{programmableweb.com} catalogues API descriptions including the service providers' URL.
 We developed a program to automatically download and store the API directory for the two remaining categories, from \textit{programmableweb.com}.
@@ -127,13 +127,13 @@ There are two types of strategies in \AIPRAT, generic and specific strategies.
 
 % Generic strategies
 Generic strategies are strategies that contain algorithms that are configurable and usable by other specific strategies.
-An example for a generic strategy is the Java-class \textit{analyze.src.strategies.ExistanceStrategy}. 
-The \textit{ExistanceStrategy} is able to scan through all source code files of an app and search for a set of words.
-If one or more of the source code files contains one or more of the search words, the \textit{ExistanceStrategy} returns a set of source code snippets that contain the lines of code containing the search words.
-In total \AIPRAT contains eight generic strategies in the Java-package \textit{analyze.src.strategies}: DataFlowStrategy, ExistanceStrategy, InputStrategy, TraceBackStrategy, InformationCollectionStrategy, PermissionStrategy, ProviderUrlStrategy, and UrlCategoryStrategy.
+An example for a generic strategy is the Java-class \textit{analyze.src.strategies.ExistenceStrategy}. 
+The \textit{ExistenceStrategy} is able to scan through all source code files of an app and search for a set of words.
+If one or more of the source code files contains one or more of the search words, the \textit{ExistenceStrategy} returns a set of source code snippets that contain the lines of code containing the search words.
+In total \AIPRAT contains eight generic strategies in the Java-package \textit{analyze.src.strategies}: DataFlowStrategy, ExistenceStrategy, InputStrategy, TraceBackStrategy, InformationCollectionStrategy, PermissionStrategy, ProviderUrlStrategy, and UrlCategoryStrategy.
 The DataFlowStrategy parses the pre-extracted dataflow \acs{XML} from the \textit{FlowDroid} preparation phase and allows iterating over all identified dataflow sources and sinks.
 Thereby, the DataFlowStrategy allows to pass parameters along that filter the sources and sinks for certain search words and provide feedback if the search words were found within sources and sinks.
-To find strings within the source code of an app, one can make use of the ExistanceStrategy. 
+To find strings within the source code of an app, one can make use of the ExistenceStrategy. 
 This generic strategy scans the full source code of an app an collects source code lines that match a given search pattern.
 The InputStrategy iterates over all \acs{XML} layout configuration files of an app. 
 User interface controls that are displayed within an app are declared in these \acs{XML} layout configuration files.
@@ -167,15 +167,15 @@ In order to check if a URL of a certain category exists, the iterates over all c
 A specific strategy, on the other hand, targets the exploration of an \ipp directly and contains the \ipp hierarchy identifier, introduced by \textcite{Dehling2016}, in its Java-classname.\footnote{See \cite{Dehling2016}, p. 6.}
 The Java-class \textit{analyze.src.strategies.CI213\textunderscore Strategy} contains a search pattern for the \ipp with the hierarchy identifier CI213, which refers to the \ipp Content (C) $\rightarrow$ InformationCollectionContent (I) $\rightarrow$ InformationCollectionSensorContent (2) $\rightarrow$ EnvironmentSensorContent (1) $\rightarrow$ MicrophoneContent (3).
 Therefore a specific strategy may contain a combination of one or many generic strategies to try to identify the risk of the associated \ipp is posing through static code analysis.
-In the example of the specific strategy \textit{analyze.src.strategies.CI213\textunderscore Strategy}, the class extends the generic strategy class \textit{analyze.src.strategies.ExistanceStrategy} and sets the search parameters of the \textit{ExistanceStrategy} to 'MediaRecorder.setAudioSource(' and 'MediaRecorder.AudioSource.MIC'.
-The \textit{CI213\textunderscore Strategy} class scans via the parent-class \textit{ExistanceStrategy} all of the source code files off the app for source code that uses the Android microphone \acs{API}.
+In the example of the specific strategy \textit{analyze.src.strategies.CI213\textunderscore Strategy}, the class extends the generic strategy class \textit{analyze.src.strategies.ExistenceStrategy} and sets the search parameters of the \textit{ExistenceStrategy} to 'MediaRecorder.setAudioSource(' and 'MediaRecorder.AudioSource.MIC'.
+The \textit{CI213\textunderscore Strategy} class scans via the parent-class \textit{ExistenceStrategy} all of the source code files off the app for source code that uses the Android microphone \acs{API}.
 
 \begin{table}
 	\begin{center}
 
 	\begin{tabular}{ | p{4.8cm} | p{9cm} | }
 	\hline
-		ExistanceStrategy & CH23, CH310, CH312, CH33, CH35, CH37, CH38, CH43, CH44, CI212, CI213, CI214, CI221, CI222, CI223, CI231, CI242, CI243 \\ \hline
+		ExistenceStrategy & CH23, CH310, CH312, CH33, CH35, CH37, CH38, CH43, CH44, CI212, CI213, CI214, CI221, CI222, CI223, CI231, CI242, CI243 \\ \hline
 		InputInformationCollection-Strategy & CI321, CI322, CI323, CI324, CI325, CI326, CI341, CI343, CI344, CI345, CI346 \\ \hline
 		InputStrategy & CI314 \\ \hline
 		PermissionsStrategy & CH43, CH44, CI211, CI212, CI214, CI231 \\ \hline
@@ -195,11 +195,15 @@ Table \ref{table:specStrategies} displays and overview of the generic strategies
 The specific strategy classes in this chapter and in table \ref{table:specStrategies} are abbreviated with the \ipp hierarchy identifier of the matching strategy. 
 \textit{CH21} for example stands for \textit{CH21\textunderscore Strategy.java} in this chapter.
 
-\textit{ExistanceStrategy}.
-The generic ExistanceStratagy ist the most widely used strategy within the analysis tool.
-Strategy \textit{CH23} uses the ExistanceStrategy twice to check if data transfers are secure. 
+\textit{ExistenceStrategy}.
+The generic ExistenceStrategy ist the most widely used strategy within the analysis tool.
+Strategy \textit{CH23} uses the ExistenceStrategy twice to check if data transfers are secure. 
 First strategy \textit{CH23} checks for the existence count of HTTP connections and second, it check for the existence count of HTTPS connections.
 The result of \textit{CH23} is the ratio of \acs{HTTP} to \acs{HTTPS} connections.
+The strategies \textit{CH310} and \textit{CH312} try to identify a user initiated sharing of content with authorized other users and the general public.
+Both strategies accomplish this by searching the source code of an app for triggering the Android sharing dialog window.
+Strategy \textit{CH33} uses the generic ExistenceStrategy extensively to identify the usage of advertisement libraries within the app.
+All search words are names of Android advertisement library identifiers and are derived from the analysis of Android ad libraries by \cite{Book2013}.\footnote{See \cite{Book2013}, p. 9.}
 
 
 % Evaluation of an Automated Information Privacy Risk Assessment Tool
@@ -213,7 +217,7 @@ This will result in an overview comparison on how well the \aiprat performs in c
 We acknowledge that a human app reviewer can almost find any \ipp risk within the app source code given enough time.
 In order to find an appropriate time range that the human review is allowed to spend analyzing a single app, we looked at common review times of app stores today.
 The Google PlayStore does not manually review newly uploaded apps, while the Apple AppStore does apply manual review to each and every app update.
-The average time it takes for an app to pass the Apple AppStore review  is currently two days.\footnote{See http://web.archive.org/web/20160513013009/http://appreviewtimes.com/, visited 05/13/2016}
+The average time it takes for an app to pass the Apple AppStore review  is currently two days.\footnote{See \url{http://web.archive.org/web/20160513013009/http://appreviewtimes.com/}, visited 05/13/2016}
 In order to be comparibly competitive with the AppStore review times, a human app reviewer of our test sample apps should not spend more than 2 days on analyzing a single app.
 
 The reviewers will document their results in a tabular form for each app.
