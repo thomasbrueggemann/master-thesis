@@ -221,18 +221,22 @@ In order to detect the usage of the internal camera, the \textit{CI212} strategy
 % CI213
 A similar approach is used by the \textit{CI213} strategy, that aims at identifying the usage of the microphone recording by utilizing the ExistenceStrategy to find microphone calling function names.
 % CI214
-
-% CI221
-
-% CI222
-
-% CI223
-
+\textit{CI214} searches the source code for the usage of the Android near-field communication (\acs{NFC}) API, via the ExistenceStrategy.
+The Android API has one particular method call to initiate a NFC connection, so detecting this feature via the ExistenceStrategy is effortless.
+% CI221, CI222 & CI223
+The strategies for \textit{CI221}, \textit{CI222} and \textit{CI223} utilize the ExistenceStrategy to detect wether the user's location is queried.
+This can either happen by calling the Global Positioning System (\acs{GPS}) location, or by using the approximate location via the internet network connections of the device.
 % CI231
-
+A fairly new technique to smart-devices is the usage of a fingerprint sensor. 
+This functionality is exposed via a single API entry-point in Android and can be detected by the \textit{CI231} strategy using the ExistenceStrategy.
 % CI242
-
+Also exposed via a single API entry-point is the ability to store and retrieve cookies\footnote{Cookies are blabla definition}.
+Therefore the \textit{CI242} strategy can effortlessly detect the usage of such cookies within an app.
 % CI243
+More difficult is the detection of potential user surveys within an app.
+\textit{CI243} uses the ExistenceStrategy to search the app source code for search words such as 'survey', 'audit' and ''.
+
+\textit{InputInformationCollectionStrategy}. Blabla
 
 
 % Evaluation of an Automated Information Privacy Risk Assessment Tool
