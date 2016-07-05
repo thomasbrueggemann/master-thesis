@@ -128,13 +128,17 @@ There are two types of strategies in \AIPRAT, generic and specific strategies.
 % Generic strategies
 Generic strategies are strategies that contain algorithms that are configurable and usable by other specific strategies.
 An example for a generic strategy is the Java-class \textit{analyze.src.strategies.ExistenceStrategy}. 
-The \textit{ExistenceStrategy} is able to scan through all source code files of an app and search for a set of words.
+% ExistenceStrategy
+The ExistenceStrategy is able to scan through all source code files of an app and search for a set of words.
 If one or more of the source code files contains one or more of the search words, the \textit{ExistenceStrategy} returns a set of source code snippets that contain the lines of code containing the search words.
 In total \AIPRAT contains eight generic strategies in the Java-package \textit{analyze.src.strategies}: DataFlowStrategy, ExistenceStrategy, InputStrategy, TraceBackStrategy, InformationCollectionStrategy, PermissionStrategy, ProviderUrlStrategy, and UrlCategoryStrategy.
+% DataFlowStrategy
 The DataFlowStrategy parses the pre-extracted dataflow \acs{XML} from the \textit{FlowDroid} preparation phase and allows iterating over all identified dataflow sources and sinks.
 Thereby, the DataFlowStrategy allows to pass parameters along that filter the sources and sinks for certain search words and provide feedback if the search words were found within sources and sinks.
+% ExistenceStrategy
 To find strings within the source code of an app, one can make use of the ExistenceStrategy. 
 This generic strategy scans the full source code of an app an collects source code lines that match a given search pattern.
+% InputStrategy
 The InputStrategy iterates over all \acs{XML} layout configuration files of an app. 
 User interface controls that are displayed within an app are declared in these \acs{XML} layout configuration files.
 The InputStrategy tries to identify all user input fields and therefore scans the layout files for the search terms 'EditText', 'AutoCompleteTextView', 'CheckBox' and 'RadioButton'.
@@ -142,15 +146,18 @@ As soon as a user input field has been found, the InputStrategy extracts all met
 The input fields meta information generally contain the user interface control 'id', a 'hint' field and a 'text' field. 
 The meta information are collected and stored together with the input field information.
 
+% TraceBackStrategy
 An important feature in static code analysis, especially for assessing information privacy risks, is to the ability to trace data flows from a source to a sink.
 With the help of the call graph construction feature of FlowDroid, the TraceBackStrategy starts at a given set of start-sinks and traverses the call graph back until either a source is found or a given search pattern is matched.
 This allows consequent strategies to define a search pattern for data flows to specific sinks.
 In the case of this thesis, we will mainly use the TraceBackStrategy to find data flows that end in a information collection scenario. 
 We define information collection as a data flow that results in storing the information either locally on the smart device the app is run, or that results in sending the information to a remote server.
+% InputInformationCollectionStrategy
 With making use of the InputStrategy and the TracebackStrategy, the InputInformationCollectionStrategy takes the user input fields analysis one step further and allows for information collection analysis.
 First, all user input fields are detected and stored. 
 In a second step, the InputInformationCollectionStrategy executes a TraceBackStrategy that starts at all available information collection sinks (local file storage and remote server connections) and traces back the call graph in an attempt to identify the user input field 'ids' within the call graph path.
 If a user input field 'id' is found, a data flow towards an information collection sink is identified and a potential \ipr revealed.
+% PermissionStrategy
 A less sophisticated approach is being used by the PermissionStrategy.
 It is required for Android apps to declare permissions to use certain features, such as the \acs{GPS} location or internet access, within the 'manifest' file.
 The PermissionStrategy enables a search through these permissions by a given search pattern.
@@ -237,20 +244,30 @@ More difficult is the detection of potential user surveys within an app.
 \textit{CI243} uses the ExistenceStrategy to search the app source code for search words such as 'survey', 'audit' and ''.
 
 % InputInformationCollectionStrategy
-\textit{InputInformationCollectionStrategy}. Blabla
-
+\textit{InputInformationCollectionStrategy}. The following strategies try to identify dataflows from text input fields to information collection sinks.
 % CI321
-
+\textit{CI321} tries to identify dataflows from financial identification input fields. 
+Financial identifier text input fields will be identified by using the search words: 'creditcard', 'cvc', 'iban', 'bic', 'bankaccount', 'bank', 'mastercard', 'paypal' and 'visa'.
+If none of the search words are found within the identifiers of text input fields the probability property of the result object is set to \textit{MEDIUM}.
+This is because the list of search words might not be complete or the text input field are named in a non expressive way.
+For example the text input fields might be named 'id=123456' instead of something expressive such as 'id=txtIBAN'.
+The just explained propability property value '\textit{MEDIUM}' for non-found input information collection dataflows holds true for the rest of the following strategies that use the InputInformationCollectionStrategy.
 % CI322
-
+Strategy \textit{CI322} tries to recognize government identifier dataflows within the app and uses the search words 'socialsecurity', 'insurance', 'tax', 'SSN', 'national', 'government' and 'identification'.
 % CI323
-
+\textit{CI323} only needs to identify the information collection of the name of the users, it utilizes the InputInformationCollectionStrategy with the search word 'name'. 
+This automatically includes a search for 'surname' and for example 'middlename', since the InputInformationCollectionStrategy always performs a substring search within the text input field identifiers.
 % CI324
-
+The search words to identify an online contact of users are more definite.
+Online contact information refers to the different ways users can be contacted online, for example via 'email', 'skype', 'facebook', 'twitter', 'chat' and many more.
+\textit{CI324} uses the previously mentioned search words to identify dataflows of online contact information to information collection sinks.
 % CI325
-
+In contrast to the online contact information, the strategy for \textit{CI325} tries to identify information collection of physical contact information.
+This refers to the address of users or their phone number.
 % CI326
-
+To identify users within an app itself, app providers implement their own unique user identifiers into the apps.
+A unique user identifier could be a username, email address, and assigned Universally Unique Identifier (\acs{UUID}) or a password.
+These unique user identifier information collection dataflows are detected by strategy \textit{CI326}.
 % CI341
 
 % CI343
