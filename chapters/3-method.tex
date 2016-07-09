@@ -31,7 +31,7 @@ We used the repository database to loop over the available mHealth app listings 
 As soon as the package name of an app is gathered, the download of the \acs{APK} file can begin. 
 While there is no official source to download \acs{APK} files for Android apps, a multitude of websites exist that host copies of \acs{APK} files to download for free.
 Unfortunately, all of these websites implement mechanisms that make it impossible to browse and download the APK files programatically within a download script.
-Instead, we used a open source Python implementation of an undocumented Google PlayStore \acs{API}.\footnote{\url{https://web.archive.org/web/20140920061441/https://github.com/egirault/googleplay-api}, visited 05/12/16} 
+Instead, we used a open source Python implementation of an undocumented Google PlayStore \acs{API}.\footnote{\url{https://web.archive.org/web/20140920061441/https://github.com/egirault/googleplay-api}, visited 05/12/16.} 
 The undocumented part of the Google API allows users to download APK files 
 Even though the project has not been maintained for four years, the software is still in working order.
 The Python script authenticates to the Google API via the hardware ID of an Android smartphone or tablet and pretends to request data from this smartphone or tablet, even though the requests are sent from a desktop computer.
@@ -46,7 +46,7 @@ We then waited a couple of hours and tried the download script again, which woul
 \subsubsection{Decompilation Phase}
 
 In order to decompile the amount of APK files available, it is necessary to automate the process. 
-The automation script\footnote{\url{https://github.com/thomasbrueggemann/AIPRAT/blob/master/decompile/decompile.sh}} uses a chain of tools to gather access to the source code files from an APK file.
+The automation script\footnote{\url{https://github.com/thomasbrueggemann/AIPRAT/blob/master/decompile/decompile.sh}, visited 05/17/16.} uses a chain of tools to gather access to the source code files from an APK file.
 The tools used to decompile the APK files follow closely the tools described and used by \cite{Enck2011}.\footnote{See \cite{Enck2011}, p. 5.}
 
 In a first step, we use the tool \textit{dex2jar} to extract the \acs{JAR} file from the APK file.
@@ -55,13 +55,13 @@ The next step is to extract resource files, such as the \textit{Android Manifest
 The \textit{Android Manifest} contains meta information about the app in a structured XML format.\footnote{See for this and the next sentence \cite{xu2013}, p. 7 and \cite{Shabtai2010}, p. 331.}
 The meta information include the package name of the app, the permissions the app requests, e.g. camera usage, internet access or geolocation usage.
 The \textit{Android Manifest} file is therefore an important indicator at a high level view on activities within a given app.
-In order to extract the \textit{Android Manifest} file from the APK file along with other resources such as images, icons, xml files or other files used within the app, we use the \textit{apktool}\footnote{\url{https://web.archive.org/web/20160617041519/http://ibotpeaches.github.io/Apktool/}, visited 06/17/16}.
+In order to extract the \textit{Android Manifest} file from the APK file along with other resources such as images, icons, xml files or other files used within the app, we use the \textit{apktool}\footnote{\url{https://web.archive.org/web/20160617041519/http://ibotpeaches.github.io/Apktool/}, visited 06/17/16.}.
 \textit{apktool} is a frequently updated Android reverse engineering tool that is used to extract resources from APK files.
 Another important part of the extraction of resource files is retrieving the layout and localization files.
 These files include information on the user interface components used within the app as well as text content for labels and text fields.
 The text content will be used to train machine learning algorithms to classify features of the app, further described in the analysis phase section below.
 
-At the core of the decompilation process is the usage of \textit{fernflower}\footnote{\url{https://web.archive.org/web/20150808204302/https://github.com/fesh0r/fernflower}, visited 05/24/16}.
+At the core of the decompilation process is the usage of \textit{fernflower}\footnote{\url{https://web.archive.org/web/20150808204302/https://github.com/fesh0r/fernflower}, visited 05/24/16.}.
 \textit{fernflower} is the recommended java decompiler by \cite{Enck2011}. 
 They used the tool to decompile a test sample of apps and gained a significantly higher code recovery rate than by using other decompiling tools.\footnote{See \cite{Enck2011}, p. 6.}
 An obstacle in decompiling java source code is obfuscation. 
@@ -69,7 +69,7 @@ Java developers can make use of a security feature called obfuscation that aims 
 The idea is to make it more difficult to retrieve and make sense of the original source code by decompiling the byte code.
 \textit{fernflower} uses a renaming approach by assigning every obfuscated class with a new naming pattern. 
 Member variables and methods will be automatically renamed and therefore provide an easier and more unique way of reading the source code.
-Optionally the decompilation process can use an automatic code formatting tool called \textit{astyle}\footnote{\url{https://web.archive.org/web/20160422015538/http://astyle.sourceforge.net/}, visited 05/25/16} to format the source code.
+Optionally the decompilation process can use an automatic code formatting tool called \textit{astyle}\footnote{\url{https://web.archive.org/web/20160422015538/http://astyle.sourceforge.net/}, visited 05/25/16.} to format the source code.
 This helps humans to read the source code files more easily, since the formatting and indentation of all source code files is identical and therefore very structured.
 Formatting the source code will help in the evaluation phase of this thesis to support the manual inspection the source code for \ipr by human researchers.
 
@@ -110,7 +110,7 @@ In the case of the \sca in this study, we will be using the \nbc to classify URL
 The categories that URLs can belong to, in the context of this study, are: advertisement, delivery services, government, instant-messaging, (data-) aggregation services, search engines and social networks.
 While the set of categories might not complete in terms of all possible and available categories, it is sufficient for the classification of URLs within this \sca to classify into the mentioned category-set.
 In oder for the \nbc to classify text into categories we trained a \nbc implementation with meta-information about URLs from the previously mentioned categories.
-First, it was necessary to collect URLs for the categories to train the \nbc and we used a collection of \acs{URL}s from \textit{URLBlacklist.com}\footnote{\url{https://web.archive.org/web/20160617050003/http://urlblacklist.com/?sec=download}, visited 06/17/16}.
+First, it was necessary to collect URLs for the categories to train the \nbc and we used a collection of \acs{URL}s from \textit{URLBlacklist.com}\footnote{\url{https://web.archive.org/web/20160617050003/http://urlblacklist.com/?sec=download}, visited 06/17/16.}.
 \textit{URLBlacklist.com} provides URL lists for the categories advertisement, government, instant-messaging, search engines and social networks.
 \textit{programmableweb.com} catalogues API descriptions including the service providers' URL.
 We developed a program to automatically download and store the API directory for the two remaining categories, from \textit{programmableweb.com}.
@@ -192,7 +192,7 @@ The \textit{CI213\textunderscore Strategy} class scans via the parent-class \tex
 	\end{tabular}
 	\end{center}
 	
-	\caption{Specific strategies in relation to the generic strategies they make use of.} 
+	\caption{Specific strategies in relation to the generic strategies that they make use of.} 
 	\label{table:specStrategies}
 \end{table}
 
@@ -217,7 +217,7 @@ Strategy \textit{CH33} uses the generic ExistenceStrategy extensively to identif
 All search words are names of Android advertisement library identifiers and are derived from the analysis of Android ad libraries by \cite{Book2013}.\footnote{See \cite{Book2013}, p. 9.}
 % CH35
 In order to scan the source code of an app for the usage of analytics services, as stated in the hierarchy item \textit{CH35}, the strategy implementation for \textit{CH35} uses the ExistenceStrategy to check for analytics services and libraries search words.
-The search words are derived from the open-source listing of Android libraries on https://android-arsenal.com in the category 'Analytics'.\footnote{\url{http://web.archive.org/web/20160514040053/http://android-arsenal.com/tag/5}, visited 07/03/16}
+The search words are derived from the open-source listing of Android libraries on https://android-arsenal.com in the category 'Analytics'.\footnote{\url{http://web.archive.org/web/20160514040053/http://android-arsenal.com/tag/5}, visited 07/03/16.}
 % CH43 & CH44
 \textit{CH43} and \textit{CH44} search for function names that indicate a writing of data to the internal or external storage of an Android device.
 Internal and external storage can be a local database that every Android app instance can write to, the filesystem or a 'shared preferences' key value store, provided by the Android runtime.
@@ -237,7 +237,7 @@ This can either happen by calling the Global Positioning System (\acs{GPS}) loca
 A fairly new technique to smart-devices is the usage of a fingerprint sensor. 
 This functionality is exposed via a single API entry-point in Android and can be detected by the \textit{CI231} strategy using the ExistenceStrategy.
 % CI242
-Also exposed via a single API entry-point is the ability to store and retrieve cookies\footnote{Cookies are blabla definition}.
+Also exposed via a single API entry-point is the ability to store and retrieve cookies\footnote{Cookies are pieces of information stored on the client device, accessible only by the provider that stored the cookie information until they expire. See \cite{Laudon2010}, p. 168.}.
 Therefore the \textit{CI242} strategy can effortlessly detect the usage of such cookies within an app.
 % CI243
 More difficult is the detection of potential user surveys within an app.
@@ -248,10 +248,10 @@ More difficult is the detection of potential user surveys within an app.
 % CI321
 \textit{CI321} tries to identify dataflows from financial identification input fields. 
 Financial identifier text input fields will be identified by using the search words: 'creditcard', 'cvc', 'iban', 'bic', 'bankaccount', 'bank', 'mastercard', 'paypal' and 'visa'.
-If none of the search words are found within the identifiers of text input fields the probability property of the result object is set to \textit{MEDIUM}.
+If none of the search words are found within the identifiers of text input fields the certainty property of the result object is set to \textit{MEDIUM}.
 This is because the list of search words might not be complete or the text input field are named in a non expressive way.
 For example the text input fields might be named 'id=123456' instead of something expressive such as 'id=txtIBAN'.
-The just explained propability property value '\textit{MEDIUM}' for non-found input information collection dataflows holds true for the rest of the following strategies that use the InputInformationCollectionStrategy.
+The just explained certainty property value '\textit{MEDIUM}' for non-found input information collection dataflows holds true for the rest of the following strategies that use the InputInformationCollectionStrategy.
 % CI322
 Strategy \textit{CI322} tries to recognize government identifier dataflows within the app and uses the search words 'socialsecurity', 'insurance', 'tax', 'SSN', 'national', 'government' and 'identification'.
 % CI323
@@ -269,14 +269,102 @@ To identify users within an app itself, app providers implement their own unique
 A unique user identifier could be a username, email address, and assigned Universally Unique Identifier (\acs{UUID}) or a password.
 These unique user identifier information collection dataflows are detected by strategy \textit{CI326}.
 % CI341
-
+Strategy \textit{CI341} detects information collection of demographic information.
+The search words for demographic information are derived from the survey recommendations for demographic standards from the German 'Statistisches Bundesamt'.\footnote{\raggedright See \url{https://web.archive.org/web/20151115091328/https://www.destatis.de/DE/Methoden/DemografischeRegionaleStandards/Fragebogen_schriftlich.pdf?__blob=publicationFile}, visited 07/05/16.}
 % CI343
-
+The strategy \textit{CI343} tries to identify users health information collection dataflows.
+Here, the search words are derived from the manual review of mHealth apps by \textcite{Bruggemann2016}. 
+The extensive health content search words are 'dosage', 'pill', 'blood', 'heart', 'bloodpressure', 'bloodsugar', 'heartrate', 'disease', 'symptom', 'weight', 'height', 'body', 'bmi', 'temperature', 'medical', 'doctor', 'calories', 'diet', 'sleep', 'carbon', 'hydrate', 'intake', 'haemoglobin', 'anaesthetic', 'urine' and 'hospital'.
 % CI344
-
+Ideological content, such as believes or membership of religious or political groups, information collection is detected by the strategy \textit{CI344}.
+Input fields asking for membership of political parties for example, could be designed as option choice buttons and are captured by the InputInformationCollectionStrategy as well.
 % CI345
-
+Preferences of the users are difficult to capture, since preference-capturing input fields usually are connected to some sort of context, that users are asked their preferences about.
+For the sake of this thesis, we will scan the input fields for expressions of preference, for example: 'like', 'dislike', 'favourite', 'favorite', 'preference' and 'prefered'.
+We acknowledge that in case we did not find any preference capturing input field information collection, the certainty for this is at a level \textit{'LOW'}.
+It is much more likely that we were unable to identify the information collection in that case.
 % CI346
+The last strategy using the generic InputInformationCollectionStrategy is the strategy for \textit{CI346}. 
+Strategy \textit{CI346} tries to identify information collection of user device information, such as the Internet Protocol (\acs{IP}) address or the operating system name.
+
+% InputStrategy
+\textit{InputStrategy}. The generic InputStrategy is only used by a single specific strategy.
+The strategy for \textit{CI314} tries to detect and list all of the input fields a user can input information into, within the app.
+This is completely done by executing the InputStrategy, explained earlier in this chapter.
+
+% PermissionsStrategy
+\textit{PermissionsStrategy}.
+% CH43 & CH44
+The strategies for \textit{CH43} and \textit{CH44} check, as an additional condition, if a permission to write on external and internal storage is requested.
+Only if a permission is declared, an app is allowed to use the coherent functionality of the Android API.
+This is granted by the Android runtime.
+% CI211
+The strategy for \textit{CI211} relies solely on the generic PermissionsStrategy to identify the usage of Bluetooth functionality within the app.
+An Android app is not granted access to the Bluetooth interface, if it does not declare the appropriate permission.
+\textit{CI211} uses the PermissionsStrategy only, because Bluetooth interface APIs are not standardized and not easy to detect individually.
+To 
+% CI212 & CI214 & CI231
+The previously described strategy implementations for \textit{CI212}, \textit{CI214} and \textit{CI231} behave in the same way as \textit{CH43} and \textit{CH44}.
+They use the PermissionsStrategy as an additional condition, to detect the usage of the camera, near field communication \acs{NFC} and the fingerprint sensor.
+
+% ProviderUrlStrategy
+\textit{ProviderUrlStrategy}.
+% CH45
+The only specific strategy using the generic ProviderUrlStrategy is the strategy for \textit{CH45}.
+It uses a list of all potential URLs that belong to the app provider, to identify information collection that sends data to the app providers servers.
+
+% TraceBackStrategy
+\textit{TraceBackStrategy}.
+% CH45
+Strategy \textit{CH45} uses, additionally to the ProviderUrlStrategy, the generic TraceBackStrategy.
+It traces information collection flows to the previously detected app provider URLs.
+% CH22
+Dataflows that result in file storage on the internal flash drive or an external storage card can also be identified with the generic TraceBackStrategy.
+The strategy for \textit{CH22} walks up the callgraph of all local storage collection sinks and checks if a function name containing the search words 'cipher' and 'crypt' was found along the way.
+This would indicate that data stored on the local storage is stored in an encrypted way.
+% CH21
+The strategy \textit{CH21} uses a special case of the TraceBackStrategy, executed in \textit{CH22}.
+It uses an inverted sink parameter.
+This means, that it will trace all dataflows in the callgraph that do not match a start sink search word.
+It is therefore easy to trace all dataflows that do not end in a local storage sink.
+This allows strategy \textit{CH21} to identify if encryption is used during processing of data, rather than storage.
+% CH42
+Strategy \textit{CH42} tries to identify information collection at cloud storage providers.
+Since it is virtually impossible to know, list and check for every possible cloud storage provider, the strategy searches for the word 'cloud' within dataflows that result in an information collection sink.
+We acknowledge the low probability of actually finding a cloud storage dataflow with this technique by setting the certainty level of the result to \textit{'LOW'} by default.
+% CI221 & CI333
+A much higher success rate is promised by the standardized Android API to query the users location.
+Detecting dataflows from these location queries to information collection sinks is done by the \textit{CI221} and \textit{CI333} strategies, mainly by searching for the usage of the 'LocationManager' object in Java.
+The 'LocationManager' is the single point of entry to query the users location.
+% CI311
+A similar unambiguity is present for the detection of audio information collection.
+While the callgraph is being traversed, strategy \textit{CI311} tries to identify function calls that contains the following search words: 'microphone', 'audio', 'recorder', 'mediarecorder', 'music' and 'sound'.
+% CI312
+The strategy for \textit{CI312} tries to detect the information collection of image information and therefore uses the search words 'picture', 'ACTION\textunderscore IMAGE\textunderscore CAPTURE', 'MEDIA\textunderscore TYPE\textunderscore IMAGE', 'CAPTURE\textunderscore IMAGE', 'image', 'setImageDrawable' and 'Bitmap'.
+Central to image processing in Android is the 'Bitmap' object, as it is the binary representation of an image.
+Detecting the usage of the 'Bitmap' object in an information collection callgraph path therefore yields a potential image information collection.
+% CI315
+The same holds true for strategy \textit{CI315}. 
+In comparison to \textit{CI312}, \textit{CI315} tries to detect the information collection of video information.
+Video processing in Android works immaturely different, than photo processing.
+Instead of manipulating a 'Bitmap' object, as for the photo processing, videos are stored by the Android API and accessible via an uniform resource identifier (\acs{URI}).\footnote{\raggedright See \url{http://web.archive.org/web/20160425094249/https://developer.android.com/training/camera/videobasics.html}, visited 07/09/16}
+Therefore the \textit{CI315} strategy can only detect video capturing information collection.
+% CI335 
+Strategy \textit{CI335} identifies information collection of the users contacts stored in his address book.
+Querying the contacts via the Android API is always done via the 'ContactsContract' object.
+The \textit{CI335} strategy can therefore easily detect information collection dataflows of users contacts by using the TraceBackStrategy.
+
+% UrlCategoryStrategy
+\textit{UrlCategoryStrategy}.
+As explained earlier in this chapter, the generic UrlCategoryStrategy preloads its training data of \acs{URL} classification into main memory at program start-time.
+From then on, the UrlCategoryStrategy can be queried for 
+% CH34
+
+% CH36
+
+% CH37
+
+% CH46
 
 % Evaluation of an Automated Information Privacy Risk Assessment Tool
 \subsection{Evaluation of an Automated Information Privacy Risk Assessment Tool}
@@ -289,7 +377,7 @@ This will result in an overview comparison on how well the \aiprat performs in c
 We acknowledge that a human app reviewer can almost find any \ipp risk within the app source code given enough time.
 In order to find an appropriate time range that the human review is allowed to spend analyzing a single app, we looked at common review times of app stores today.
 The Google PlayStore does not manually review newly uploaded apps, while the Apple AppStore does apply manual review to each and every app update.
-The average time it takes for an app to pass the Apple AppStore review  is currently two days.\footnote{See \url{http://web.archive.org/web/20160513013009/http://appreviewtimes.com/}, visited 05/13/16}
+The average time it takes for an app to pass the Apple AppStore review  is currently two days.\footnote{See \url{http://web.archive.org/web/20160513013009/http://appreviewtimes.com/}, visited 05/13/16.}
 In order to be comparibly competitive with the AppStore review times, a human app reviewer of our test sample apps should not spend more than 2 days on analyzing a single app.
 
 The reviewers will document their results in a tabular form for each app.
