@@ -357,14 +357,17 @@ The \textit{CI335} strategy can therefore easily detect information collection d
 % UrlCategoryStrategy
 \textit{UrlCategoryStrategy}.
 As explained earlier in this chapter, the generic UrlCategoryStrategy preloads its training data of \acs{URL} classification into main memory at program start-time.
-From then on, the UrlCategoryStrategy can be queried for 
+From then on, the UrlCategoryStrategy can be queried if certain URL categories are present within the currently inspected app. 
 % CH34
-
+Strategy \textit{CH34} searches for URLs that belong to a data aggregation service that potentially aggregates the users data.
 % CH36
-
+The \textit{CH36} strategy searches for URL connections to delivery services.
+Delivery services can be postal service, package shipping or other logistic services.
 % CH37
-
+URLs to government institutions are identified by the \textit{CH37} strategy using the generic UrlCategoryStrategy.
 % CH46
+Finally, the \textit{CH46} strategy tries to detect URL connections to storage providers.
+Storage providers refers to cloud storage or bulk data storage services that allow external data storage.
 
 % Evaluation of an Automated Information Privacy Risk Assessment Tool
 \subsection{Evaluation of an Automated Information Privacy Risk Assessment Tool}
