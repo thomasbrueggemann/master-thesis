@@ -1,26 +1,26 @@
 \section{Combining Source Code Analysis with Information Privacy Risk Assessment}
 
 \mH apps have been examined in various research studies that aim at providing insights for developers as well as users into how private information is processed.
-Privacy issues are the most impactful user complaint while using mobile apps.\footnote{See \cite{Khalid2015}, p. 5.}
+Privacy issues are the most impactful user complaints while using mobile apps.\footnote{See \cite{Khalid2015}, p. 5.}
 Especially \mH apps deal with sensitive and vulnerable user information and therefore pose a high information privacy risk. \footnote{See \cite{Kumar2013}, p. 33.}
 This encourages research to address information privacy risks.
 
 \subsection{Information Privacy Risk Assessment}
 
-Information privacy is defined as the fact that people are able to control if, how and where information and knowledge about themselves is acquired, stored and processed.\footnote{See \cite{Fischer1998}, p. 421-422.}
+Information privacy is defined as the circumstance that people are able to control if, how and where information and knowledge about themselves is acquired, stored and processed.\footnote{See \cite{Fischer1998}, p. 421-422.}
 In addition to mere control over the users private information, society and social structure must establish an information regulation architecture that allows people to sustainably enforce their information privacy rights.\footnote{See \cite{Solove2002}, p. 1115.}
-An information privacy risk is therefore by implication a threat or a circumstance that disables users to enforce control over their private information.
+An information privacy risk is therefore, by implication, a threat or a circumstance that disables users to enforce control over their private information.
 Threats to information privacy in digital services can happen at application level (e.g. by sharing users' personal information with third-parties), as well as at communication level (e.g. by using an unencrypted data connection).\footnote{See \cite{Fischer1998}, p. 423-427.}
 
 Research focus has been put on the technical side of information privacy breach. 
 It has been analyzed, to what degree the data storage in internal Android log files or on the memory card within a phone or tablet as well as data connections to the Internet pose threats to users information privacy.\footnote{For this and the next sentence, see \cite{He2014}, p. 645-646, 649.}
 Special focus has been put on unencrypted \acl{HTTP} (\acs{HTTP}) connections that send out user information to either the app providers servers or third party services.
-The assessment has been carried out using the network analysis tool \textit{Wireshark} that logs all HTTP traffic.\footnote{See \cite{He2014}, p. 649.}
+The assessment has been carried out using the network analysis tool \textit{Wireshark}\footnote{\url{https://web.archive.org/web/20160710141347/https://www.wireshark.org/}, visited 07/13/16} that logs all HTTP traffic.\footnote{See \cite{He2014}, p. 649.}
 Technical evaluation of mobile apps even goes further into the topics of decompilation to analyze device identification or geolocation data leaks.\footnote{See \cite{Mcclurg2012}, p. 1, 5., \cite{Enck2011}, p. 1. and \cite{Mitchell2013}, p.6-7.}
-Decompilation reveals to be a feasible assessment technique for \ipr and data leaks.
+In conclusion, decompilation is a widely used assessment technique for \ipr and data leaks.
 
-In informatics and software development contexts, \sca has been used to analyze source code and provide feedback on coding styles to the users  while programming or "to find defects in programs"\footnote{\cite{Bardas2010}, p. 1.}.
-\Sca provides a fast way to analyze source code\footnote{See \cite{Bardas2010}, p. 5.}, which makes it suitable to automate the assessment of large datasets.
+In informatics and software development contexts, \sca has been used to analyze source code\footnote{See \cite{Haris2014}, p.  5.} and provide feedback on coding styles to the users while programming\footnote{See \cite{Bardas2010}, p. 10.} or "to find defects in programs"\footnote{\cite{Bardas2010}, p. 1.}.
+\Sca provides a fast way to analyze source code,\footnote{See \cite{Bardas2010}, p. 5.} which makes it suitable to automate the assessment of large datasets.
 A further benefit of using \sca to retrieve information from software is that the software does not need to be executed during the analyzation process.
 This additionally supports the development of fast performing assessment tools that are suitable for application on large datasets of source code since there is no need to wait for the application runtime to execute the software.
 
@@ -41,8 +41,8 @@ For this thesis, we will use the set of \ipp extracted from literature, the Plat
 \Ipp are common practices of informing users about the information privacy practices of an app that app providers should follow in order to achieve higher levels of transparency.
 A hierarchy of \ipp is formed by clustering the \ipp by their content aspects. 
 The top level of the hierarchy are 'Content' and 'Practice'.
-The 'Content' hierarchy level contains sub-hierarchy branches that express \ipp concerning the handling of information content, the information collection content and meta content about information collection, information on offered privacy controls and information on what purpose the \ipp was collected for.
-The sub-hierarchy branches of the top-level 'Practice' contain e.g. information on the existence of dispute resolution practices or access rights practices of the users.
+The 'Content' hierarchy level contains sub-hierarchy branches that express \ipp concerning the handling of information content, the information collection content, and meta content about information collection, information on offered privacy controls, and information on what purpose the \ipp was collected for.
+The sub-hierarchy branches of the top-level 'Practice' contain for instance information on the existence of dispute resolution practices or access rights practices of the users.
 
 We argue that if a \ipp is a circumstance that the user should be informed about, an \ipp expresses an \ipr to the app user.
 But since not all of the enlisted \ipp express or imply an \ipr to app users, we review and extract the \ipp that are relevant in terms of posing and expressing a potential information privacy risk.

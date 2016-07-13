@@ -7,18 +7,24 @@ We will also present the results on how well the \aiprat performs in comparison 
 
 \subsubsection{Download Phase}
 
-The original dataset from the \cite{Xu2015} repository of app store listings contains 5379 app entries from the Google PlayStore in the category 'Medical' and 'Health and Fitness'.
-From this original dataset we extracted the 3180 free apps for further inspection.
-It was possible to download 2250 app APK files via the undocumented Google API.
+The original dataset from the \cite{Xu2015} repository of app store listings contains 5\,379 app entries from the Google PlayStore in the category 'Medical' and 'Health and Fitness'.
+From this original dataset we extracted the 3\,180 free apps for further inspection.
+It was possible to download 2\,250 app APK files via the undocumented Google API.
 The remaining 930 APK files either returned a Google authentication error or were not available on the Google PlayStore anymore.
 
-Downloading the 2250 APK files took multiple download-runs over the whole dataset, since the Google API only allows a certain amount of download requests per time unit.
+Downloading the 2\,250 APK files took multiple download-runs over the whole dataset, since the Google API only allows a certain amount of download requests per time unit.
 The number of allowed download requests varied throughout the download phase and could not be detected exactly.
 Various tests downloading APK files automatically via websites like apkpure.com\footnote{\url{https://web.archive.org/web/20160528165049/https://apkpure.com/}, visited 06/05/2016} or apk-dl.com\footnote{\url{https://web.archive.org/web/20160518104842/https://apk-dl.com}, visited 06/05/2016} failed due to those websites effectively blocking automated non-browser traffic.
-The download of the 2250 APK files took 11 days in total and 18 restart attempts of the download script.
+The download of the 2\,250 APK files took 11 days in total and 18 restart attempts of the download script.
 
 \subsubsection{Decompilation Phase}
 
+From the downloaded 2\,250 APK files, 571 could be decompiled. 
+The decompilation of a single APK file took 3 minutes in average.
+
+Reasons for decompilation failure are heavily obfuscated source code, that forced the decompiler to abort the process and memory exceptions.
+Memory exceptions appear if the source code files of the currently decompiled app exceed the size of the available main memory of the computer that performs the decompilation.
+This memory exceeding happens due to the fact, that \textit{fernflower} keeps all source code file representations in main memory
 
 \subsubsection{Static Code Analysis Phase}
 

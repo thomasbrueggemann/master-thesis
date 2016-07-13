@@ -3,20 +3,20 @@
 % Implementation of an Automated Information Privacy Risk Assessment Tool
 \subsection{Implementation of an Automated Information Privacy Risk Assessment Tool}
 
-The implementation of an \aiprat is structured in three phases.
+Our implementation of an \aiprat is structured in three phases.
 In the first phase, Android APK files need to be downloaded to acquire the foundation of a static code analysis: the source code.
 While APK files are binary representations of source code, it is necessary, in a second phase, to decompile to binary code back into actual source files.
 The third phase is the analysis phase, where the information privacy risk assessment takes place.
 
-Figure \ref{fig:implementationPhases} shows the implementation phases over time including the tools used within each phase. 
-The tools will be described in greater detail within the following chapters.
-
 \begin{figure}[h]
+	\label{fig:implementationPhases}
 	\centering
 	\includegraphics[keepaspectratio=true,width=400pt]{figures/ImplementationFlow.png}
-	\label{fig:implementationPhases}
 	\caption{Diagram of implementation phases of the \aiprat over time.}
 \end{figure}
+
+Figure 3-1 shows the implementation phases over time including the tools used within each phase. 
+The tools will be described in greater detail within the following chapters.
 
 % Download Phase
 \subsubsection{Download Phase}
@@ -24,15 +24,15 @@ The tools will be described in greater detail within the following chapters.
 The download phase is the first of the three implementation phases and comprises the acquisition of Android APK files. 
 The APK files hold the necessary Java source code that we will perform the \sca on.
 Since this thesis emphases on Android mHealth apps, we used the repository database of \cite{Xu2015} as our main app data source.\footnote{This paragraph follows \cite{Xu2015}.}
-\cite{Xu2015} list mHealth apps from the Apple AppStore and Android PlayStore and update their repository quarterly by scraping the app stores.
-The list contains information for example on the app's id, category in the app stores, description, email address of the developer, price and the user rating of the app.
+\cite{Xu2015} list mHealth apps from the Apple AppStore\footnote{\url{https://itunes.apple.com}, visited 07/13/16} and Android PlayStore\footnote{\url{https://play.google.com}, visited 07/13/16} and update their repository quarterly by scraping the app stores.
+The list contains information for example on the app's identifier, category in the app stores, description, email address of the developer, price and the user rating of the app.
 
-We used the repository database to loop over the available mHealth app listings and filtered out the apps that were available for free, indicated by a price of \$0.00.
+We used the repository database to loop over the available mHealth app listings and included only the apps that were available for free, indicated by a price of \$0.00.
 As soon as the package name of an app is gathered, the download of the \acs{APK} file can begin. 
 While there is no official source to download \acs{APK} files for Android apps, a multitude of websites exist that host copies of \acs{APK} files to download for free.
 Unfortunately, all of these websites implement mechanisms that make it impossible to browse and download the APK files programatically within a download script.
 Instead, we used a open source Python implementation of an undocumented Google PlayStore \acs{API}.\footnote{\url{https://web.archive.org/web/20140920061441/https://github.com/egirault/googleplay-api}, visited 05/12/16.} 
-The undocumented part of the Google API allows users to download APK files 
+The undocumented part of the Google API allows users to download APK files.
 Even though the project has not been maintained for four years, the software is still in working order.
 The Python script authenticates to the Google API via the hardware ID of an Android smartphone or tablet and pretends to request data from this smartphone or tablet, even though the requests are sent from a desktop computer.
 We used a real Android tablet to detect its hardware ID and authenticate the Google API requests with this hardware ID.
@@ -53,7 +53,7 @@ In a first step, we use the tool \textit{dex2jar} to extract the \acs{JAR} file 
 The JAR file contains the java bytecode representations of the app which is just one part of the contents of an \acs{APK} file.
 The next step is to extract resource files, such as the \textit{Android Manifest} file from the APK file.
 The \textit{Android Manifest} contains meta information about the app in a structured XML format.\footnote{See for this and the next sentence \cite{xu2013}, p. 7 and \cite{Shabtai2010}, p. 331.}
-The meta information include the package name of the app, the permissions the app requests, e.g. camera usage, internet access or geolocation usage.
+The meta information include the package name of the app, the permissions the app requests, for example camera usage, internet access or geolocation usage.
 The \textit{Android Manifest} file is therefore an important indicator at a high level view on activities within a given app.
 In order to extract the \textit{Android Manifest} file from the APK file along with other resources such as images, icons, xml files or other files used within the app, we use the \textit{apktool}\footnote{\url{https://web.archive.org/web/20160617041519/http://ibotpeaches.github.io/Apktool/}, visited 06/17/16.}.
 \textit{apktool} is a frequently updated Android reverse engineering tool that is used to extract resources from APK files.
@@ -74,6 +74,9 @@ This helps humans to read the source code files more easily, since the formattin
 Formatting the source code will help in the evaluation phase of this thesis to support the manual inspection the source code for \ipr by human researchers.
 
 The expected result of the decompilation phase is a directory named after the package name of a given app that contains the resource files, including the \textit{Android Manifest} and the decompiled source code of the app.
+The decompilation will be performed in order of file size.
+The smaller the APK file the earlier it will decompiled.
+This is due the fact that only APK files to a certain size can be analysed by the dataflow analysis tool, described in section \ref{sssec:SCAP}.
 
 % Static Code Analysis Phase
 \subsubsection{Static Code Analysis Phase} \label{sssec:SCAP}
@@ -87,12 +90,12 @@ The first preparation step is to run an Android data flow analysis tool over the
 The data flow analysis is achieved with an open source tool called \textit{FlowDroid}, introduced by \cite{Arzt2014}.\footnote{See \cite{Arzt2014}, p. 259-269.}
 \textit{FlowDroid} extends the Java optimization framework \textit{Soot}, which was already used by \cite{Enck2011} for post-decompilation optimization tasks.\footnote{See \cite{Enck2011}, p. 5.}
 The data flow is analysed by scanning an intermediate byte code format provided by \textit{Soot} for so called 'sources' and 'sinks'.\footnote{See \cite{Arzt2014}, p. 264.}
-A source is the origin of a data flow, e.g. the user input of data via a textfield and a sink is the destination that data flows.
+A source is the origin of a data flow, for instance the user input of data via a textfield and a sink is the destination that data flows.
 An example for a sink is a HTTP internet connection or a local log file.
 \textit{FlowDroid} is also able to emulate Android lifecycle entry points.
 While a regular Java program has a single entry point to start the application from, the \textit{main()} function, Android apps provide multiple entry points.
 The entry points of an Android app are determined by the states an app can be in. 
-It can e.g. return from being in the background, do a fresh start and return from being offline.
+It can for instance return from being in the background, do a fresh start and return from being offline.
 All these entry points are being emulated by \textit{FlowDroid} into a single \textit{main()} function call.
 The output of the data flow analysis is one XML file per analysed APK file that contains a list of sinks and the coherent sources of data flows to that sink.
 The XML file will be parsed by the main \sca tool later on and the sink and source methods will be interpreted in the context of information privacy risks.
@@ -115,14 +118,14 @@ First, it was necessary to collect URLs for the categories to train the \nbc and
 \textit{programmableweb.com} catalogues API descriptions including the service providers' URL.
 We developed a program to automatically download and store the API directory for the two remaining categories, from \textit{programmableweb.com}.
 
-Next, to acquire meta-information for all the URLs, we implement a downloader for the HTML source-code of all URLs and store the 'description' HTML-meta tag content in a file.
+Next, to acquire meta-information for all the URLs, we implement a downloader for the HTML source-code of all URLs and store the 'description' HTML-meta tag content in a file.\footnote{For this and the next sentence see \url{https://web.archive.org/web/20160404111603/http://www.w3.org/wiki/HTML/Elements/meta}, visited 07/13/16.}
 The 'description' meta-tag contains a small amount of text, provided by the website owner, that describes the content or function of the website topic.
 We use this 'description' meta-information to train the classifier with the associated categories.\newline
 
 As soon as the preparation steps are finished, the main \sca tool is ready to perform the \ipr analysis.
 We call the main \sca tool '\textit{AIPRAT}', short for \aiprat from here on.
 The fundamental concept of \AIPRAT is to iterate over all available apps and apply a set of analysis operations, called 'strategies', to the source code of these apps.
-A strategy tries to identify \iprfs by applying algorithms, e.g. feature extraction or text search, to parts of the app source code.
+A strategy tries to identify \iprfs by applying algorithms, for instance feature extraction or text search, to parts of the app source code.
 There are two types of strategies in \AIPRAT, generic and specific strategies.
 
 % Generic strategies
@@ -137,7 +140,7 @@ The DataFlowStrategy parses the pre-extracted dataflow \acs{XML} from the \texti
 Thereby, the DataFlowStrategy allows to pass parameters along that filter the sources and sinks for certain search words and provide feedback if the search words were found within sources and sinks.
 % ExistenceStrategy
 To find strings within the source code of an app, one can make use of the ExistenceStrategy. 
-This generic strategy scans the full source code of an app an collects source code lines that match a given search pattern.
+This generic strategy scans the full source code of an app and collects source code lines that match a given search pattern.
 % InputStrategy
 The InputStrategy iterates over all \acs{XML} layout configuration files of an app. 
 User interface controls that are displayed within an app are declared in these \acs{XML} layout configuration files.
@@ -151,7 +154,7 @@ An important feature in static code analysis, especially for assessing informati
 With the help of the call graph construction feature of FlowDroid, the TraceBackStrategy starts at a given set of start-sinks and traverses the call graph back until either a source is found or a given search pattern is matched.
 This allows consequent strategies to define a search pattern for data flows to specific sinks.
 In the case of this thesis, we will mainly use the TraceBackStrategy to find data flows that end in a information collection scenario. 
-We define information collection as a data flow that results in storing the information either locally on the smart device the app is run, or that results in sending the information to a remote server.
+We define information collection as a data flow that results in storing the information either locally on the device the app is run, or that results in sending the information to a remote server.
 % InputInformationCollectionStrategy
 With making use of the InputStrategy and the TracebackStrategy, the InputInformationCollectionStrategy takes the user input fields analysis one step further and allows for information collection analysis.
 First, all user input fields are detected and stored. 
@@ -241,7 +244,7 @@ Also exposed via a single API entry-point is the ability to store and retrieve c
 Therefore the \textit{CI242} strategy can effortlessly detect the usage of such cookies within an app.
 % CI243
 More difficult is the detection of potential user surveys within an app.
-\textit{CI243} uses the ExistenceStrategy to search the app source code for search words such as 'survey', 'audit' and ''.
+\textit{CI243} uses the ExistenceStrategy to search the app source code for search words such as 'survey', 'audit' and 'syllabus'.
 
 % InputInformationCollectionStrategy
 \textit{InputInformationCollectionStrategy}. The following strategies try to identify dataflows from text input fields to information collection sinks.
@@ -290,7 +293,7 @@ Strategy \textit{CI346} tries to identify information collection of user device 
 % InputStrategy
 \textit{InputStrategy}. The generic InputStrategy is only used by a single specific strategy.
 The strategy for \textit{CI314} tries to detect and list all of the input fields a user can input information into, within the app.
-This is completely done by executing the InputStrategy, explained earlier in this chapter.
+This is done by executing the InputStrategy, explained earlier in this chapter.
 
 % PermissionsStrategy
 \textit{PermissionsStrategy}.
@@ -373,15 +376,16 @@ Storage providers refers to cloud storage or bulk data storage services that all
 \subsection{Evaluation of an Automated Information Privacy Risk Assessment Tool}
 
 In order to evaluate how well the \aiprat is performing in comparison to a human researcher, we analyze a sample of three randomly chosen apps by two human researchers.
-Each researcher is presented with the source code of the random apps and the list of relevant information privacy practices to identify.
+Each researcher is presented with the source code of the selected apps and the list of relevant information privacy practices to identify.
 The task for each researcher is to identify as many \ipp as possibly by analyzing, searching and reading through the source code files. 
 This will result in an overview comparison on how well the \aiprat performs in comparison to a human.
 
+\todo{Wackelig}
 We acknowledge that a human app reviewer can almost find any \ipp risk within the app source code given enough time.
-In order to find an appropriate time range that the human review is allowed to spend analyzing a single app, we looked at common review times of app stores today.
+In order to find an appropriate time range that the human review should spend analyzing a single app, we looked at common review times of app stores today.
 The Google PlayStore does not manually review newly uploaded apps, while the Apple AppStore does apply manual review to each and every app update.
-The average time it takes for an app to pass the Apple AppStore review  is currently two days.\footnote{See \url{http://web.archive.org/web/20160513013009/http://appreviewtimes.com/}, visited 05/13/16.}
-In order to be comparibly competitive with the AppStore review times, a human app reviewer of our test sample apps should not spend more than 2 days on analyzing a single app.
+The average time it takes for an app to pass the Apple AppStore review, which also includes waiting in a queue to be reviewed, is currently two days.\footnote{See \url{http://web.archive.org/web/20160513013009/http://appreviewtimes.com/}, visited 05/13/16.}
+In order to keep the review times at a realistic level, a human app reviewer of our test sample apps should therefore not spend more than two days on analyzing a single app.
 
 The reviewers will document their results in a tabular form for each app.
 For each of the relevant \ipp the reviewers will mark if they were able to detect the \ipr the \ipp poses or not.
