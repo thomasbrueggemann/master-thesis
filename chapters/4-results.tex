@@ -19,15 +19,38 @@ The download of the 2\,250 APK files took 11 days in total and 18 restart attemp
 
 \subsubsection{Decompilation Phase}
 
-From the downloaded 2\,250 APK files, 571 could be decompiled. 
-The decompilation of a single APK file took 3 minutes in average.
+From the downloaded 2\,250 APK files, 571 were decompiled. 
+The reason that only 25\% of the 2,250 APK files were decompiled is the time that was available to write this thesis.
+The decompilation time varied from 4 minutes to 16 minutes, based on the amount and complexity of the source files of the app.
+The 571 APK files that were decompiles were selected in order of their file size.
+An app with a lower file size was chosen over an app with a larger file size.
+The reason for this is the restriction of \textit{FlowDroid} to only analyze apps that fit into main memory, explained in section \todo{Section raussuchen in der Erklärt wird, warum FlowDroid lahm ist.}.
 
+During the decompilation of the APK files from smallest file size to largest, the decompilation failed to finish in 24 cases.
 Reasons for decompilation failure are heavily obfuscated source code, that forced the decompiler to abort the process and memory exceptions.
 Memory exceptions appear if the source code files of the currently decompiled app exceed the size of the available main memory of the computer that performs the decompilation.
-This memory exceeding happens due to the fact, that \textit{fernflower} keeps all source code file representations in main memory
+This memory exceeding happens due to the fact that \textit{fernflower} keeps all source code file representations in main memory (including the Java virtual machine overhead) and therefore consumes a lot of memory.
 
 \subsubsection{Static Code Analysis Phase}
 
-\todo{Live data flow analysis does not work because of computation resources}
+The \sca phase went through three revisions. 
+The first revision was based on the idea that the \textit{FlowDroid} \acs{API} can be used within the \AIPRAT tool itself as an external library.
+This attempt failed due to the fact that \textit{FlowDroid} uses significant amounts of main memory.
+In case \textit{FlowDroid} ran out of memory, for apps with a larger or more complex source code structure, the operating system buffers the main memory to the hard disk which causes the running application to be slow.
+Further analysis was therefore impossible and the \textit{FlowDroid} analysis would take infeasible amounts of time.
+
+The second revision of the \sca phase was to outsource the \textit{FlowDroid} analysis into a separate application that precomputes the dataflows of any app in our dataset and stores the dataflow results in an \acs{XML} file format.
+The idea behind this revision was, to be able to run the \textit{FlowDroid} dataflow analysis on high performance virtual machines in the Amazon Cloud.
+We used a \textit{m4.4xlarge} instance\footnote{\url{https://web.archive.org/web/20160415154133/http://aws.amazon.com/ec2/instance-types/}, visited 07/19/16.}, which is equipped with 64 gigabytes of main memory.
+But even considering the great number of main memory available on the Amazon Cloud virtual machine, \textit{FLowDroid} was reluctant to compute the dataflow for certain apps on the dataset.
+The second downside of precomputing the dataflow analysis, is the fact that reading in the pre-computed dataflow analysis from a XML file does not provide the live-context information of using the \textit{FlowDroid} API directly within the code.
+The \textit{FlowDroid} objects that represent methods and relationships between methods are to complex to be fully stored within XML files.
+Therefore analysis of the callgraph of methods is very limited with this revisions' approach.
+
+The last and final revision of the \sca phase discovered a part of the \textit{FlowDroid} API that only computes the call graphs of apps with a limited subset of all the features that \textit{FLowDroid} yields.
+The limited subset redeemed to be completely sufficient for the analysis purposes of this thesis.
+While large and complex apps still take up the main memory quickly, the threshold of APK file size seems to have changed to rather larger files for this approach.
+Therefore, we decided to conduct the \sca on the 25\% of the apps with the smallest file size from the original dataset.
+
 
 \subsection{Evaluation of the Automated Information Privacy Risk Assessment Tool}
