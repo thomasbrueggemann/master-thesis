@@ -19,10 +19,10 @@ The download of the 2\,250 APK files took 11 days in total and 18 restart attemp
 
 \subsubsection{Decompilation Phase}
 
-From the downloaded 2\,250 APK files, 571 were decompiled. 
-The reason that only 25\% of the 2,250 APK files were decompiled is the time that was available to write this thesis.
+From the downloaded 2\,250 APK files, 355 were decompiled. 
+The reason that only 15\% of the 2,250 APK files were decompiled is the time that was available to write this thesis.
 The decompilation time varied from 4 minutes to 16 minutes, based on the amount and complexity of the source files of the app.
-The 571 APK files that were decompiles were selected in order of their file size.
+The 355 APK files that were decompiles were selected in order of their file size.
 An app with a lower file size was chosen over an app with a larger file size.
 The reason for this is the restriction of \textit{FlowDroid} to only analyze apps that fit into main memory, explained in section \todo{Section raussuchen in der Erklärt wird, warum FlowDroid lahm ist.}.
 
@@ -47,10 +47,53 @@ The second downside of precomputing the dataflow analysis, is the fact that read
 The \textit{FlowDroid} objects that represent methods and relationships between methods are to complex to be fully stored within XML files.
 Therefore analysis of the callgraph of methods is very limited with this revisions' approach.
 
-The last and final revision of the \sca phase discovered a part of the \textit{FlowDroid} API that only computes the call graphs of apps with a limited subset of all the features that \textit{FLowDroid} yields.
+The last and final revision of the \sca phase discovered a part of the \textit{FlowDroid} API that only computes the call graphs of apps with a limited subset of all the features that \textit{FlowDroid} yields.
 The limited subset redeemed to be completely sufficient for the analysis purposes of this thesis.
 While large and complex apps still take up the main memory quickly, the threshold of APK file size seems to have changed to rather larger files for this approach.
-Therefore, we decided to conduct the \sca on the 25\% of the apps with the smallest file size from the original dataset.
+Therefore, we decided to conduct the \sca on the 15\% of the apps with the smallest file size, from the original dataset.
 
+The \sca tool was able to finish the analysis on 317 apps from the decompiled 355.
+The reason for the roughly 10\% loss of apps from the decompilation to the \sca phase is mainly due to error in the generation of the callgraph by \textit{FlowDroid}.
+As mentioned before, apps could be to too large in file size for \textit{FlowDroid} to fit into main memory, and the \sca would skip to the next app.
+
+Table \ref{table:strategyResults} shows an overview of all implemented strategies to identify information privacy risks within an app and the number of found appearances throughout the \sca phase.
+While 15 of the 42 strategies did not find any results within the analysis phase, 27 did.
+In this case of an \ipr analysis, a non-found of a risk by a strategy is not necessarily a negative aspect.
+Especially the strategies for \textit{CH36} SharingWithDeliveryContent and \textit{CI344} IdeologicalContent do not particularly apply to the context of \mH apps and their information privacy risks.
+On average, 3 potential information privacy risk were found per app by the implemented strategies.
+
+\begin{table}[]
+\centering
+\caption{All implemented automatic information privacy risk assessment tool strategies and their found appearance count throughout the static code analysis phase of this thesis.}
+\label{table:strategyResults}
+\begin{tabular}{|p{10cm}|p{4cm}|}
+\hline
+Information privacy practice hierarchy identifiers  & Number of 'Found' Appearances in Results \\ \hline
+CH21, CH34, CH36, CH37, CH38, CH43, CH45, CI213, CI222, CI223, CI321, CI322, CI344, CI345, CI346  & 0   \\ \hline
+CI343 & 1   \\ \hline
+CH42, CI231  & 2   \\ \hline
+CI214 & 3   \\ \hline
+CI335 & 4   \\ \hline
+CI323 & 5   \\ \hline
+CI333, CI324, CI325 & 6   \\ \hline
+CI243 & 8   \\ \hline
+CI211 & 9   \\ \hline
+CI341 & 11  \\ \hline
+CI326 & 15  \\ \hline
+CI212 & 17  \\ \hline
+CH310, CH312 & 21  \\ \hline
+CI315 & 22  \\ \hline
+CI242 & 30  \\ \hline
+CH22  & 31  \\ \hline
+CI221 & 32  \\ \hline
+CH23  & 34  \\ \hline
+CI311 & 44  \\ \hline
+CH35  & 54  \\ \hline
+CH44  & 95  \\ \hline
+CH33  & 105 \\ \hline
+CI312 & 159 \\ \hline
+CI314 & 206 \\ \hline
+\end{tabular}
+\end{table}
 
 \subsection{Evaluation of the Automated Information Privacy Risk Assessment Tool}
