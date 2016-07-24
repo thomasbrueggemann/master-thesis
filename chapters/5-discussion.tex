@@ -1,21 +1,52 @@
 \section{Discussion}
 
-The following chapter will discuss the results and limitations of this work and provide a possible outlook into future research ideas.
+The following chapter will discuss the results and limitations of this work and provide a possible outlook into future research applications.
 
-\subsection{Principle Findings}
+\subsection{Principal Findings}
+
+\todo{Computer might not be better than Human, because Human can interpret context of e.g. obfuscated code}
 
 \subsection{Contributions}
 
-\subsection{Limitations}
+\subsection{Limitations}\label{chapter:Limitations}
 
-\todo{The machine learning approach for more strategies}
+The most effecting limitation during this study was the time constraint.
+The time constraint applies to the time we were able to implement the \aiprat as well as the time we were able to run the tool afterwards.
+It would be possible to run the analysis for longer and on more apps, with more time available and a budget for computation resources.
+
+Developing such a holistic approach on the identification of the degree a \sca might be usable to identify \ipr within \mH apps automatically resulted in cutting the implementation of the \ipr detecting strategies short, in some cases.
+While some \ipr are currently detected by using search words and scanning the source code, it would be ideal to create a tool that automatically learns search words form a training set and applies this knowledge to further app analysis.
+In order to develop a machine learning approach on detecting features or patterns in source code files, it is always necessary to have meta information on the source code lines available.
+We applied a machine learning approach to classify URLs that are called from within the app into categories. 
+We were able to acquire meta information on the URLs (the description HTML text) that allowed the classification algorithm to learn the description text words for each URL and category.
+For a Java code line there is no such thing as meta information or even the ability to break a code line into acceptable, 'learnable' features.
+In order to identify, for instance, analytics libraries it is not enough to break the source code lines of the analytics library call up, 'learn' the source code line parts and apply the 'knowledge' to further lines.
+Analytics libraries, for instance, can be called in many ways and their \acs{API}s are not uniform.
+Therefore we were unable to implement more machine learning applications other than the URL classification.
+
+Furthermore, the output of the \aiprat is a rather technical accumulation of the \sca strategy outputs.
+The results have not been aggregated into a single information privacy index or a more user friendly communication or interpretation of the information privacy risks detected.
 
 \subsection{Future Research}
 
 Since this study targeted more than one field of interest, future research can target a manifold of improvements.
 
-\todo{Use bigger machines for computation}
-\todo{Be able to run longer}
-\todo{}
+First of all, the provision of source code files could be improved. 
+Currently no access to the binary source code files of other app store provider than the Google Play Store are possible.
+Future researchers could organise partnerships with other app store providers to gain legal access to their app source code files.
+
+Another major factor of improvement is the computation power and time that we were able to spend on the decompilation and analysis phase.
+Future researchers could use dedicated computers to run the decompilation and analysis phases or even develop this software, or the memory-critical \textit{FlowDroid} toolset, further into a cluster application that runs on multiple machines.
+This could allow future researchers, with less of a time-constraint, to run the analysis on more apps and potentially gain additional insights from the results.
+
+We tried to use as many external and comprehensive resources for finding search words, if strategies called for such.
+For example the strategy for the information privacy practice hierarchy \textit{CH35} 'SharingWithAnalystContent' uses search words derived from a collection of Android analytics apps.
+These search words can be further extended, or, as mentioned in the previous chapter \ref{chapter:Limitations}, extended into a machine learning approach. 
+
+The approach of this study can also be seen as a first step towards the larger goal of providing transparency to the \ipr of, especially mHealth, apps.
+The outcome of the \aiprat could be incorporated into a user interface, similar to the user interface proposed by \textcite{Bruggemann2016}\footnote{See \cite{Bruggemann2016}, p. 1-10.}.
+In this context, future research could inspect the implications and the impact such a detailed \ipr analysis has on the users of apps and app stores, in a user study.
+
+We would also like to encourage future researchers to address the implications an integration of automated information privacy risk assessment may have on the app stores and the submitting of apps to the stores for developers.
 
 \subsection{Conclusion}

@@ -1,0 +1,4 @@
+13, com.siyami.apps.patientregister
+11, cz.ulikeit.lifesquare
+10, com.medicaljoyworks.prognosis.questions
+10, com.szyk.myheart

@@ -46,7 +46,7 @@ We then waited a couple of hours and tried the download script again, which woul
 \subsubsection{Decompilation Phase}
 
 In order to decompile the amount of APK files available, it is necessary to automate the process. 
-The automation script\footnote{\url{https://github.com/thomasbrueggemann/AIPRAT/blob/master/decompile/decompile.sh}, visited 05/17/16.} uses a chain of tools to gather access to the source code files from an APK file.
+The automation script\footnote{\raggedright \url{https://github.com/thomasbrueggemann/AIPRAT/blob/master/decompile/decompile.sh}, visited 05/17/16.} uses a chain of tools to gather access to the source code files from an APK file.
 The tools used to decompile the APK files follow closely the tools described and used by \cite{Enck2011}.\footnote{See \cite{Enck2011}, p. 5.}
 
 In a first step, we use the tool \textit{dex2jar} to extract the \acs{JAR} file from the APK file.
@@ -144,7 +144,7 @@ This generic strategy scans the full source code of an app and collects source c
 % InputStrategy
 The InputStrategy iterates over all \acs{XML} layout configuration files of an app. 
 User interface controls that are displayed within an app are declared in these \acs{XML} layout configuration files.
-The InputStrategy tries to identify all user input fields and therefore scans the layout files for the search terms 'EditText', 'AutoCompleteTextView', 'CheckBox' and 'RadioButton'.
+The InputStrategy tries to identify all user input fields and therefore scans the layout files for the search terms 'EditText', 'AutoCompleteTextView', 'CheckBox', 'RadioButton' and 'RadioGroup'.
 As soon as a user input field has been found, the InputStrategy extracts all meta information about this input field possible.
 The input fields meta information generally contain the user interface control 'id', a 'hint' field and a 'text' field. 
 The meta information are collected and stored together with the input field information.
@@ -185,12 +185,12 @@ The \textit{CI213\textunderscore Strategy} class scans via the parent-class \tex
 
 	\begin{tabular}{ | p{4.8cm} | p{9cm} | }
 	\hline
-		ExistenceStrategy & CH23, CH310, CH312, CH33, CH35, CH38, CH43, CH44, CI212, CI213, CI214, CI221, CI222, CI223, CI231, CI242, CI243 \\ \hline
+		ExistenceStrategy & CH21, CH23, CH310, CH311, CH312, CH33, CH35, CH38, CH43, CH44, CI212, CI213, CI214, CI221, CI222, CI223, CI231, CI242, CI243 \\ \hline
 		InputInformationCollection-Strategy & CI321, CI322, CI323, CI324, CI325, CI326, CI341, CI343, CI344, CI345, CI346 \\ \hline
 		InputStrategy & CI314 \\ \hline
 		PermissionsStrategy & CH43, CH44, CI211, CI212, CI214, CI231 \\ \hline
 		ProviderUrlStrategy & CH45 \\ \hline
-		TraceBackStrategy & CH21, CH22, CH42, CH45, CI221, CI311, CI312, CI315, CI333, CI335 \\ \hline
+		TraceBackStrategy & CH22, CH42, CH45, CI221, CI311, CI312, CI315, CI333, CI335, CI336 \\ \hline
 		UrlCategoryStrategy & CH34, CH36, CH37, CH46 \\ \hline
 	\end{tabular}
 	\end{center}
@@ -208,12 +208,14 @@ The specific strategy classes in this chapter and in table \ref{table:specStrate
 % ExistenceStrategy
 \textit{ExistenceStrategy}.
 The generic ExistenceStrategy ist the most widely used strategy within the analysis tool.
+% CH21
+The strategy \textit{CH21} uses the ExistanceStrategy to check for the existance of the search words 'cipher' and 'crypt' that would indicate encryption during processing of data.
 % CH23
 Strategy \textit{CH23} uses the ExistenceStrategy twice to check if data transfers are secure. 
 First strategy \textit{CH23} checks for the existence count of HTTP connections and second, it check for the existence count of HTTPS connections.
 The result of \textit{CH23} is the ratio of \acs{HTTP} to \acs{HTTPS} connections.
 % CH310 & CH312 & CH38
-The strategies \textit{CH310}, \textit{CH312} and \textit{CH38} try to identify a user initiated sharing of content with other users or the general public.
+The strategies \textit{CH310}, \textit{CH311}, \textit{CH312} and \textit{CH38} try to identify a user initiated sharing of content with other users or the general public.
 The strategies accomplish this by searching the source code of an app for triggering the Android sharing dialog window.
 Additionally we search for methods that open sharing dialogs to three large social media networks, \textit{facebook}, \textit{twitter}, and \textit{Google+}.
 % CH33
@@ -326,12 +328,6 @@ It traces information collection flows to the previously detected app provider U
 Dataflows that result in file storage on the internal flash drive or an external storage card can also be identified with the generic TraceBackStrategy.
 The strategy for \textit{CH22} walks up the callgraph of all local storage collection sinks and checks if a function name containing the search words 'cipher' and 'crypt' was found along the way.
 This would indicate that data stored on the local storage is stored in an encrypted way.
-% CH21
-The strategy \textit{CH21} uses a special case of the TraceBackStrategy, executed in \textit{CH22}.
-It uses an inverted sink parameter.
-This means, that it will trace all dataflows in the callgraph that do not match a start sink search word.
-It is therefore easy to trace all dataflows that do not end in a local storage sink.
-This allows strategy \textit{CH21} to identify if encryption is used during processing of data, rather than storage.
 % CH42
 Strategy \textit{CH42} tries to identify information collection at cloud storage providers.
 Since it is virtually impossible to know, list and check for every possible cloud storage provider, the strategy searches for the word 'cloud' within dataflows that result in an information collection sink.
@@ -357,6 +353,8 @@ Therefore the \textit{CI315} strategy can only detect video capturing informatio
 Strategy \textit{CI335} identifies information collection of the users contacts stored in his address book.
 Querying the contacts via the Android API is always done via the 'ContactsContract' object.
 The \textit{CI335} strategy can therefore easily detect information collection dataflows of users contacts by using the TraceBackStrategy.
+% CI336
+The last specific strategy to use the generic TraceBackStrategy is \textit{CI336} that tries to find information collection data flows on purchase information.
 
 % UrlCategoryStrategy
 \textit{UrlCategoryStrategy}.
@@ -376,12 +374,12 @@ Storage providers refers to cloud storage or bulk data storage services that all
 % Evaluation of an Automated Information Privacy Risk Assessment Tool
 \subsection{Evaluation of an Automated Information Privacy Risk Assessment Tool}
 
-In order to evaluate how well the \aiprat is performing in comparison to a human researcher, we analyze a sample of three randomly chosen apps by two human researchers.
+In order to evaluate how well the \aiprat is performing in comparison to a human researcher, we analyze a sample of three apps by two human researchers
+The apps that will be chosen to be reviewed by human researchers will be the three apps with the most \ipr found by the \aiprat beforehand.
 Each researcher is presented with the source code of the selected apps and the list of relevant information privacy practices to identify.
 The task for each researcher is to identify as many \ipp as possibly by analyzing, searching and reading through the source code files. 
 This will result in an overview comparison on how well the \aiprat performs in comparison to a human.
 
-\todo{Wackelig}
 We acknowledge that a human app reviewer can almost find any \ipp risk within the app source code given enough time.
 In order to find an appropriate time range that the human review should spend analyzing a single app, we looked at common review times of app stores today.
 The Google PlayStore does not manually review newly uploaded apps, while the Apple AppStore does apply manual review to each and every app update.

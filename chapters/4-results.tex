@@ -7,24 +7,24 @@ We will also present the results on how well the \aiprat performs in comparison 
 
 \subsubsection{Download Phase}
 
-The original dataset from the \cite{Xu2015} repository of app store listings contains 5\,379 app entries from the Google PlayStore in the category 'Medical' and 'Health and Fitness'.
-From this original dataset we extracted the 3\,180 free apps for further inspection.
-It was possible to download 2\,250 app APK files via the undocumented Google API.
+The original dataset from the \cite{Xu2015} repository of app store listings contains 5,379 app entries from the Google PlayStore in the category 'Medical' and 'Health and Fitness'.
+From this original dataset we extracted the 3,180 free apps for further inspection.
+It was possible to download 2,250 app APK files via the undocumented Google API.
 The remaining 930 APK files either returned a Google authentication error or were not available on the Google PlayStore anymore.
 
-Downloading the 2\,250 APK files took multiple download-runs over the whole dataset, since the Google API only allows a certain amount of download requests per time unit.
+Downloading the 2,250 APK files took multiple download-runs over the whole dataset, since the Google API only allows a certain amount of download requests per time unit.
 The number of allowed download requests varied throughout the download phase and could not be detected exactly.
 Various tests downloading APK files automatically via websites like apkpure.com\footnote{\url{https://web.archive.org/web/20160528165049/https://apkpure.com/}, visited 06/05/2016} or apk-dl.com\footnote{\url{https://web.archive.org/web/20160518104842/https://apk-dl.com}, visited 06/05/2016} failed due to those websites effectively blocking automated non-browser traffic.
-The download of the 2\,250 APK files took 11 days in total and 18 restart attempts of the download script.
+The download of the 2,250 APK files took 11 days in total and 18 restart attempts of the download script.
 
 \subsubsection{Decompilation Phase}
 
-From the downloaded 2\,250 APK files, 355 were decompiled. 
+From the downloaded 2,250 APK files, 355 were decompiled. 
 The reason that only 15\% of the 2,250 APK files were decompiled is the time that was available to write this thesis.
 The decompilation time varied from 4 minutes to 16 minutes, based on the amount and complexity of the source files of the app.
 The 355 APK files that were decompiles were selected in order of their file size.
 An app with a lower file size was chosen over an app with a larger file size.
-The reason for this is the restriction of \textit{FlowDroid} to only analyze apps that fit into main memory, explained in section \todo{Section raussuchen in der Erklärt wird, warum FlowDroid lahm ist.}.
+The reason for this is the restriction of \textit{FlowDroid} to only analyze apps that are under a certain file size and complexity,due to \textit{FlowDroids'} internal memory management.
 
 During the decompilation of the APK files from smallest file size to largest, the decompilation failed to finish in 24 cases.
 Reasons for decompilation failure are heavily obfuscated source code, that forced the decompiler to abort the process and memory exceptions.
@@ -64,7 +64,6 @@ On average, 3 potential information privacy risk were found per app by the imple
 
 \begin{table}[]
 \centering
-\caption{All implemented automatic information privacy risk assessment tool strategies and their found appearance count throughout the static code analysis phase of this thesis.}
 \label{table:strategyResults}
 \begin{tabular}{|p{10cm}|p{4cm}|}
 \hline
@@ -94,6 +93,7 @@ CH33  & 105 \\ \hline
 CI312 & 159 \\ \hline
 CI314 & 206 \\ \hline
 \end{tabular}
+\caption{All implemented automatic information privacy risk assessment tool strategies and their found appearance count throughout the static code analysis phase of this thesis.}
 \end{table}
 
 \subsection{Evaluation of the Automated Information Privacy Risk Assessment Tool}
