@@ -4,11 +4,31 @@ The following chapter will discuss the results and limitations of this work and 
 
 \subsection{Principal Findings}
 
-In order the evaluate the degree to which the assessment of information privacy risks for \mH apps can be automated via static code analysis
+In order the evaluate the degree to which the assessment of information privacy risks for \mH apps can be automated via static code analysis we compare the \ipr found results of the \aiprat with the results from the human researchers.
+For simplification, we will refer to the \aiprat as 'the computer' and the human reviewers as 'the human'.
+
+While it is clear that the computer is faster in processing files and analysing their contents, the human has at least one advantage over the computer: understanding or estimating context of source code based on his experience.
+We were unable to implement a \ml approach to identify information privacy risks, for example identify previously unknown analytics or advertisement libraries.
+The \ml approach was unfeasible due to the missing context and meta information for the software to learn from.
+Using just a line of code to teach a \ml implementation a pattern is not sufficient, since there is no pattern.
+A analytics or advertisement library can be named virtually anything.
+Therefore, the computer needs a list of possible analytics and advertisement libraries in order to identify them in a static code analysis.
+We used analytics and advertisement libraries as an example of two information privacy risks here, the \ml approach problems apply to other \ipr strategies as well.
+The context interpretation skills of humans became clearer, during the manual review by the two researchers.
+The computer, for instance, did not identify the \ipr 'InformationCollectionTypeContent' $\rightarrow$ 'HealthContent' implemented in strategy \textit{CI343} for the test app 'com.siyami.apps.patientregister' because the matching source code was obfuscated.\footnote{See coherent row in table of Appendix A.}
+The human researchers on the other side were able to identify the 'HealthContent' \textit{CI343} \ipr because they were able to interpret the context in which the obfuscated code was used, by interpreting source code comments for instance or interpreting the screen context.
+
+The computer ha
 
 \todo{Computer might not be better than Human, because Human can interpret context of e.g. obfuscated code}
 
 \subsection{Contributions}
+
+As a contribution of the results of this thesis, we propose to review, especially mHealth, apps in a two step process.
+First, the computer should perform an automated \sca assessment of \ipr for a given app.
+Second, a human researcher could review the \ipr that the computer was unable to detect, to make sure there are no leftover context interpretations, that the computer was unable to identify.
+
+We have shown within this thesis, that the comp
 
 \subsection{Limitations}\label{chapter:Limitations}
 
