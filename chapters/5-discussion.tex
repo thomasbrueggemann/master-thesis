@@ -7,20 +7,33 @@ The following chapter will discuss the results and limitations of this work and 
 In order the evaluate the degree to which the assessment of information privacy risks for \mH apps can be automated via static code analysis we compare the \ipr found results of the \aiprat with the results from the human researchers.
 For simplification, we will refer to the \aiprat as 'the computer' and the human reviewers as 'the human'.
 
-While it is clear that the computer is faster in processing files and analysing their contents, the human has at least one advantage over the computer: understanding or estimating context of source code based on his experience.
-We were unable to implement a \ml approach to identify information privacy risks, for example identify previously unknown analytics or advertisement libraries.
+While it is clear that the computer is faster in processing files and scanning their contents, the human has at least one advantage over the computer: understanding or estimating context of source code based on his experience.
+
+We were unable to implement a \ml approach to identify all information privacy risks.
+Especially difficult is, for instance, the identification of previously unknown analytics or advertisement libraries.
 The \ml approach was unfeasible due to the missing context and meta information for the software to learn from.
-Using just a line of code to teach a \ml implementation a pattern is not sufficient, since there is no pattern.
-A analytics or advertisement library can be named virtually anything.
+Using just a line of code to teach the \ml implementation a pattern is not sufficient, since there is no further meta information that could be compared by the algorithm.
+A analytics or advertisement library can be named virtually anything, without any pattern.
 Therefore, the computer needs a list of possible analytics and advertisement libraries in order to identify them in a static code analysis.
 We used analytics and advertisement libraries as an example of two information privacy risks here, the \ml approach problems apply to other \ipr strategies as well.
-The context interpretation skills of humans became clearer, during the manual review by the two researchers.
-The computer, for instance, did not identify the \ipr 'InformationCollectionTypeContent' $\rightarrow$ 'HealthContent' implemented in strategy \textit{CI343} for the test app 'com.siyami.apps.patientregister' because the matching source code was obfuscated.\footnote{See coherent row in table of Appendix A.}
+The context interpretation skills of humans became even more obvious, during the manual review by the two researchers.
+The computer, for instance, did not identify the \ipr 'InformationCollectionTypeContent' $\rightarrow$ 'HealthContent' implemented in strategy \textit{CI343} for the test app 'com.siyami.apps.patientregister' because the matching source code was obfuscated.\footnote{See coherent row for \textit{CI343} of app 'com.siyami.apps.patientregister'  in table of Appendix A.}
 The human researchers on the other side were able to identify the 'HealthContent' \textit{CI343} \ipr because they were able to interpret the context in which the obfuscated code was used, by interpreting source code comments for instance or interpreting the screen context.
 
-The computer ha
+Another example where the human reviewer is superior to the computer in identifying \ipr with a \sca is the strategy \textit{CI326} 'OwnUniqueIdentifierContent'.
+A unique identifier can be implemented in many shapes and it is therefore especially difficult to detect.
+A human reviewer has the advantage to interpret variable names and the context that variables are used in to identify a unique user.
+A unique user identification can be a randomly generated string, the email address of the user or any other unique feature that is unique to a single user.
 
-\todo{Computer might not be better than Human, because Human can interpret context of e.g. obfuscated code}
+We have met the first sub-objective, declared in chapter \ref{chapter:Objectives}, by stepping through the \ipp provided by \textcite{Dehling2016} and extracted the \ipp that potentially bear an \ipr to \mH app users.
+This progress was documented in chapter \ref{chapter:Relevant}.
+
+We developed strategies for each of the relevant \ipp to be identified within the source code of \mH apps in chapter \ref{sssec:SCAP}, in order to achieve the second sub-objective.
+
+The final and third sub-objective is to compare the results of the human source code review with the results of the \aiprat and highlight 
+
+
+\todo{Elaborate on the degree!}
 
 \subsection{Contributions}
 

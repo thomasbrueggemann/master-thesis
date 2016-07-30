@@ -43,7 +43,7 @@
 
 % Acronyms
 \usepackage[printonlyused]{acronym}    
-\renewcommand{\bflabel}[1]{{#1\hfill}}
+\newcommand{\bflabel}[1]{{#1\hfill}}
 
 % Page numeration oben
 \usepackage{scrpage2} 
@@ -103,7 +103,8 @@
     url=false,
     doi=false,
     maxcitenames=3,
-    maxbibnames=30
+    maxbibnames=30,
+    backend=bibtex
 ]{biblatex}
 \addbibresource{library.bib}
 \let\cite\textcite
