@@ -25,13 +25,17 @@ A unique identifier can be implemented in many shapes and it is therefore especi
 A human reviewer has the advantage to interpret variable names and the context that variables are used in to identify a unique user.
 A unique user identification can be a randomly generated string, the email address of the user or any other unique feature that is unique to a single user.
 
+\todo{Computer kann nicht höheren Hierarchielevel finden, wobei Mensch das estimaten kann}
+
 We have met the first sub-objective, declared in chapter \ref{chapter:Objectives}, by stepping through the \ipp provided by \textcite{Dehling2016} and extracted the \ipp that potentially bear an \ipr to \mH app users.
 This progress was documented in chapter \ref{chapter:Relevant}.
 
 We developed strategies for each of the relevant \ipp to be identified within the source code of \mH apps in chapter \ref{sssec:SCAP}, in order to achieve the second sub-objective.
 
-The final and third sub-objective is to compare the results of the human source code review with the results of the \aiprat and highlight 
+The final and third sub-objective is to compare the results of the human source code review with the results of the \aiprat and highlight the differences in results between human and computer.
+The discussion of these results took place in this chapter.
 
+We therefore conclude on the degree that the assessment of \ipr of \mH apps is doable using a \sca is dependent on....
 
 \todo{Elaborate on the degree!}
 
@@ -77,11 +81,14 @@ This could allow future researchers, with less of a time-constraint, to run the 
 We tried to use as many external and comprehensive resources for finding search words, if strategies called for such.
 For example the strategy for the information privacy practice hierarchy \textit{CH35} 'SharingWithAnalystContent' uses search words derived from a collection of Android analytics apps.
 These search words can be further extended, or, as mentioned in the previous chapter \ref{chapter:Limitations}, extended into a machine learning approach. 
+Future research could enhance the current implementation in a way that it proposes and highlights risky parts of the source code to be reviewed by a human additionally.
 
 The approach of this study can also be seen as a first step towards the larger goal of providing transparency to the \ipr of, especially mHealth, apps.
 The outcome of the \aiprat could be incorporated into a user interface, similar to the user interface proposed by \textcite{Bruggemann2016}\footnote{See \cite{Bruggemann2016}, p. 1-10.}.
 In this context, future research could inspect the implications and the impact such a detailed \ipr analysis has on the users of apps and app stores, in a user study.
 
 We would also like to encourage future researchers to address the implications an integration of automated information privacy risk assessment may have on the app stores and the submitting of apps to the stores for developers.
+Future research could analyse what the effects are if an app store, for instance the Google PlayStore, implements an automated \ipr analysis tool that performs a \sca right after a developer submitted an app and transparently communicates the information privacy risks found within the source code.
+
 
 \subsection{Conclusion}
