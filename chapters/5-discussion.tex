@@ -37,19 +37,41 @@ We developed strategies for each of the relevant \ipp to be identified within th
 The final and third sub-objective is to compare the results of the human source code review with the results of the \aiprat and highlight the differences in results between human and computer.
 The discussion of these results took place in this chapter.
 
-We therefore conclude on the degree that the assessment of \ipr of \mH apps is doable using a \sca is dependent on....
+Finally, in order to find a reasonable way to express the degree to what the assessment of information privacy risks can be automated, we will apply the following process.
+At first, we identified 34 of the \ipp to be relevant for posing an information privacy risk. 
+45 of these \ipp were able to be implemented within the \aiprat and therefore the 'implementation rate' is:
+\todo{Put in actual number!}
+\begin{equation}
+	\frac{45}{50}=0.83
+\end{equation}
 
-\todo{Elaborate on the degree!}
-...
-A completely automated information privacy risk assessment is "desirable but unrealistic today"\footnote{\cite{Knorr2015}, p. 7.}
+In a second step we will use the results from table \ref{table:reviewerResults} to generate an index number that expresses the performance of the computer in relation to the human in assessing information privacy risks.
+For every row in table \ref{table:reviewerResults}, we are taking the maximium number of found information privacy risks as 100\% and calculate the fraction percentage that the computer found from the 100\%.
+We will then take the average value of the just calculated fractions.
+This would result in a 'detection rate' of:
+\begin{equation}
+	\frac{\frac{16}{21} + \frac{13}{13} + \frac{14}{14}}{3} = 0.92
+\end{equation}
+
+For the sake of the calculation of this degree value, we will ignore the fact that we were only able to decompile and analyze a fraction of the downloaded apps due to hardware limitations.
+We will not lower the degree based on the percentage of apps that was downloadable or able to be analyzed by \textit{FlowDroid}.
+But to combine the 'implementation rate' and the 'detection rate', we will take the average of the two values, which results in:
+
+\begin{equation}
+	\frac{0.83 + 0.92}{2} = 0.875
+\end{equation}
+
+We therefore conclude, that the degree to which an \aiprat is feasible or implementable is 87.5\%.
+A completely automated information privacy risk assessment is "desirable but unrealistic today" \footnote{\cite{Knorr2015}, p. 7.}.
 
 \subsection{Contributions}
 
-As a contribution of the results of this thesis, we propose to review, especially mHealth, apps in a two step process.
-First, the computer should perform an automated \sca assessment of \ipr for a given app.
-Second, a human researcher could review the \ipr that the computer was unable to detect, to make sure there are no leftover context interpretations, that the computer was unable to identify.
+As a contribution of the results of this thesis, we propose our implementation of an \aiprat that works in a three step process.
+The tool downloads, decompiles and analyses an APK file of an app to perform the information privacy risk analysis.
 
-We have shown within this thesis, that the comp
+In an attempt to evaluate the outcome of the \aiprat we compared the results of a \sca of two human researchers to the results of the computer.
+
+The contribution of this thesis is the increase of knowledge, that an automated information privacy risk assessment is possible up to a degree of 87.5\%
 
 \subsection{Limitations}\label{chapter:Limitations}
 
@@ -93,6 +115,5 @@ In this context, future research could inspect the implications and the impact s
 
 We would also like to encourage future researchers to address the implications an integration of automated information privacy risk assessment may have on the app stores and the submitting of apps to the stores for developers.
 Future research could analyse what the effects are if an app store, for instance the Google PlayStore, implements an automated \ipr analysis tool that performs a \sca right after a developer submitted an app and transparently communicates the information privacy risks found within the source code.
-
 
 \subsection{Conclusion}
