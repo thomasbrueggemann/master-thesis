@@ -64,18 +64,17 @@ This will be a vital addition to current research, since there is yet no holisti
 
 \subsection{Relevant Information Privacy Risk Factors}\label{chapter:Relevant}
 
-\todo{Gegenreview von Manuel}
-
 For this thesis, we will use the set of \ipp extracted from literature, the Platform for Privacy Preferences (\acs{P3P}) guide\footnote{\url{https://web.archive.org/web/20160616160213/http://www.w3.org/TR/P3P/}, visited 06/16/2016} and app reviews by \cite{Dehling2016} as a source to derive \iprfs from. \footnote{For this and the following sentence, see \cite{Dehling2016}, p. 1-2.} 
-\Ipp are common practices of informing users about the information privacy practices of an app that app providers should follow in order to achieve higher levels of transparency.
+\Ipp are common content aspects and practices of informing users about the information privacy practices of an app that app providers should follow in order to achieve higher levels of transparency.
 A hierarchy of \ipp is formed by clustering the \ipp by their content aspects. 
 The top level of the hierarchy are 'Content' and 'Practice'.
 The 'Content' hierarchy level contains sub-hierarchy branches that express \ipp concerning the handling of information content, the information collection content, and meta content about information collection, information on offered privacy controls, and information on what purpose the \ipp was collected for.
-The sub-hierarchy branches of the top-level 'Practice' contain for instance information on the existence of dispute resolution practices or access rights practices of the users.
 
 We argue that if a \ipp is a circumstance that the user should be informed about, an \ipp expresses an \ipr to the app user.
 But since not all of the enlisted \ipp express or imply an \ipr to app users, we review and extract the \ipp that are relevant in terms of posing and expressing a potential information privacy risk.
-We will further limit the \ipp by excluding \ipp that are known to be technically infeasible to detect via static code analysis.
+The classification of \ipp that bear or express an \ipr will be conducted by two researchers separately.
+The results of the two researchers will be discussed to find common consensus about the classification.
+We will further limit the \ipp by excluding \ipp that are known to be technically infeasible to detect via static code analysis of the app source code.
 An example for such an exclusion is the \ipp 'InformationRetentionContent', which captures, if an app provider carries out a certain information retention policy or not.\footnote{See \cite{Dehling2016}, p. 8.}
 This is a feature that is undetectable by \sca and beyond the scope of app source code analysis.
 An analysis of the app providers backend system would be necessary to ensure that the collection information is retained according to the app providers policy promise.

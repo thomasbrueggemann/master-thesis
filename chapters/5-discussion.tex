@@ -27,7 +27,10 @@ A unique identifier can be implemented in many shapes and it is therefore especi
 A human reviewer has the advantage to interpret variable names and the context that variables are used in to identify a unique user.
 A unique user identification can be a randomly generated string, the email address of the user or any other unique feature that is unique to a single user.
 
-\todo{Computer kann nicht höheren Hierarchielevel finden, wobei Mensch das estimaten kann}
+Additionally, it is difficult for the computer software to generalise concepts.
+The human reviewer can estimate how likely it is, that a higher hierarchy level \ipp bears an \ipr within the current app, but understanding the context.
+In order for the computer to decide weather a high-level hierarchy is found, it has to check all the containing sub-hierarchy \ipp first.
+The human reviewer has, yet again, the benefit of context interpretation to generalise risk factors.
 
 We have met the first sub-objective, declared in chapter \ref{chapter:Objectives}, by stepping through the \ipp provided by \textcite{Dehling2016} and extracted the \ipp that potentially bear an \ipr to \mH app users.
 This progress was documented in chapter \ref{chapter:Relevant}.
@@ -51,6 +54,8 @@ This would result in a 'detection rate' of:
 \begin{equation}
 	\frac{\frac{16}{21} + \frac{13}{13} + \frac{14}{14}}{3} = 0.92
 \end{equation}
+
+\todo{Take certainties into account}
 
 For the sake of the calculation of this degree value, we will ignore the fact that we were only able to decompile and analyze a fraction of the downloaded apps due to hardware limitations.
 We will not lower the degree based on the percentage of apps that was downloadable or able to be analyzed by \textit{FlowDroid}.
@@ -116,3 +121,5 @@ We would also like to encourage future researchers to address the implications a
 Future research could analyse what the effects are if an app store, for instance the Google PlayStore, implements an automated \ipr analysis tool that performs a \sca right after a developer submitted an app and transparently communicates the information privacy risks found within the source code.
 
 \subsection{Conclusion}
+
+\todo{Conclusion tippen}
