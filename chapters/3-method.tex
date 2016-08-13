@@ -126,15 +126,13 @@ As soon as the preparation steps are finished, the main \sca tool is ready to pe
 We call the main \sca tool '\textit{AIPRAT}', short for \aiprat from here on.
 The fundamental concept of \AIPRAT is to iterate over all available apps and apply a set of analysis operations, called 'strategies', to the source code of these apps.
 A strategy tries to identify \iprfs by applying algorithms, for instance feature extraction or text search, to parts of the app source code.
-There are two types of strategies in \AIPRAT, generic and specific strategies.
+There are two types of strategies in the AIPRAT: generic and specific strategies.
 
 % Generic strategies
-Generic strategies are strategies that contain algorithms that are configurable and usable by other specific strategies.
-An example for a generic strategy is the Java-class \textit{analyze.src.strategies.ExistenceStrategy}. 
-% ExistenceStrategy
-The ExistenceStrategy is able to scan through all source code files of an app and search for a set of words.
-If one or more of the source code files contains one or more of the search words, the \textit{ExistenceStrategy} returns a set of source code snippets that contain the lines of code containing the search words.
-In total \AIPRAT contains eight generic strategies in the Java-package \textit{analyze.src.strategies}: DataFlowStrategy, ExistenceStrategy, InputStrategy, TraceBackStrategy, InformationCollectionStrategy, PermissionStrategy, ProviderUrlStrategy, and UrlCategoryStrategy.
+Generic strategies are strategies that contain algorithms that are configurable and usable by specific strategies.
+Generic strategies are the core of the \aiprat and every non-generic strategy inherits or uses a generic strategy to accomplish its \ipr detection task.
+The generic strategies of the \aiprat will therefore be explained in more detail.
+In total the \aiprat contains eight generic strategies in the Java-package \textit{analyze.src.strategies}: DataFlowStrategy, ExistenceStrategy, InputStrategy, TraceBackStrategy, InformationCollectionStrategy, PermissionStrategy, ProviderUrlStrategy, and UrlCategoryStrategy.
 \lstinputlisting[language=Java, label=listing:DataFlowStrategy, caption=Generic strategy DataFlowStrategy.java to find the existance of search words within source code]{DataFlowStrategy.java}
 % DataFlowStrategy
 The DataFlowStrategy parses the pre-extracted dataflow \acs{XML} from the \textit{FlowDroid} preparation phase and allows iterating over all identified dataflow sources and sinks.
@@ -154,11 +152,12 @@ The input fields meta information generally contain the user interface control '
 The meta information are collected and stored together with the input field information.
 % TraceBackStrategy
 An important feature in static code analysis, especially for assessing information privacy risks, is to the ability to trace data flows from a source to a sink.
-\lstinputlisting[language=Java, label=listing:TraceBackStrategy, caption=Generic strategy TraceBackStrategy.java to find the existance of search words within source code]{TraceBackStrategy.java}
 With the help of the call graph construction feature of FlowDroid, the TraceBackStrategy starts at a given set of start-sinks and traverses the call graph back until either a source is found or a given search pattern is matched.
 This allows consequent strategies to define a search pattern for data flows to specific sinks.
 In the case of this thesis, we will mainly use the TraceBackStrategy to find data flows that end in a information collection scenario. 
 We define information collection as a data flow that results in storing the information either locally on the device the app is run, or that results in sending the information to a remote server.
+\newpage
+\lstinputlisting[language=Java, label=listing:TraceBackStrategy, caption=Excerpt of the generic strategy TraceBackStrategy.java to trace defined information sources to information sinks via dataflow analysis]{TraceBackStrategy.java}
 % InputInformationCollectionStrategy
 With making use of the InputStrategy and the TracebackStrategy, the InputInformationCollectionStrategy takes the user input fields analysis one step further and allows for information collection analysis.
 \lstinputlisting[language=Java, label=listing:InputInformationCollectionStrategy, caption=Generic strategy InputInformationCollectionStrategy.java to find the existance of search words within source code]{InputInformationCollectionStrategy.java}
