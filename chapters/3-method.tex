@@ -31,7 +31,7 @@ We used the repository database to loop over the available mHealth app listings 
 As soon as the package name of an app is gathered, the download of the \acs{APK} file can begin. 
 While there is no official source to download \acs{APK} files for Android apps, a multitude of websites exist that host copies of \acs{APK} files to download for free.
 Unfortunately, all of these websites implement mechanisms that make it impossible to browse and download the APK files programatically within a download script.
-Instead, we used a open source Python implementation of an undocumented Google PlayStore \acs{API}.\footnote{\url{https://web.archive.org/web/20140920061441/https://github.com/egirault/googleplay-api}, visited 05/12/16.} 
+Instead, we used a open source Python implementation of an undocumented Google PlayStore \acs{API}.\footnote{\raggedright\url{https://web.archive.org/web/20140920061441/https://github.com/egirault/googleplay-api}, visited 05/12/16.} 
 The undocumented part of the Google API allows users to download APK files.
 Even though the project has not been maintained for four years, the software is still in working order.
 The Python script authenticates to the Google API via the hardware ID of an Android smartphone or tablet and pretends to request data from this smartphone or tablet, even though the requests are sent from a desktop computer.
@@ -135,33 +135,39 @@ An example for a generic strategy is the Java-class \textit{analyze.src.strategi
 The ExistenceStrategy is able to scan through all source code files of an app and search for a set of words.
 If one or more of the source code files contains one or more of the search words, the \textit{ExistenceStrategy} returns a set of source code snippets that contain the lines of code containing the search words.
 In total \AIPRAT contains eight generic strategies in the Java-package \textit{analyze.src.strategies}: DataFlowStrategy, ExistenceStrategy, InputStrategy, TraceBackStrategy, InformationCollectionStrategy, PermissionStrategy, ProviderUrlStrategy, and UrlCategoryStrategy.
+\lstinputlisting[language=Java, label=listing:DataFlowStrategy, caption=Generic strategy DataFlowStrategy.java to find the existance of search words within source code]{DataFlowStrategy.java}
 % DataFlowStrategy
 The DataFlowStrategy parses the pre-extracted dataflow \acs{XML} from the \textit{FlowDroid} preparation phase and allows iterating over all identified dataflow sources and sinks.
-Thereby, the DataFlowStrategy allows to pass parameters along that filter the sources and sinks for certain search words and provide feedback if the search words were found within sources and sinks.
+Thereby, the DataFlowStrategy allows to pass parameters along that filter the sources and sinks for certain search words and provide feedback if the search words were found within sources and sinks.le
 % ExistenceStrategy
-To find strings within the source code of an app, one can make use of the ExistenceStrategy. 
+To find strings within the source code of an app, one can make use of the ExistenceStrategy.
+The ExistenceStrategy is shown in listing \ref{listing:ExistanceStrategy}.
+\lstinputlisting[language=Java, label=listing:ExistanceStrategy, caption=Generic strategy ExistanceStrategy.java to find the existance of search words within source code]{ExistanceStrategy.java} 
 This generic strategy scans the full source code of an app and collects source code lines that match a given search pattern.
 % InputStrategy
 The InputStrategy iterates over all \acs{XML} layout configuration files of an app. 
+\lstinputlisting[language=Java, label=listing:InputStrategy, caption=Generic strategy InputStrategy.java to find the existance of search words within source code]{InputStrategy.java}
 User interface controls that are displayed within an app are declared in these \acs{XML} layout configuration files.
 The InputStrategy tries to identify all user input fields and therefore scans the layout files for the search terms 'EditText', 'AutoCompleteTextView', 'CheckBox', 'RadioButton' and 'RadioGroup'.
 As soon as a user input field has been found, the InputStrategy extracts all meta information about this input field possible.
 The input fields meta information generally contain the user interface control 'id', a 'hint' field and a 'text' field. 
 The meta information are collected and stored together with the input field information.
-
 % TraceBackStrategy
 An important feature in static code analysis, especially for assessing information privacy risks, is to the ability to trace data flows from a source to a sink.
+\lstinputlisting[language=Java, label=listing:TraceBackStrategy, caption=Generic strategy TraceBackStrategy.java to find the existance of search words within source code]{TraceBackStrategy.java}
 With the help of the call graph construction feature of FlowDroid, the TraceBackStrategy starts at a given set of start-sinks and traverses the call graph back until either a source is found or a given search pattern is matched.
 This allows consequent strategies to define a search pattern for data flows to specific sinks.
 In the case of this thesis, we will mainly use the TraceBackStrategy to find data flows that end in a information collection scenario. 
 We define information collection as a data flow that results in storing the information either locally on the device the app is run, or that results in sending the information to a remote server.
 % InputInformationCollectionStrategy
 With making use of the InputStrategy and the TracebackStrategy, the InputInformationCollectionStrategy takes the user input fields analysis one step further and allows for information collection analysis.
+\lstinputlisting[language=Java, label=listing:InputInformationCollectionStrategy, caption=Generic strategy InputInformationCollectionStrategy.java to find the existance of search words within source code]{InputInformationCollectionStrategy.java}
 First, all user input fields are detected and stored. 
 In a second step, the InputInformationCollectionStrategy executes a TraceBackStrategy that starts at all available information collection sinks (local file storage and remote server connections) and traces back the call graph in an attempt to identify the user input field 'ids' within the call graph path.
 If a user input field 'id' is found, a data flow towards an information collection sink is identified and a potential \ipr revealed.
 % PermissionStrategy
-A less sophisticated approach is being used by the PermissionStrategy.
+A less sophisticated approach is being used by the PermissionStrategy, shown in listing \ref{listing:PermissionStrategy}.
+\lstinputlisting[language=Java, label=listing:PermissionStrategy, caption=Generic strategy PermissionStrategy.java to find the existance of search words within source code]{PermissionsStrategy.java}
 It is required for Android apps to declare permissions to use certain features, such as the \acs{GPS} location or internet access, within the 'manifest' file.
 The PermissionStrategy enables a search through these permissions by a given search pattern.
 

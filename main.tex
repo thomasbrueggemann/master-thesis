@@ -18,7 +18,43 @@
 \selectlanguage{english}
 \usepackage{nicefrac}
 \usepackage{latexsym}
+\usepackage{listings}
 \PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\usepackage{color}
+\usepackage{MnSymbol}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+  backgroundcolor=\color{white},
+  basicstyle=\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  commentstyle=\color{mygreen},
+  deletekeywords={...},
+  escapeinside={\%*}{*)},
+  extendedchars=true,
+  frame=single,
+  keepspaces=true,
+  keywordstyle=\color{blue},
+  language=Java,
+  otherkeywords={*,...},
+  numbers=left,
+  numbersep=10pt,
+  numberstyle=\tiny\color{mygray},
+  rulecolor=\color{black},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stepnumber=1,
+  stringstyle=\color{mymauve},
+  tabsize=2,
+  aboveskip=2em,
+  postbreak={\mbox{\quad$\lhookrightarrow$ }}
+}
 
 % Title font sizes
 \usepackage{titlesec}
@@ -47,7 +83,6 @@
 
 % Page numeration oben
 \usepackage{scrpage2} 
-\usepackage[dvips]{color}
 \clearscrheadfoot 
 \chead[\pagemark]{\textcolor[gray]{0.5}{\pagemark}} 
 \pagestyle{scrheadings}
@@ -113,7 +148,6 @@
 
 % Tables
 \usepackage{array}
-\usepackage{xcolor}
 \usepackage{longtable}
 \usepackage{setspace}
 \counterwithin{table}{section}
@@ -133,6 +167,9 @@
 \renewcommand\thefigure{\arabic{section}-\arabic{figure}}
 \renewcommand\thetable{\arabic{section}-\arabic{table}}
 \newcommand{\todo}[1]{\textbf{\textsc{\textcolor{red}{TODO: #1}}}}
+\renewcommand{\thelstlisting}{\thesection-\arabic{lstlisting}}
+\renewcommand\lstlistlistingname{List of Listings}
+\renewcommand\lstlistingname{List.}
 
 % Variables
 \newcommand{\mH}{mHealth }
@@ -177,7 +214,7 @@
 % List of tables
 % -------------------
 \listoftables
-\addcontentsline{toc}{section}{List of tables}
+\addcontentsline{toc}{section}{List of Tables}
 \newpage
 
 % -------------------
@@ -185,6 +222,13 @@
 % -------------------
 \listoffigures
 \addcontentsline{toc}{section}{List of Figures}
+\newpage
+
+% -------------------
+% List of listings
+% -------------------
+\lstlistoflistings
+\addcontentsline{toc}{section}{List of Listings}
 \newpage
 
 \normalsize
