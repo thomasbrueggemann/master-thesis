@@ -4,9 +4,9 @@ The following chapter will discuss the results and limitations of this work and 
 
 \subsection{Principal Findings}
 
-In order the evaluate the degree to which the assessment of information privacy risks for \mH apps can be automated via static code analysis we compare the \ipr found results of the \aiprat with the results from the human researchers.
+In order the evaluate the degree to which the assessment of information privacy risks for \mH apps can be automated via static code analysis we compared the \ipr found results of the \aiprat with the results from the human researchers.
 
-While it is clear that the computer is faster in processing files and scanning their contents, the human has at least one advantage over the computer: understanding or estimating context of source code based on his experience.
+While it is clear that the computer is faster in processing files and scanning the file's content, the human has at least one advantage over the computer: understanding or estimating context of source code based on his experience.
 
 We were unable to implement a \ml approach to identify all information privacy risks.
 Especially difficult is, for instance, the identification of previously unknown analytics or advertisement libraries.
@@ -47,25 +47,25 @@ At first, we identified 55 of the \ipp to be relevant for posing an information 
 	\frac{45}{55}=0.818
 \end{equation}
 
-In a second step we will use the results from table \ref{table:reviewerResults} to generate an index number that expresses the performance of the computer in relation to the human in assessing information privacy risks.
-For every row in table \ref{table:reviewerResults}, we are taking the maximium number of found information privacy risks as 100\% and calculate the fraction percentage that the computer found from the 100\%.
+In a second step we will use the results from table \ref{table:reviewerResultsCertainty} to generate an index number that expresses the performance of the computer in relation to the human in assessing information privacy risks.
+We argue that the cumulative certainty levels (CCL) express the degree to which  the information privacy risk assessment of \mH apps more accurately than the simple sum of 'found' \ipp for each app.
+For every row in table \ref{table:reviewerResultsCertainty}, we are taking the maximum number of the CCL as 100\% and calculate the fraction percentage that the computer found from the 100\%.
 We will then take the average value of the just calculated fractions.
 This would result in a 'detection rate' of:
 \begin{equation}
-	\frac{\frac{16}{21} + \frac{13}{13} + \frac{14}{14}}{3} = 0.92
+	\frac{\frac{11.25}{12.75} + \frac{9.25}{9.25} + \frac{9.75}{9.75}}{3} = 0.96
 \end{equation}
 
-\todo{Take certainties into account}
-
-For the sake of the calculation of this degree value, we will ignore the fact that we were only able to decompile and analyze a fraction of the downloaded apps due to hardware limitations.
+For the sake of the calculation of this degree value, we will not take the fact that we were only able to decompile and analyze a fraction of the downloaded apps, due to hardware limitations, into account.
 We will not lower the degree based on the percentage of apps that was downloadable or able to be analyzed by \textit{FlowDroid}.
-But to combine the 'implementation rate' and the 'detection rate', we will take the average of the two values, which results in:
+These limitations can possibly be eliminated in future research by applying more computation power and time to the analysis.
+But, to combine the 'implementation rate' and the 'detection rate', we will take the average of the two values, which results in:
 
 \begin{equation}
-	\frac{0.818 + 0.92}{2} = 0.869
+	\frac{0.818 + 0.96}{2} = 0.889
 \end{equation}
 
-We therefore conclude, that the degree to which an \aiprat is feasible or implementable is 86.9\%.
+We therefore conclude, that the degree to which an \aiprat is feasible or implementable is 88.9\%.
 A completely automated information privacy risk assessment is "desirable but unrealistic today" \footnote{\cite{Knorr2015}, p. 7.}.
 
 \subsection{Contributions}
@@ -75,7 +75,7 @@ The tool downloads, decompiles and analyses an APK file of an app to perform the
 
 In an attempt to evaluate the outcome of the \aiprat we compared the results of a \sca of two human researchers to the results of the computer.
 
-The contribution of this thesis is the increase of knowledge, that an automated information privacy risk assessment is possible up to a degree of 87.5\%
+The contribution of this thesis is the increase of knowledge, that an automated information privacy risk assessment is possible up to a degree of 88.9\%
 
 \subsection{Limitations}\label{chapter:Limitations}
 

@@ -126,8 +126,61 @@ szyk.myheart                        & 14                & 7                     
 For the app \textit{com.siyami.apps.patientregister} the human researcher found on average 20.5 information privacy risk, whereas the computer found  16.
 The two human researchers were able to detect 9.5 information privacy risks on average for app \linebreak\textit{com.medicaljoyworks.prognosis.questions}.
 The computer tool was able to find 13 information privacy risks.
-For the app \textit{com.szyk.myheart} the computer was able to detect 14 apps.
+For the app \textit{com.szyk.myheart}, the computer was able to detect 14 apps.
 The human researchers in comparison did only detect 9 information privacy risks on average.
+
+The average distance between the "found"-count of the computer and the average count of the two human researchers results is:
+
+\begin{equation}
+	\frac{|16 - \frac{21 + 20}{2}| + |13 - \frac{9 + 10}{2}| + |14 - \frac{7 + 11}{2}|}{3}=2.8\overline{3}
+\end{equation}
+
+% TABLE: REVIEWER RESULTS CERTAINTY
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{6.6cm}|c|c|c|}
+\hline
+& \textbf{Computer} & \textbf{Researcher 1} & \textbf{Researcher 2} \\ \hline
+siyami.apps.patientregister         & 11.25                & 12.75                    & 14                    \\ \hline
+medicaljoyworks.prognosis.questions & 9.25                & 6.75                     & 8                    \\ \hline
+szyk.myheart                        & 9.75                & 4.25                     & 7.75                    \\ \hline
+\end{tabular}
+\caption{The three human-reviewed apps with the strategy-"found" count results by the automated tool and the two human reviewers.}
+\label{table:reviewerResultsCertainty}
+\bigskip
+\raggedright{Note: The app package names were shortened by the prefix 'com.' for graphical reasons.}
+\end{table}
+
+In contrast to table \ref{table:reviewerResults}, table \ref{table:reviewerResultsCertainty} does not show the sum of the "found" strategy results for the information privacy practices, but summarizes the certainty levels, with which the computer and human found a certain information privacy practice.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Certainty Level}} & \multicolumn{1}{c|}{\textbf{Assigned Value}} \\ \hline
+HIGH & 0.75 \\ \hline
+MEDIUM & 0.5 \\ \hline
+LOW & 0.25 \\ \hline
+\end{tabular}
+\caption{Certainty levels (HIGH, MEDIUM, LOW) and their assigned numeric value representation}
+\label{table:certaintyValues}
+\end{table}
+
+We assigned each certainty level, described in chapter \ref{chapter:evaluationMethods}, a numeric value in order to calculate sums of certainties.
+Table \ref{table:certaintyValues} shows the certainty levels and the assigned numeric values.
+The cumulated certainty levels (CCL) in table \ref{table:reviewerResultsCertainty} are similar to the cumulated amount of \ipp detected in table \ref{table:reviewerResults}.
+
+For the app \textit{com.siyami.apps.patientregister} the human researcher had an average CCL of 13.375, whereas the computer had a CCL of 11.25.
+The two human researchers were able to cumulate a certainty level of 7.375 on average for app \linebreak\textit{com.medicaljoyworks.prognosis.questions}.
+The computer tool had a CLL of 9.25 for this app.
+For the app \textit{com.szyk.myheart}, the computer detected \ipr with a CCL of 9.75.
+The human researchers in comparison had only an average cumulative certainty level of 6.
+
+The average distance between the cumulative certainty levels of the computer and the average CCL of the two human researchers results is:
+
+\begin{equation}
+	\frac{|11.25 - \frac{12.75 + 14}{2}| + |9.25 - \frac{6.75 + 8}{2}| + |9.75 - \frac{4.25 + 7.75}{2}|}{3}=2.58\overline{3}
+\end{equation}
 
 The full information privacy risk assessment results of apps by the human researchers can be found in the table of Appendix B.
 
