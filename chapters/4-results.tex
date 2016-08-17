@@ -23,7 +23,7 @@ The download of the 2,250 APK files took 11 days in total and 18 restart attempt
 
 From the downloaded 2,250 APK files, 355 were decompiled. 
 The reason that only 15\% of the 2,250 APK files were decompiled is the time that was available to write this thesis.
-The decompilation time varied from 4 minutes to 16 minutes, based on the amount and complexity of the source files of the app.
+The decompilation time varied from 16 minutes to 54 minutes, based on the amount and complexity of the source files of the app.
 The 355 APK files that were decompiles were selected in order of their file size.
 An app with a lower file size was chosen over an app with a larger file size.
 The reason for this is the restriction of \textit{FlowDroid} to only analyze apps that are under a certain file size and complexity,due to \textit{FlowDroids'} internal memory management.
@@ -59,10 +59,11 @@ The reason for the roughly 10\% loss of apps from the decompilation to the \sca 
 As mentioned before, apps could be to too large in file size for \textit{FlowDroid} to fit into main memory, and the \sca would skip to the next app.
 
 Table \ref{table:strategyResults} shows an overview of all implemented strategies to identify information privacy risks within an app and the number of found appearances throughout the \sca phase.
-While 14 of the 44 strategies did not find any results within the analysis phase, 30 did.
+While 14 of the 44 strategies did not find any \ipr results within the analysis phase, 30 did.
 In this case of an \ipr analysis, a non-found of a risk by a strategy is not necessarily a negative aspect.
 Especially the strategies for \textit{CH36} SharingWithDeliveryContent and \textit{CI344} IdeologicalContent do not particularly apply to the context of \mH apps and their information privacy risks.
 On average, 4.86 potential information privacy risk were found per app by the implemented strategies.
+The number of detected or found \ipr aspects does not correlate or reflect the level of risk an app poses.
 
 \begin{table}[]
 \centering

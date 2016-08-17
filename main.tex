@@ -19,10 +19,17 @@
 \usepackage{nicefrac}
 \usepackage{latexsym}
 \usepackage{listings}
-\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
 \usepackage{color}
 \usepackage{MnSymbol}
-
+%% META-DATA FOR PDF
+\PassOptionsToPackage{hyphens}{url}\usepackage[
+	pdftitle={Master Thesis: Automated Information Privacy Risk Assessment of Android Health Applications}, % Document-Title
+	pdfsubject={Master Thesis, Thomas Brüggemann, 2016}, % Subject
+	pdfauthor={Thomas Brüggemann}, % Author(s)
+	pdfkeywords={Master, Thesis, Master Thesis, M.Sc., M. Sc., Information Systems, IS, Wirtschaftsinformatik, University, Universität, Köln, Universität zu Köln, University of Cologne, Android, mHealth, Code, Analysis, Privacy, Risks}, % Keywords
+	colorlinks=false,
+	breaklinks=true
+]{hyperref}
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
@@ -88,7 +95,7 @@
 \pagestyle{scrheadings}
 
 % TOC, LOF, FIG Styles
-\usepackage{tocloft, titletoc}  
+\usepackage{tocloft, titletoc} 
 \setlength{\cftaftertoctitleskip}{0em}
 \renewcommand{\cftloftitlefont}{\bfseries}
 %\renewcommand{\cftfigfont}{\bfseries}
@@ -115,20 +122,34 @@
 {\hspace*{-2.3em}}
 {\titlerule*[1mm]{.}\contentspage}
 
-\titlecontents{figure}      % set formatting for \subsection 
+\titlecontents{figure}      % set formatting for \figure 
 [2.3em]                     % adjust left margin
 {\vspace{0.5em}}            % font formatting
 {\contentslabel{2.3em}}     % section label and offset
 {\hspace*{-2.3em}}
 {\titlerule*[1mm]{.}\contentspage}
 
-\titlecontents{table}       % set formatting for \subsection 
-[3.4em]                     % adjust left margin
+\titlecontents{table}       % set formatting for \table 
+[2.3em]                     % adjust left margin
 {\vspace{0.5em}}            % font formatting
-{:\hspace*{0.9em}\contentslabel{4.5em}}     % section label and offset
+{\contentslabel{2.3em}}     % section label and offset
 {\hspace*{-2.3em}}
 {\titlerule*[1mm]{.}\contentspage}
 
+\contentsuse{lstlisting}{lol}
+\titlecontents{lstlisting}  % set formatting for \lstlisting 
+[2.3em]                     % adjust left margin
+{\vspace{0.5em}}            % font formatting
+{\contentslabel{2.3em}}     % section label and offset
+{\hspace*{-2.3em}}
+{\titlerule*[1mm]{.}\contentspage}
+
+\titlecontents{longtable}       % set formatting for \longtable 
+[3.4em]                     % adjust left margin
+{\vspace{0.5em}}            % font formatting
+{:\hspace*{0.9em}\contentslabel{4.5em}}     % sec label and offset
+{\hspace*{-2.3em}}
+{\titlerule*[1mm]{.}\contentspage}
 
 % References
 \usepackage[
@@ -177,6 +198,7 @@
 \newcommand{\pp}{privacy policy }
 \newcommand{\pps}{privacy policies }
 \newcommand{\sca}{static code analysis }
+\newcommand{\dca}{dynamic code analysis }
 \newcommand{\Sca}{Static code analysis }
 \newcommand{\pra}{information privacy risk assessment }
 \newcommand{\prfs}{information privacy risk factors }

@@ -4,6 +4,43 @@ The following chapter will discuss the results and limitations of this work and 
 
 \subsection{Principal Findings}
 
+First of all we want to discuss and highlight on the reasons why 14 strategies did not report a 'found' result on the \ipr they were inspecting during the \sca phase.
+We will follow the first row of table \ref{table:strategyResults}.
+The Strategies CH34, CH36, CH37, CH38, CH43, CH45, CI213, CI222, CI223, CI321, CI322, CI344, CI345 and CI346 did not find any occurrence of an \ipr within the source code of the test sample apps.
+
+Strategy CH34 and CH36 did not find and \ipr since the apps probably did not share information with aggregator and delivery services, known to the \aiprat in the \ml phase.
+We argue that \mH apps are not the target group of delivery and aggregation services and are therefore not so widely used.
+
+Strategy CH38 is not found, because the inter-app information sharing dialogue is not triggered from within the apps source code. 
+Sharing between users is not a commonly used feature and the implementation of sharing between app users can be implemented in many different ways.
+It is hard to capture this \ipr via static code analysis.
+A \dca would be more appropriate in this context, to list and monitor the out- and inbound HTTP connections for data transfers.
+The same holds true for CH45.
+No data connections to the app provider were detected. 
+Our approach within the \aiprat was to construct the potential provider url beforehand and then executing the detection analysis.
+Again, with using a \dca the app provider URL could probably be detected more easily.
+The \dca would list all URLs that the app connects to and similarities with the app provider name can be computed or even derived.
+The reason we did not use a \dca within this thesis is the premise to be able to analyse \mH apps fast, independent from a runtime and at low costs.
+
+Strategy CH43 tries to detect data storage on internal storage media by, among another factor, looking at the permissions the Android app declares to use.
+Looking at the current Android documentation for the usage of permissions, the 'WRITE\_ INTERNAL\_ STORAGE' permission that strategy CH43 uses seems to be deprecated and no longer used.\footnote{\raggedright See \url{https://web.archive.org/web/20160713184910/https://developer.android.com/reference/android/Manifest.permission.html}, visited 08/17/16.}
+This could be an indicator for the results of strategy CH43.
+
+Strategy CI213 might not be detectable within \mH apps because recording audio via the built in microphone is not a typical use case of a \mH app.
+
+Strategy CI213 tries to identify just that, the information collection of the Android microphone API usage.
+For Strategy CI222 it is clearer why the \ipr is not detected within the apps source code.
+It tries to detect the usage of the users location via the network connection by interpolating the user position between cellphone towers.\footnote{\raggedright See \url{https://web.archive.org/web/20160626232714/https://developer.android.com/reference/android/location/LocationManager.html}, visited 08/17/16.}
+This mode of location data acquisition is not very accurate in comparison to using the Global Positioning System (GPS) position.
+It is very likely that apps that are interested in the users location just use the GPS location. 
+It might also be the case that \mH apps do not use the users location that often.
+The same holds true for strategy CI223, since Android does not distinguish between the location acquisition via WiFi or the cellphone tower interpolation.
+Android merges the two concepts under the 'NETWORK\_ PROVIDER' mode for location acquisition.
+
+Since strategy CI321 aims at identifying the information collection of financial identifications of the app users, we conclude that \mH are not prone to collecting financial information of users.
+Their main function might be to deliver added value to the health knowledge of the user and monetization is a perceived secondary goal.
+
+\newpage
 In order the evaluate the degree to which the assessment of information privacy risks for \mH apps can be automated via static code analysis we compared the \ipr found results of the \aiprat with the results from the human researchers.
 
 While it is clear that the computer is faster in processing files and scanning the file's content, the human has at least one advantage over the computer: understanding or estimating context of source code based on his experience.
@@ -122,10 +159,15 @@ Future research could analyse what the effects are if an app store, for instance
 
 \subsection{Conclusion}
 
+This master thesis is a practice-oriented research-work that tries to anwer the question to what degree an information privacy risk assessment of \mH apps can be automated by implementing such a tool and testing the feasibility.
+
 In the emerging market of \mH apps, the focus on information privacy risks is growing.
 Based on the large amount of apps in the app stores and the continuous growth, manual review is infeasible.
-Yet, to the best of my knowledge, no study thus far linked the \ipr assessment of \mH apps with automatic \sca approaches.
-In this thesis, we intruduced an \aiprat that is, with minimal human configuration, able to download, decompile and analyse Android \mH apps.
-The \aiprat (AIPRAT) 
+Yet, to the best of our knowledge, no study thus far linked a holistic \ipr assessment of \mH apps with automatic \sca approaches.
+In this thesis, we introduced an \aiprat that is, with small human configuration, able to download, decompile and analyse Android \mH apps.
 
-\todo{Conclusion tippen}
+We find that the information privacy risk assessment of \mH apps can be automated to a degree of 88.9\%.
+The computed degree includes the implementation rate, of how many \ipr can be identified by a \sca strategy, and the detection rate, with which certainty the \ipr were identified.
+
+The results of this thesis, the \aiprat source code and the insights on the limitations and achievements of the \sca usage, can be seen as the foundation for future research to build on.
+With dedicating more resources to the points mentioned in the limitation chapter \ref{chapter:Limitations} future researchers can enhance the \aiprat even further.
