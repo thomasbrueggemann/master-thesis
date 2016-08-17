@@ -38,9 +38,19 @@ The same holds true for strategy CI223, since Android does not distinguish betwe
 Android merges the two concepts under the 'NETWORK\_ PROVIDER' mode for location acquisition.
 
 Since strategy CI321 aims at identifying the information collection of financial identifications of the app users, we conclude that \mH are not prone to collecting financial information of users.
-Their main function might be to deliver added value to the health knowledge of the user and monetization is a perceived secondary goal.
+Their main function might be to deliver added value to the health knowledge of the user and monetization is only a perceived secondary goal.
+With the advent of in-app purchasing options, the need to ask users for their financial information has potentially changed a lot.
+Apps can implement purchases within an app by using in-app purchase APIs of the operating system.\footnote{\raggedright For this and the following sentence, see \url{https://web.archive.org/web/20160812084756/https://developer.android.com/google/play/billing/billing_overview.html}, visited 08/17/16.}
+These APIs encapsulate the purchase process and streamline the purchase action, since the financial identification is globally stored at the app store site.
 
-\newpage
+We further argue that only few \mH apps collect ideological information on the users, such as religious views, political tendencies or believes. 
+Therefore, strategy CI344 that tries to detect these ideological information collection is not found within our test sample of \mH apps.
+
+The same argument can be used to explain the missing of \ipr within the sample apps of the strategies CI345 and CI346.
+Hardware information on the users device and user preferences, such as likes or dislikes, are not the target information domain of \mH apps.
+
+After discussing the reasons why 14 strategy implementations did not result in an \ipr found, we will take a look at the degree to which the assessment of information privacy risks for \mH apps can be automated via static code analysis.
+
 In order the evaluate the degree to which the assessment of information privacy risks for \mH apps can be automated via static code analysis we compared the \ipr found results of the \aiprat with the results from the human researchers.
 
 While it is clear that the computer is faster in processing files and scanning the file's content, the human has at least one advantage over the computer: understanding or estimating context of source code based on his experience.
