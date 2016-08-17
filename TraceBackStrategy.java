@@ -4,14 +4,12 @@ while (edges.hasNext()) {
 	boolean isStartEdge = false;
 	for (String startSink : startSinks) {
 		if (edge.toString().contains(startSink)) {
-			isStartEdge = true;
-			break;
+			isStartEdge = true; break;
 		}
 	}
 	for (String startSinkInverted : startSinksInverted) {
 		if (!edge.toString().contains(startSinkInverted)) {
-			isStartEdge = true;
-			break;
+			isStartEdge = true; break;
 		}
 	}
 	if (isStartEdge) {
@@ -24,10 +22,7 @@ while (edges.hasNext()) {
 			for (String test : (LinkedList<String>) this.params.get("searchFor")) {
 				if (mth == null || test == null) continue;
 				if (mth.contains(test.toLowerCase())) {
-					if (foundInCallstack == false) {
-						featureFound++;
-						foundInCallstack = true;
-					}
+					if (foundInCallstack == false) foundInCallstack = true;
 					Snippet snippet = new Snippet(method.getDeclaringClass().getName() + ".java", method.toString(), method.getJavaSourceStartLineNumber());
 					snippets.add(snippet);
 				}

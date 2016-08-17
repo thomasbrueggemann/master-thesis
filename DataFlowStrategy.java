@@ -3,7 +3,7 @@ for (SerializedSinkInfo sink : results.keySet()) {
 	if (this.params.containsKey("sinkIncludes")) {
 		for (String searchTermSink : (LinkedList<String>) this.params.get("sinkIncludes")) {
 			if (sink.toString().contains(searchTermSink)) {
-				return new StrategyResult(StrategyResultProbability.HIGH, true);
+				return new StrategyResult(StrategyResultProbability.HIGH, true)
 			}
 		}
 	}
