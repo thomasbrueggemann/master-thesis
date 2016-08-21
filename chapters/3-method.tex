@@ -50,31 +50,33 @@ The automation script\footnote{\raggedright \url{https://github.com/thomasbruegg
 The tools used to decompile the APK files follow closely the tools described and used by \cite{Enck2011}.\footnote{See \cite{Enck2011}, p. 5.}
 
 In a first step, we use the tool \textit{dex2jar} to extract the \acs{JAR} file from the APK file.
-The JAR file contains the java bytecode representations of the app which is just one part of the contents of an \acs{APK} file.
+\textit{dex2jar} is a tool that can read and write .dex (Dalvik Executable) and .class (Java classes) files.\footnote{See \url{https://web.archive.org/web/20160614022230/https://github.com/pxb1988/dex2jar}, visited 08/19/16.}
+A JAR file is a compressed archive of Java classes.
+The JAR file contains the java bytecode representations of the app which is just one part of the content of an \acs{APK} file.
 The next step is to extract resource files, such as the \textit{Android Manifest} file from the APK file.
 The \textit{Android Manifest} contains meta information about the app in a structured XML format.\footnote{See for this and the next sentence \cite{xu2013}, p. 7 and \cite{Shabtai2010}, p. 331.}
-The meta information include the package name of the app, the permissions the app requests, for example camera usage, internet access or geolocation usage.
+The meta information includes the package name of the app, the permissions the app requests, such as camera usage, internet access or geolocation usage.
 The \textit{Android Manifest} file is therefore an important indicator at a high level view on activities within a given app.
 In order to extract the \textit{Android Manifest} file from the APK file along with other resources such as images, icons, xml files or other files used within the app, we use the \textit{apktool}\footnote{\url{https://web.archive.org/web/20160617041519/http://ibotpeaches.github.io/Apktool/}, visited 06/17/16.}.
 \textit{apktool} is a frequently updated Android reverse engineering tool that is used to extract resources from APK files.
 Another important part of the extraction of resource files is retrieving the layout and localization files.
-These files include information on the user interface components used within the app as well as text content for labels and text fields.
-The text content will be used to train machine learning algorithms to classify features of the app, further described in the analysis phase section below.
+These files include information on user interface components used within the app as well as text content for labels and text fields.
+The text content will be used to train machine learning algorithms to classify features of the app, which is further described in the analysis phase section below.
 
 At the core of the decompilation process is the usage of \textit{fernflower}\footnote{\url{https://web.archive.org/web/20150808204302/https://github.com/fesh0r/fernflower}, visited 05/24/16.}.
 \textit{fernflower} is the recommended java decompiler by \cite{Enck2011}. 
 They used the tool to decompile a test sample of apps and gained a significantly higher code recovery rate than by using other decompiling tools.\footnote{See \cite{Enck2011}, p. 6.}
 An obstacle in decompiling java source code is obfuscation. 
-Java developers can make use of a security feature called obfuscation that aims at hiding away the logic of java classes by renaming classes, variables and method names and disassembling the code into pieces that are difficult to read for an human interpreter.
-The idea is to make it more difficult to retrieve and make sense of the original source code by decompiling the byte code.
+Java developers can make use of a security feature called obfuscation, which stands for hiding away the logic of java classes by renaming classes, variables and method names and disassembling the code into pieces that are difficult to read for a human interpreter.
+The idea is to make it more difficult to retrieve and understand the original source code by decompiling the byte code.
 \textit{fernflower} uses a renaming approach by assigning every obfuscated class with a new naming pattern. 
 Member variables and methods will be automatically renamed and therefore provide an easier and more unique way of reading the source code.
-Optionally the decompilation process can use an automatic code formatting tool called \textit{astyle}\footnote{\url{https://web.archive.org/web/20160422015538/http://astyle.sourceforge.net/}, visited 05/25/16.} to format the source code.
+Optionally, the decompilation process can use an automatic code formatting tool called \textit{astyle}\footnote{\url{https://web.archive.org/web/20160422015538/http://astyle.sourceforge.net/}, visited 05/25/16.} to format the source code.
 This helps humans to read the source code files more easily, since the formatting and indentation of all source code files is identical and therefore very structured.
 Formatting the source code will help in the evaluation phase of this thesis to support the manual inspection the source code for \ipr by human researchers.
 
-The expected result of the decompilation phase is a directory named after the package name of a given app that contains the resource files, including the \textit{Android Manifest} and the decompiled source code of the app.
-The decompilation will be performed in order of file size.
+The expected result of the decompilation phase is a directory titled after the package name of a given app that contains the resource files, including the \textit{Android Manifest} and the decompiled source code of the app.
+The decompilation will be performed by order of file size.
 The smaller the APK file the earlier it will decompiled.
 This is due the fact that only APK files to a certain size can be analysed by the dataflow analysis tool, described in section \ref{sssec:SCAP}.
 
@@ -82,7 +84,7 @@ This is due the fact that only APK files to a certain size can be analysed by th
 \subsubsection{Static Code Analysis Phase} \label{sssec:SCAP}
 
 The \sca phase is the main analysis phase of the thesis and uses the output of the previous decompilation phase to perform the static code analysis.
-The \sca tool is implemented as a Java software project, since the used analysis libraries are implemented in Java and Android source code is written in Java too.
+The \sca tool is implemented as a Java software project, as the used libraries  and tools are implemented in Java and Android source code is written in Java, too.
 The output of the \sca Java project is an executable Java archive file called \textit{AIPRAT.jar} that can be executed in the command line terminal.
 In order for \textit{AIPRAT.jar} to perform the \sca on APK files, two preparation steps are required.
 
@@ -93,30 +95,30 @@ The data flow is analysed by scanning an intermediate byte code format provided 
 A source is the origin of a data flow, for instance the user input of data via a textfield and a sink is the destination that data flows.
 An example for a sink is a HTTP internet connection or a local log file.
 \textit{FlowDroid} is also able to emulate Android lifecycle entry points.
-While a regular Java program has a single entry point to start the application from, the \textit{main()} function, Android apps provide multiple entry points.
+While a regular Java program has a single entry point to start the application from, the 'main()' function, Android apps provide multiple entry points.
 The entry points of an Android app are determined by the states an app can be in. 
-It can for instance return from being in the background, do a fresh start and return from being offline.
+For instance, it can return from being in the background, do a fresh start and return from being offline.
 All these entry points are being emulated by \textit{FlowDroid} into a single \textit{main()} function call.
 The output of the data flow analysis is one XML file per analysed APK file that contains a list of sinks and the coherent sources of data flows to that sink.
-The XML file will be parsed by the main \sca tool later on and the sink and source methods will be interpreted in the context of information privacy risks.
+The XML file will be parsed by the main \sca tool later on and the sink as well as source methods will be interpreted in the context of information privacy risks.
 
 The machine learning text classifiers will be trained within the second preparation step.
 During the \sca phase of this study, we will be making great use of the naive Bayes classifier.
 A machine learning text-classifier classifies text segments into distinct categories. 
 The categories are predefined in the training phase of the classifier, since every trained text segment is assigned with a training category.
 These training categories are the categories the classifier can assign to new, previously unseen, text segments.
-The incisive feature of a Bayes classifier is the fact, that it chooses to classify a category to a new segment of text by picking the most probable category.\footnote{For this and the following two sentences see \cite{Rish2001}, p. 41.}
+The incisive feature of a Bayes classifier is the fact that it chooses to classify a category to a new segment of text by picking the most probable category.\footnote{For this and the following two sentences see \cite{Rish2001}, p. 41.}
 A \nbc furthermore assumes that all categories are distinct and independent of each other. 
 Even though this might not always be the case in a real life usage scenario, the \nbc still performs well enough for a wide range of use cases.
 
 In the case of the \sca in this study, we will be using the \nbc to classify URLs into categories.
 The categories that URLs can belong to, in the context of this study, are: advertisement, delivery services, government, instant-messaging, (data-) aggregation services, search engines and social networks.
 While the set of categories might not complete in terms of all possible and available categories, it is sufficient for the classification of URLs within this \sca to classify into the mentioned category-set.
-In oder for the \nbc to classify text into categories we trained a \nbc implementation with meta-information about URLs from the previously mentioned categories.
+In order for the \nbc to classify text into categories we trained a \nbc implementation with meta-information about URLs from the previously mentioned categories.
 First, it was necessary to collect URLs for the categories to train the \nbc and we used a collection of \acs{URL}s from \textit{URLBlacklist.com}\footnote{\url{https://web.archive.org/web/20160617050003/http://urlblacklist.com/?sec=download}, visited 06/17/16.}.
 \textit{URLBlacklist.com} provides URL lists for the categories advertisement, government, instant-messaging, search engines and social networks.
 \textit{programmableweb.com} catalogues API descriptions including the service providers' URL.
-We developed a program to automatically download and store the API directory for the two remaining categories, from \textit{programmableweb.com}.
+We developed a program to automatically download and store the API directory for the two remaining categories from \textit{programmableweb.com}.
 
 Next, to acquire meta-information for all the URLs, we implement a downloader for the HTML source-code of all URLs and store the 'description' HTML-meta tag content in a file.\footnote{For this and the next sentence see \url{https://web.archive.org/web/20160404111603/http://www.w3.org/wiki/HTML/Elements/meta}, visited 07/13/16.}
 The 'description' meta-tag contains a small amount of text, provided by the website owner, that describes the content or function of the website topic.
@@ -132,62 +134,68 @@ There are two types of strategies in the AIPRAT: generic and specific strategies
 Generic strategies are strategies that contain algorithms that are configurable and usable by specific strategies.
 Generic strategies are the core of the \aiprat and every non-generic strategy inherits or uses a generic strategy to accomplish its \ipr detection task.
 The generic strategies of the \aiprat will therefore be explained in more detail.
-In total the \aiprat contains eight generic strategies in the Java-package \textit{analyze.src.strategies}: DataFlowStrategy, ExistenceStrategy, InputStrategy, TraceBackStrategy, InformationCollectionStrategy, PermissionStrategy, ProviderUrlStrategy, and UrlCategoryStrategy.
+In total, the \aiprat contains eight generic strategies in the Java-package \textit{analyze.src.strategies}: DataFlowStrategy, ExistenceStrategy, InputStrategy, TraceBackStrategy, InformationCollectionStrategy, PermissionStrategy, ProviderUrlStrategy, and UrlCategoryStrategy.
 \lstinputlisting[float=h, language=Java, label=listing:DataFlowStrategy, caption=Generic strategy DataFlowStrategy.java parses pre-extracted dataflow XML files]{DataFlowStrategy.java}
+
 % DataFlowStrategy
 The DataFlowStrategy parses the pre-extracted dataflow \acs{XML} from the \textit{FlowDroid} preparation phase and allows iterating over all identified dataflow sources and sinks.
 Thereby, the DataFlowStrategy allows to pass parameters along that filter the sources and sinks for certain search words and provide feedback if the search words were found within sources and sinks.
-The filtering if the searched sources of sinks are included can be seen in lines 5 and 13 of listing \ref{listing:DataFlowStrategy}.
+The filtering of the sources of sinks for given search words can be seen in lines 5 and 13 of listing \ref{listing:DataFlowStrategy}.
 % ExistenceStrategy
 To find strings within the source code of an app, one can make use of the ExistenceStrategy.
 The ExistenceStrategy is shown in listing \ref{listing:ExistanceStrategy}.
 This generic strategy scans the full source code of an app and collects source code lines that match a given search pattern (See lines 5-6 of listing \ref{listing:ExistanceStrategy}).
 \lstinputlisting[float=h, language=Java, label=listing:ExistanceStrategy, caption=Generic strategy ExistanceStrategy.java to find the existance of search words within source code]{ExistanceStrategy.java} 
+
 % InputStrategy
 The InputStrategy iterates over all \acs{XML} layout configuration files of an app. 
 User interface controls that are displayed within an app are declared in these \acs{XML} layout configuration files.
-The InputStrategy tries to identify all user input fields and therefore scans the layout files for the search terms 'EditText', 'AutoCompleteTextView', 'CheckBox', 'RadioButton' and 'RadioGroup' (see lines 4-5 of listing \ref{listing:InputStrategy}).
-As soon as a user input field has been found, the InputStrategy extracts all meta information about this input field possible (see line 6 of listing \ref{listing:InputStrategy}).
-The input fields meta information generally contain the user interface control 'id', a 'hint' field and a 'text' field. 
-The meta information are collected and stored together with the input field information.
+The InputStrategy tries to identify all user input fields and therefore scans the layout files for the search terms 'EditText', 'AutoCompleteTextView', 'CheckBox', 'RadioButton', and 'RadioGroup' (see lines 4-5 of listing \ref{listing:InputStrategy}).
+When a user input field has been found, the InputStrategy extracts all meta information about this input field possible (see line 6 of listing \ref{listing:InputStrategy}).
+The input fields meta information generally contain the user interface control 'id', as well as a 'hint' field and a 'text' field. 
+The meta information is collected and stored together with the input field information.
 \lstinputlisting[float=h, language=Java, label=listing:InputStrategy, caption=The InputStrategy.java identifies user input fields and extracts their meta information]{InputStrategy.java}
+
 % TraceBackStrategy
 An important feature in static code analysis, especially for assessing information privacy risks, is the ability to trace data flows from a source to a sink.
 With the help of the call graph construction feature of \textit{FlowDroid}, the TraceBackStrategy starts at a given set of start-sinks and traverses the call graph back until either a source is found or a given search pattern is matched, as seen in line 22 of listing \ref{listing:TraceBackStrategy}.
-This allows consequent strategies to define a search pattern for data flows to specific sinks.
-In the case of this thesis, we will mainly use the TraceBackStrategy to find data flows that end in a information collection scenario. 
-We define information collection as a data flow that results in storing the information either locally on the device the app is run, or that results in sending the information to a remote server.
+This traversal technique allows consequent strategies to define a search pattern for data flows to specific sinks.
+In the case of this thesis, we will mainly use the TraceBackStrategy to find data flows that end in an information collection scenario. 
+We define information collection as a data flow that results in storing the information either locally on the device, which the app is run on, or data flows that results in sending the information to a remote server.
 \lstinputlisting[float=h, language=Java, label=listing:TraceBackStrategy, caption=Excerpt of the generic strategy TraceBackStrategy.java to trace defined information sources to information sinks via dataflow analysis]{TraceBackStrategy.java}
+
 % InputInformationCollectionStrategy
 With making use of the InputStrategy and the TracebackStrategy, the InputInformationCollectionStrategy takes the user input fields analysis one step further and allows for information collection analysis.
 \lstinputlisting[float=h, language=Java, label=listing:InputInformationCollectionStrategy, caption=The InputInformationCollectionStrategy takes the user input fields analysis and tries to identify information collection data flows]{InputInformationCollectionStrategy.java}
 First, all user input fields are detected and stored, as seen in line 3 of listing \ref{listing:InputInformationCollectionStrategy}. 
 In a second step, the InputInformationCollectionStrategy executes a TraceBackStrategy that starts at all available information collection sinks (local file storage and remote server connections) and traces back the call graph in an attempt to identify the user input field 'ids' within the call graph path (see lines 10-12 of listing \ref{listing:InputInformationCollectionStrategy}).
-If a user input field is found, a data flow towards an information collection sink is identified and a potential \ipr is detected.
+If a user input field is found, a data flow towards an information collection sink is identified and a potential information privacy risk is detected.
+
 % PermissionStrategy
 A less sophisticated approach is being used by the PermissionStrategy, shown in listing \ref{listing:PermissionStrategy}.
-It is required for Android apps to declare permissions to use certain features, such as the \acs{GPS} location or internet access, within the 'manifest' file.\footnote{See \url{https://web.archive.org/web/20160425141027/https://developer.android.com/training/permissions/declaring.html}, visited 08/16/16}
+It is required for Android apps to declare permission to use certain features, such as the \acs{GPS} location or internet access within the 'manifest' file.\footnote{\raggedright wSee \url{https://web.archive.org/web/20160425141027/https://developer.android.com/training/permissions/declaring.html}, visited 08/16/16}
 The PermissionStrategy enables a search through these permissions by a given search pattern (see line 6 of listing \ref{listing:PermissionStrategy}).
 \lstinputlisting[float=h, language=Java, label=listing:PermissionStrategy, caption=Generic strategy PermissionStrategy.java to find the existance of Android permissions declarations]{PermissionsStrategy.java}
 
-The last two generic strategies concern the \acs{URL}s that are listed within the app source code and that are potentially target to information collection.
-The ProviderUrlStrategy iterates over all extracted URLs found within the source code and checks how similar the URL host is in comparison to the app package name (see line 8 of listing \ref{listing:ProviderUrlStrategy}).
+The last two generic strategies concern the \acs{URL}s that are listed within the app source code and that are potential targets to information collection.
+The ProviderUrlStrategy iterates over all extracted URLs found within the source code and checks the similarity between the URL host in comparison to the app package name (see line 8 of listing \ref{listing:ProviderUrlStrategy}).
 We observed that the package name often is similar to the hostname of the app provider or contains similar name parts. 
 The ProviderUrlStrategy takes these potential sub-parts of the package name into account and returns a probability that a URL connection to the app provider is established (see line 12 of listing \ref{listing:ProviderUrlStrategy}.
 \lstinputlisting[float=h, language=Java, label=listing:ProviderUrlStrategy, caption=Generic strategy ProviderUrlStrategy.java tries to identify URL connections to the app provider domain]{ProviderUrlStrategy.java}
 
 Finally, the URLCategoryStrategy enables a search for a given category of URLs within the app source code.
 All URLs are classified into distinct categories upon loading the app into the \sca tool via a machine learning text classification technique.
-The classified categories are: 'ads', 'aggregation', 'delivery', 'government', 'instantmessaging', 'searchengines', 'socialnetworks' and 'storage'.
+The classified categories are: 'ads', 'aggregation', 'delivery', 'government', 'instantmessaging', 'searchengines', 'socialnetworks', and 'storage'.
+
 In order to check if a URL of a certain category exists, the URLCategoryStrategy iterates over all classified URLs and matches their categories to the search category, as seen in lines 7-8 of listing \ref{listing:URLCategoryStrategy}).
 \lstinputlisting[float=h, language=Java, label=listing:URLCategoryStrategy, caption=The URLCategoryStrategy.java queries for the existance of URLs of a specific category within the app source code]{URLCategoryStrategy.java}
 
 % Specific strategy
-A specific strategy, on the other hand, targets the exploration of an \ipp directly and contains the \ipp hierarchy identifier, introduced by \textcite{Dehling2016}, in its Java-classname.\footnote{See \cite{Dehling2016}, p. 6.}
+A specific strategy, on the other hand, implements the detection of an \ipp directly and contains the \ipp hierarchy identifier, introduced by \textcite{Dehling2016}, in its Java-classname.\footnote{See \cite{Dehling2016}, p. 6.}
 The Java-class \textit{analyze.src.strategies.CI213\textunderscore Strategy} contains a search pattern for the \ipp with the hierarchy identifier CI213, which refers to the \ipp Content (C) $\rightarrow$ InformationCollectionContent (I) $\rightarrow$ InformationCollectionSensorContent (2) $\rightarrow$ EnvironmentSensorContent (1) $\rightarrow$ MicrophoneContent (3).
-Therefore a specific strategy may contain a combination of one or many generic strategies to try to identify the risk of the associated \ipp is posing through static code analysis.
+Therefore a specific strategy may contain a combination of one or many generic strategies in oder to distinguish the risk associated with the \ipp via static code analysis.
 In the example of the specific strategy \textit{analyze.src.strategies.CI213\textunderscore Strategy}, the class extends the generic strategy class \textit{analyze.src.strategies.ExistenceStrategy} and sets the search parameters of the \textit{ExistenceStrategy} to 'MediaRecorder.setAudioSource(' and 'MediaRecorder.AudioSource.MIC'.
-The \textit{CI213\textunderscore Strategy} class scans via the parent-class \textit{ExistenceStrategy} all of the source code files off the app for source code that uses the Android microphone \acs{API}.
+The \textit{CI213\textunderscore Strategy} class scans via the parent-class \textit{ExistenceStrategy} all of the source code files of the app for source code that uses the Android microphone \acs{API}.
 
 \begin{table}
 	\begin{center}
@@ -210,8 +218,8 @@ The \textit{CI213\textunderscore Strategy} class scans via the parent-class \tex
 
 % Explain specific strategies in more detail
 In the following section we will introduce the specific strategies implemented in the \aiprat in greater detail.
-Table \ref{table:specStrategies} displays and overview of the generic strategies in the first column and the specific strategies that make use of the coherent generic strategies in the second column.
-The specific strategy classes in this chapter and in table \ref{table:specStrategies} are abbreviated with the \ipp hierarchy identifier of the matching strategy. 
+Table \ref{table:specStrategies} displays an overview of the generic strategies in the first column and the specific strategies that make use of the coherent generic strategies in the second column.
+The specific strategy classes in this chapter as well as in table \ref{table:specStrategies} are abbreviated with the \ipp hierarchy identifier of the associating strategy. 
 \textit{CH21} for example stands for \textit{CH21\textunderscore Strategy.java} in this chapter.
 
 % ExistenceStrategy
@@ -226,12 +234,13 @@ The result of \textit{CH23} is the ratio of \acs{HTTP} to \acs{HTTPS} connection
 % CH310 & CH312 & CH38
 The strategies \textit{CH310}, \textit{CH311}, \textit{CH312} and \textit{CH38} try to identify a user initiated sharing of content with other users or the general public.
 The strategies accomplish this by searching the source code of an app for triggering the Android sharing dialog window.
-Additionally we search for methods that open sharing dialogs to three large social media networks, \textit{facebook}, \textit{twitter}, and \textit{Google+}.
+Additionally, we search for methods that open sharing dialogs to three large social media networks, \textit{facebook}, \textit{twitter}, and \textit{Google+}.
 % CH33
 Strategy \textit{CH33} uses the generic ExistenceStrategy extensively to identify the usage of advertisement libraries within the app.
 All search words are names of Android advertisement library identifiers and are derived from the analysis of Android ad libraries by \cite{Book2013}.\footnote{See \cite{Book2013}, p. 9.}
 % CH35
-In order to scan the source code of an app for the usage of analytics services, as stated in the hierarchy item \textit{CH35}, the strategy implementation for \textit{CH35} uses the ExistenceStrategy to check for analytics services and libraries search words.
+In order to scan the source code of an app for the usage of analytics services, as stated in the hierarchy item \textit{CH35}, the implementation for strategy \textit{CH35} uses the ExistenceStrategy to check for analytics services and libraries search words.
+
 The search words are derived from the open-source listing of Android libraries on https://android-arsenal.com in the category 'Analytics'.\footnote{\url{http://web.archive.org/web/20160514040053/http://android-arsenal.com/tag/5}, visited 07/03/16.}
 % CH43 & CH44
 \textit{CH43} and \textit{CH44} search for function names that indicate a writing of data to the internal or external storage of an Android device.
