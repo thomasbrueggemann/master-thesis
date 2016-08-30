@@ -47,7 +47,7 @@ We used a \textit{m4.4xlarge} instance\footnote{\url{https://web.archive.org/web
 But even considering the great number of main memory available on the Amazon Cloud virtual machine, \textit{FLowDroid} was reluctant to compute the dataflow for certain apps on the dataset.
 The second downside of precomputing the dataflow analysis, is the fact that reading in the pre-computed dataflow analysis from a XML file does not provide the live-context information of using the \textit{FlowDroid} API directly within the code.
 The \textit{FlowDroid} objects that represent methods and relationships between methods are to complex to be fully stored within XML files.
-Therefore analysis of the callgraph of methods is very limited with this revisions' approach.
+Therefore analysis of the call graph of methods is very limited with this revisions' approach.
 
 The last and final revision of the \sca phase discovered a part of the \textit{FlowDroid} API that only computes the call graphs of apps with a limited subset of all the features that \textit{FlowDroid} yields.
 The limited subset redeemed to be completely sufficient for the analysis purposes of this thesis.
@@ -55,7 +55,7 @@ While large and complex apps still take up the main memory quickly, the threshol
 Therefore, we decided to conduct the \sca on the 15\% of the apps with the smallest file size, from the original dataset.
 
 The \sca tool was able to finish the analysis on 317 apps from the decompiled 355.
-The reason for the roughly 10\% loss of apps from the decompilation to the \sca phase is mainly due to error in the generation of the callgraph by \textit{FlowDroid}.
+The reason for the roughly 10\% loss of apps from the decompilation to the \sca phase is mainly due to error in the generation of the call graph by \textit{FlowDroid}.
 As mentioned before, apps could be to too large in file size for \textit{FlowDroid} to fit into main memory, and the \sca would skip to the next app.
 
 Table \ref{table:strategyResults} shows an overview of all implemented strategies to identify information privacy risks within an app and the number of found appearances throughout the \sca phase.
@@ -183,7 +183,7 @@ The average distance between the cumulative certainty levels of the computer and
 	\frac{|11.25 - \frac{12.75 + 14}{2}| + |9.25 - \frac{6.75 + 8}{2}| + |9.75 - \frac{4.25 + 7.75}{2}|}{3}=2.58\overline{3}
 \end{equation}
 
-The full information privacy risk assessment results of apps by the human researchers can be found in the table of Appendix B.
+The full information privacy risk assessment results of apps by the human researchers can be found in the table of Appendix C.
 
 Both researchers reported to have started the \sca by looking at the central \textit{AndroidManifest.xml} file for permissions that the apps claimed.
 Permissions would indicate the usage of camera, microphone or location data, for instance.

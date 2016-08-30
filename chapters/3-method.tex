@@ -5,7 +5,7 @@
 
 Our implementation of an \aiprat is structured in three phases.
 In the first phase, Android APK files need to be downloaded to acquire the foundation of a static code analysis: the source code.
-While APK files are binary representations of source code, it is necessary, in a second phase, to decompile to binary code back into actual source files.
+While APK files are binary representations of source code, it is necessary in a second phase, to decompile to binary code back into actual source files.
 The third phase is the analysis phase, where the information privacy risk assessment takes place.
 
 \begin{figure}[h]
@@ -22,10 +22,10 @@ The tools will be described in greater detail within the following chapters.
 \subsubsection{Download Phase}
 
 The download phase is the first of the three implementation phases and comprises the acquisition of Android APK files. 
-The APK files hold the necessary Java source code that we will perform the \sca on.
-Since this thesis emphases on Android mHealth apps, we used the repository database of \cite{Xu2015} as our main app data source.\footnote{This paragraph follows \cite{Xu2015}.}
-\cite{Xu2015} list mHealth apps from the Apple AppStore\footnote{\url{https://itunes.apple.com}, visited 07/13/16} and Android PlayStore\footnote{\url{https://play.google.com}, visited 07/13/16} and update their repository quarterly by scraping the app stores.
-The list contains information for example on the app's identifier, category in the app stores, description, email address of the developer, price and the user rating of the app.
+The APK files hold the necessary Java source code that the \sca will be performed on.
+Since this thesis emphasises on Android mHealth apps, we used the repository database of \cite{Xu2015} as our main app data source.\footnote{This paragraph follows \cite{Xu2015}.}
+\cite{Xu2015} list mHealth apps from the Apple AppStore\footnote{\url{https://itunes.apple.com}, visited 07/13/16} and Android PlayStore\footnote{\url{https://play.google.com}, visited 07/13/16} and update their repository quarterly by scanning and scraping the app stores.
+The list contains information on the app's identifier, category in the app stores, description, email address of the developer, price and the user rating of the app.
 
 We used the repository database to loop over the available mHealth app listings and included only the apps that were available for free, indicated by a price of \$0.00.
 As soon as the package name of an app is gathered, the download of the \acs{APK} file can begin. 
@@ -78,7 +78,7 @@ Formatting the source code will help in the evaluation phase of this thesis to s
 The expected result of the decompilation phase is a directory titled after the package name of a given app that contains the resource files, including the \textit{Android Manifest} and the decompiled source code of the app.
 The decompilation will be performed by order of file size.
 The smaller the APK file the earlier it will decompiled.
-This is due the fact that only APK files to a certain size can be analysed by the dataflow analysis tool, described in section \ref{sssec:SCAP}.
+This is due the fact that only APK files to a certain size can be analysed by the data flow analysis tool, described in section \ref{sssec:SCAP}.
 
 % Static Code Analysis Phase
 \subsubsection{Static Code Analysis Phase} \label{sssec:SCAP}
@@ -135,10 +135,10 @@ Generic strategies are strategies that contain algorithms that are configurable 
 Generic strategies are the core of the \aiprat and every non-generic strategy inherits or uses a generic strategy to accomplish its \ipr detection task.
 The generic strategies of the \aiprat will therefore be explained in more detail.
 In total, the \aiprat contains eight generic strategies in the Java-package \textit{analyze.src.strategies}: DataFlowStrategy, ExistenceStrategy, InputStrategy, TraceBackStrategy, InformationCollectionStrategy, PermissionStrategy, ProviderUrlStrategy, and UrlCategoryStrategy.
-\lstinputlisting[float=h, language=Java, label=listing:DataFlowStrategy, caption=Generic strategy DataFlowStrategy.java parses pre-extracted dataflow XML files]{DataFlowStrategy.java}
+\lstinputlisting[float=h, language=Java, label=listing:DataFlowStrategy, caption=Generic strategy DataFlowStrategy.java parses pre-extracted data flow XML files]{DataFlowStrategy.java}
 
 % DataFlowStrategy
-The DataFlowStrategy parses the pre-extracted dataflow \acs{XML} from the \textit{FlowDroid} preparation phase and allows iterating over all identified dataflow sources and sinks.
+The DataFlowStrategy parses the pre-extracted data flow \acs{XML} from the \textit{FlowDroid} preparation phase and allows iterating over all identified data flow sources and sinks.
 Thereby, the DataFlowStrategy allows to pass parameters along that filter the sources and sinks for certain search words and provide feedback if the search words were found within sources and sinks.
 The filtering of the sources of sinks for given search words can be seen in lines 5 and 13 of listing \ref{listing:DataFlowStrategy}.
 % ExistenceStrategy
@@ -162,7 +162,7 @@ With the help of the call graph construction feature of \textit{FlowDroid}, the 
 This traversal technique allows consequent strategies to define a search pattern for data flows to specific sinks.
 In the case of this thesis, we will mainly use the TraceBackStrategy to find data flows that end in an information collection scenario. 
 We define information collection as a data flow that results in storing the information either locally on the device, which the app is run on, or data flows that results in sending the information to a remote server.
-\lstinputlisting[float=h, language=Java, label=listing:TraceBackStrategy, caption=Excerpt of the generic strategy TraceBackStrategy.java to trace defined information sources to information sinks via dataflow analysis]{TraceBackStrategy.java}
+\lstinputlisting[float=h, language=Java, label=listing:TraceBackStrategy, caption=Excerpt of the generic strategy TraceBackStrategy.java to trace defined information sources to information sinks via data flow analysis]{TraceBackStrategy.java}
 
 % InputInformationCollectionStrategy
 With making use of the InputStrategy and the TracebackStrategy, the InputInformationCollectionStrategy takes the user input fields analysis one step further and allows for information collection analysis.
@@ -175,7 +175,7 @@ If a user input field is found, a data flow towards an information collection si
 A less sophisticated approach is being used by the PermissionStrategy, shown in listing \ref{listing:PermissionStrategy}.
 It is required for Android apps to declare permission to use certain features, such as the \acs{GPS} location or internet access within the 'manifest' file.\footnote{\raggedright wSee \url{https://web.archive.org/web/20160425141027/https://developer.android.com/training/permissions/declaring.html}, visited 08/16/16}
 The PermissionStrategy enables a search through these permissions by a given search pattern (see line 6 of listing \ref{listing:PermissionStrategy}).
-\lstinputlisting[float=h, language=Java, label=listing:PermissionStrategy, caption=Generic strategy PermissionStrategy.java to find the existance of Android permissions declarations]{PermissionsStrategy.java}
+\lstinputlisting[float=h, language=Java, label=lwisting:PermissionStrategy, caption=Generic strategy PermissionStrategy.java to find the existance of Android permissions declarations]{PermissionsStrategy.java}
 
 The last two generic strategies concern the \acs{URL}s that are listed within the app source code and that are potential targets to information collection.
 The ProviderUrlStrategy iterates over all extracted URLs found within the source code and checks the similarity between the URL host in comparison to the app package name (see line 8 of listing \ref{listing:ProviderUrlStrategy}).
@@ -268,44 +268,46 @@ More difficult is the detection of potential user surveys within an app.
 \textit{CI243} uses the ExistenceStrategy to search the app source code for search words such as 'survey', 'audit' and 'syllabus'.
 
 % InputInformationCollectionStrategy
-\textit{InputInformationCollectionStrategy}. The following strategies try to identify dataflows from text input fields to information collection sinks.
+\textit{InputInformationCollectionStrategy}. The following strategies try to identify data flows from text input fields to information collection sinks.
 % CI321
-\textit{CI321} tries to identify dataflows from financial identification input fields. 
+\textit{CI321} tries to identify data flows from financial identification input fields. 
 Financial identifier text input fields will be identified by using the search words: 'creditcard', 'cvc', 'iban', 'bic', 'bankaccount', 'bank', 'mastercard', 'paypal' and 'visa'.
 If none of the search words are found within the identifiers of text input fields the certainty property of the result object is set to \textit{MEDIUM}.
 This is because the list of search words might not be complete or the text input field are named in a non expressive way.
-For example the text input fields might be named 'id=123456' instead of something expressive such as 'id=txtIBAN'.
-The just explained certainty property value '\textit{MEDIUM}' for non-found input information collection dataflows holds true for the rest of the following strategies that use the InputInformationCollectionStrategy.
+For example the text input fields might be named 'id=123456' instead of something expressive, such as 'id=txtIBAN'.
+The aforementioned certainty property value '\textit{MEDIUM}' for non-found input information collection data flows holds true for the rest of the following strategies that use the InputInformationCollectionStrategy.
 % CI322
-Strategy \textit{CI322} tries to recognize government identifier dataflows within the app and uses the search words 'socialsecurity', 'insurance', 'tax', 'SSN', 'national', 'government' and 'identification'.
+Strategy \textit{CI322} tries to recognize government identifier data flows within the app and uses the search words 'socialsecurity', 'insurance', 'tax', 'SSN', 'national', 'government' and 'identification'.
 % CI323
 \textit{CI323} only needs to identify the information collection of the name of the users, it utilizes the InputInformationCollectionStrategy with the search word 'name'. 
-This automatically includes a search for 'surname' and for example 'middlename', since the InputInformationCollectionStrategy always performs a substring search within the text input field identifiers.
+This automatically includes a search, for instance, for 'surname' and 'middlename', since the InputInformationCollectionStrategy always performs a substring search within the text input field identifiers.
 % CI324
 The search words to identify an online contact of users are more definite.
-Online contact information refers to the different ways users can be contacted online, for example via 'email', 'skype', 'facebook', 'twitter', 'chat' and many more.
-\textit{CI324} uses the previously mentioned search words to identify dataflows of online contact information to information collection sinks.
+Online contact information refers to the different ways users can be contacted online, such as via 'email', 'skype', 'facebook', 'twitter', 'chat' and many more.
+\textit{CI324} uses the previously mentioned search words to identify data flows of online contact information to information collection sinks.
 % CI325
 In contrast to the online contact information, the strategy for \textit{CI325} tries to identify information collection of physical contact information.
 This refers to the address of users or their phone number.
 % CI326
-To identify users within an app itself, app providers implement their own unique user identifiers into the apps.
+To identify users within an app itself, app providers implement their own unique user-identifiers into the apps.
 A unique user identifier could be a username, email address, and assigned Universally Unique Identifier (\acs{UUID}) or a password.
-These unique user identifier information collection dataflows are detected by strategy \textit{CI326}.
+These unique user-identifier information collection data flows are detected by strategy \textit{CI326}.
 % CI341
 Strategy \textit{CI341} detects information collection of demographic information.
 The search words for demographic information are derived from the survey recommendations for demographic standards from the German 'Statistisches Bundesamt'.\footnote{\raggedright See \url{https://web.archive.org/web/20151115091328/https://www.destatis.de/DE/Methoden/DemografischeRegionaleStandards/Fragebogen_schriftlich.pdf?__blob=publicationFile}, visited 07/05/16.}
+The German 'Statistisches Bundesamt' is an institution within the German ministry of inner affairs that collects, analyses, and publishes statistical data about the economy, society, and the environment.
 % CI343
-The strategy \textit{CI343} tries to identify users health information collection dataflows.
+The strategy \textit{CI343} tries to identify users health information collection data flows.
 Here, the search words are derived from the manual review of mHealth apps by \textcite{Bruggemann2016}. 
-The extensive health content search words are 'dosage', 'pill', 'blood', 'heart', 'bloodpressure', 'bloodsugar', 'heartrate', 'disease', 'symptom', 'weight', 'height', 'body', 'bmi', 'temperature', 'medical', 'doctor', 'calories', 'diet', 'sleep', 'carbon', 'hydrate', 'intake', 'haemoglobin', 'anaesthetic', 'urine' and 'hospital'.
+The extensive health content search words are 'dosage', 'pill', 'blood', 'heart', 'bloodpressure', 'bloodsugar', 'heartrate', 'disease', 'symptom', 'weight', and 'height'.
+The search words furthermore contain the words 'body', 'bmi', 'temperature', 'medical', 'doctor', 'calories', 'diet', 'sleep', 'carbon', 'hydrate', 'intake', 'haemoglobin', 'anaesthetic', 'urine', and 'hospital'.
 % CI344
-Ideological content, such as believes or membership of religious or political groups, information collection is detected by the strategy \textit{CI344}.
-Input fields asking for membership of political parties for example, could be designed as option choice buttons and are captured by the InputInformationCollectionStrategy as well.
+Ideological content, such as beliefs or membership in religious or political groups, information collection is detected by the strategy \textit{CI344}.
+Input fields asking for membership in political parties, could be designed as 'radio' buttons\footnote{\raggedright"Radio buttons allow the user to select one option from a set.", \url{https://web.archive.org/web/20160619170238/https://developer.android.com/guide/topics/ui/controls/radiobutton.html}, visited 08/27/16} and are captured by the InputInformationCollectionStrategy as well.
 % CI345
-Preferences of the users are difficult to capture, since preference-capturing input fields usually are connected to some sort of context, that users are asked their preferences about.
+Preferences of the users are difficult to capture, since preference-capturing input fields usually are connected to some sort of context which users are asked their preferences about.
 For the sake of this thesis, we will scan the input fields for expressions of preference, for example: 'like', 'dislike', 'favourite', 'favorite', 'preference' and 'prefered'.
-We acknowledge that in case we did not find any preference capturing input field information collection, the certainty for this is at a level \textit{'LOW'}.
+We acknowledge that in case we do not find any input field information collection that captures preferences of users, the certainty for this is at a level \textit{'LOW'}.
 It is much more likely that we were unable to identify the information collection in that case.
 % CI346
 The last strategy using the generic InputInformationCollectionStrategy is the strategy for \textit{CI346}. 
@@ -313,54 +315,54 @@ Strategy \textit{CI346} tries to identify information collection of user device 
 
 % InputStrategy
 \textit{InputStrategy}. The generic InputStrategy is only used by a single specific strategy.
-The strategy for \textit{CI314} tries to detect and list all of the input fields a user can input information into, within the app.
+The strategy for \textit{CI314} tries to detect and list all of the input fields a user can input information into within the app.
 This is done by executing the InputStrategy, explained earlier in this chapter.
 
 % PermissionsStrategy
 \textit{PermissionsStrategy}.
 % CH43 & CH44
-The strategies for \textit{CH43} and \textit{CH44} check, as an additional condition, if a permission to write on external and internal storage is requested.
-Only if a permission is declared, an app is allowed to use the coherent functionality of the Android API.
+The strategies for hierarchy levels \textit{CH43} and \textit{CH44} check, in an additional condition, if a permission is requested to write on external and internal storage.
+Only in the case that a permission is declared, an app is allowed to use the coherent functionality of the Android API.
 This is granted by the Android runtime.
 % CI211
 The strategy for \textit{CI211} relies solely on the generic PermissionsStrategy to identify the usage of Bluetooth functionality within the app.
 An Android app is not granted access to the Bluetooth interface, if it does not declare the appropriate permission.
-\textit{CI211} uses the PermissionsStrategy only, because Bluetooth interface APIs are not standardized and not easy to detect individually.
-To 
+\textit{CI211} uses the PermissionsStrategy only, because Bluetooth interface APIs are not standardized, and not easy to detect individually.
 % CI212 & CI214 & CI231
-The previously described strategy implementations for \textit{CI212}, \textit{CI214} and \textit{CI231} behave in the same way as \textit{CH43} and \textit{CH44}.
-They use the PermissionsStrategy as an additional condition, to detect the usage of the camera, near field communication \acs{NFC} and the fingerprint sensor.
+The previously described strategy implementations for \textit{CI212}, \textit{CI214}, and \textit{CI231} to behave in the same way as \textit{CH43} and \textit{CH44}.
+They use the PermissionsStrategy as an additional condition. 
+To detect the usage of the camera, near field communication \acs{NFC} and the fingerprint sensor.
 
 % ProviderUrlStrategy
 \textit{ProviderUrlStrategy}.
 % CH45
 The only specific strategy using the generic ProviderUrlStrategy is the strategy for \textit{CH45}.
-It uses a list of all potential URLs that belong to the app provider, to identify information collection that sends data to the app providers servers.
+The implementation of strategy \textit{CH45} uses a list of all potential URLs that belong to the app provider to identify information collection that sends data to the app providers servers.
 
 % TraceBackStrategy
 \textit{TraceBackStrategy}.
 % CH45
 Strategy \textit{CH45} uses, additionally to the ProviderUrlStrategy, the generic TraceBackStrategy.
-It traces information collection flows to the previously detected app provider URLs.
+Strategy \textit{CH45} traces information collection flows to the previously detected app provider URLs.
 % CH22
-Dataflows that result in file storage on the internal flash drive or an external storage card can also be identified with the generic TraceBackStrategy.
-The strategy for \textit{CH22} walks up the callgraph of all local storage collection sinks and checks if a function name containing the search words 'cipher' and 'crypt' was found along the way.
+Data flows that result in file storage on the internal flash drive or an external storage card can also be identified with the generic TraceBackStrategy.
+The strategy for \textit{CH22} walks up the call graph of all local storage collection sinks and checks if a function name containing the search words 'cipher' and 'crypt' was found along the way.
 This would indicate that data stored on the local storage is stored in an encrypted way.
 % CH42
 Strategy \textit{CH42} tries to identify information collection at cloud storage providers.
-Since it is virtually impossible to know, list and check for every possible cloud storage provider, the strategy searches for the word 'cloud' within dataflows that result in an information collection sink.
-We acknowledge the low probability of actually finding a cloud storage dataflow with this technique by setting the certainty level of the result to \textit{'LOW'} by default.
+Since it is virtually impossible to know, list, and check for every possible cloud storage provider, the strategy searches for the word 'cloud' within data flows that result in an information collection sink.
+We acknowledge the low probability of actually finding a cloud storage data flow with this technique by setting the certainty level of the result to \textit{'LOW'} by default.
 % CI221 & CI333
 A much higher success rate is promised by the standardized Android API to query the users location.
-Detecting dataflows from these location queries to information collection sinks is done by the \textit{CI221} and \textit{CI333} strategies, mainly by searching for the usage of the 'LocationManager' object in Java.
+Detecting data flows from these location queries to information collection sinks is done by the \textit{CI221} and \textit{CI333} strategies, mainly by searching for the usage of the 'LocationManager' object in Java.
 The 'LocationManager' is the single point of entry to query the users location.
 % CI311
 A similar unambiguity is present for the detection of audio information collection.
-While the callgraph is being traversed, strategy \textit{CI311} tries to identify function calls that contains the following search words: 'microphone', 'audio', 'recorder', 'mediarecorder', 'music' and 'sound'.
+While the call graph is being traversed, strategy \textit{CI311} tries to identify function calls that contains the following search words: 'microphone', 'audio', 'recorder', 'mediarecorder', 'music' and 'sound'.
 % CI312
 The strategy for \textit{CI312} tries to detect the information collection of image information and therefore uses the search words 'picture', 'ACTION\textunderscore IMAGE\textunderscore CAPTURE', 'MEDIA\textunderscore TYPE\textunderscore IMAGE', 'CAPTURE\textunderscore IMAGE', 'image', 'setImageDrawable' and 'Bitmap'.
 Central to image processing in Android is the 'Bitmap' object, as it is the binary representation of an image.
-Detecting the usage of the 'Bitmap' object in an information collection callgraph path therefore yields a potential image information collection.
+Detecting the usage of the 'Bitmap' object in an information collection call graph path therefore yields a potential image information collection.
 % CI315
 The same holds true for strategy \textit{CI315}. 
 In comparison to \textit{CI312}, \textit{CI315} tries to detect the information collection of video information.
@@ -370,7 +372,7 @@ Therefore the \textit{CI315} strategy can only detect video capturing informatio
 % CI335 
 Strategy \textit{CI335} identifies information collection of the users contacts stored in his address book.
 Querying the contacts via the Android API is always done via the 'ContactsContract' object.
-The \textit{CI335} strategy can therefore easily detect information collection dataflows of users contacts by using the TraceBackStrategy.
+The \textit{CI335} strategy can therefore easily detect information collection data flows of users contacts by using the TraceBackStrategy.
 % CI336
 The last specific strategy to use the generic TraceBackStrategy is \textit{CI336} that tries to find information collection data flows on purchase information.
 
