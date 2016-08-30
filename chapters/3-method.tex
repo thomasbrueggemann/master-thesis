@@ -127,7 +127,7 @@ Even though this might not always be the case in a real life usage scenario, the
 In the case of the \sca in this study, we will be using the \nbc to classify URLs into categories.
 The categories that URLs can belong to, in the context of this study, are: advertisement, delivery services, government, instant-messaging, (data-) aggregation services, search engines and social networks.
 In order for the \nbc to classify text into categories we trained a \nbc implementation with meta-information about URLs from the previously mentioned categories.
-First, it was necessary to collect URLs for the categories to train the \nbc and we used a collection of \acs{URL}s from \textit{URLBlacklist.com}\footnote{\url{https://web.archive.org/web/20160617050003/http://urlblacklist.com/?sec=download}, visited 06/17/16.}.
+First, it was necessary to collect URLs for the categories to train the \nbc and we used a collection of \acs{URL}s from \textit{URLBlacklist.com}\footnote{\raggedright \url{https://web.archive.org/web/20160617050003/http://urlblacklist.com/?sec=download}, visited 06/17/16.}.
 \textit{URLBlacklist.com} provides URL lists for the categories advertisement, government, instant-messaging, search engines and social networks.
 \textit{programmableweb.com} catalogues API descriptions including the service providers' URL.
 We developed a program to automatically download and store the API directory for the two remaining categories from \textit{programmableweb.com}.
@@ -185,7 +185,7 @@ If a user input field is found, a data flow towards an information collection si
 
 % PermissionStrategy
 A less sophisticated approach is being used by the PermissionStrategy, shown in listing \ref{listing:PermissionStrategy}.
-It is required for Android apps to declare permission to use certain features, such as the \acs{GPS} location or internet access within the 'manifest' file.\footnote{\raggedright wSee \url{https://web.archive.org/web/20160425141027/https://developer.android.com/training/permissions/declaring.html}, visited 08/16/16}
+It is required for Android apps to declare permission to use certain features, such as the \acs{GPS} location or internet access within the 'manifest' file.\footnote{\raggedright See \url{https://web.archive.org/web/20160425141027/https://developer.android.com/training/permissions/declaring.html}, visited 08/16/16}
 The PermissionStrategy enables a search through these permissions by a given search pattern (see line 6 of listing \ref{listing:PermissionStrategy}).
 \lstinputlisting[float=h, language=Java, label=listing:PermissionStrategy, caption=Generic strategy PermissionStrategy.java to find the existance of Android permissions declarations]{PermissionsStrategy.java}
 
@@ -315,7 +315,7 @@ The extensive health content search words are 'dosage', 'pill', 'blood', 'heart'
 The search words furthermore contain the words 'body', 'bmi', 'temperature', 'medical', 'doctor', 'calories', 'diet', 'sleep', 'carbon', 'hydrate', 'intake', 'haemoglobin', 'anaesthetic', 'urine', and 'hospital'.
 % CI344
 Ideological content, such as beliefs or membership in religious or political groups, information collection is detected by the strategy \textit{CI344}.
-Input fields asking for membership in political parties, could be designed as 'radio' buttons\footnote{\raggedright"Radio buttons allow the user to select one option from a set.", \url{https://web.archive.org/web/20160619170238/https://developer.android.com/guide/topics/ui/controls/radiobutton.html}, visited 08/27/16} and are captured by the InputInformationCollectionStrategy as well.
+Input fields asking for membership in political parties, could be designed as 'radio' buttons\footnote{\raggedright"Radio buttons allow the user to select one option from a set.", \url{https://web.archive.org/web/20160619170238/https://developer.android.com/guide/topics/ui/controls/radiobutton.html}, visited 08/27/16.} and are captured by the InputInformationCollectionStrategy as well.
 % CI345
 Preferences of the users are difficult to capture, since preference-capturing input fields usually are connected to some sort of context which users are asked their preferences about.
 For the sake of this thesis, we will scan the input fields for expressions of preference, for example: 'like', 'dislike', 'favourite', 'favorite', 'preference' and 'prefered'.
@@ -379,7 +379,7 @@ Detecting the usage of the 'Bitmap' object in an information collection call gra
 The same holds true for strategy \textit{CI315}. 
 In comparison to \textit{CI312}, \textit{CI315} tries to detect the information collection of video information.
 Video processing in Android works immaturely different, than photo processing.
-Instead of manipulating a 'Bitmap' object, as for the photo processing, videos are stored by the Android API and accessible via an uniform resource identifier (\acs{URI}).\footnote{\raggedright See \url{http://web.archive.org/web/20160425094249/https://developer.android.com/training/camera/videobasics.html}, visited 07/09/16}
+Instead of manipulating a 'Bitmap' object, as for the photo processing, videos are stored by the Android API and accessible via an uniform resource identifier (\acs{URI}).\footnote{\raggedright See \url{http://web.archive.org/web/20160425094249/https://developer.android.com/training/camera/videobasics.html}, visited 07/09/16.}
 Therefore the \textit{CI315} strategy can only detect video capturing information collection.
 % CI335 
 Strategy \textit{CI335} identifies information collection of the users contacts stored in his address book.

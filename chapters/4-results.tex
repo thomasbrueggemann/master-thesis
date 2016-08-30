@@ -16,7 +16,7 @@ The remaining 930 APK files either returned a Google authentication error or wer
 
 Downloading the 2,250 APK files took multiple download-runs over the whole dataset, since the Google API only allows a certain amount of download requests per time unit, as mentioned in section 3.1.1.
 The number of allowed download requests varied throughout the download phase and could not be detected exactly.
-Various tests downloading APK files automatically via websites like apkpure.com\footnote{\url{https://web.archive.org/web/20160528165049/https://apkpure.com/}, visited 06/05/2016} or apk-dl.com\footnote{\url{https://web.archive.org/web/20160518104842/https://apk-dl.com}, visited 06/05/2016} failed due to those websites effectively blocking automated non-browser traffic.
+Various tests downloading APK files automatically via websites like apkpure.com\footnote{\url{https://web.archive.org/web/20160528165049/https://apkpure.com/}, visited 06/05/2016.} or apk-dl.com\footnote{\url{https://web.archive.org/web/20160518104842/https://apk-dl.com}, visited 06/05/2016.} failed due to those websites effectively blocking automated non-browser traffic.
 The download of the 2,250 APK files took 11 days in total and 18 restart attempts of the download script.
 
 \subsubsection{Decompilation Phase}
@@ -44,7 +44,7 @@ Further analysis was therefore impossible and the \textit{FlowDroid} analysis wo
 
 The second revision of the \sca phase extracted the \textit{FlowDroid} analysis into a separate application that precomputes the dataflows of any app in our dataset and stores the dataflow results in an \acs{XML} file format.
 The idea behind this revision was, to be able to run the \textit{FlowDroid} dataflow analysis on high performance virtual machines in the Amazon Cloud.
-We used a \textit{m4.4xlarge} instance\footnote{\url{https://web.archive.org/web/20160415154133/http://aws.amazon.com/ec2/instance-types/}, visited 07/19/16.}, which is equipped with 64 gigabytes of main memory.
+We used a \textit{m4.4xlarge} instance\footnote{\raggedright \url{https://web.archive.org/web/20160415154133/http://aws.amazon.com/ec2/instance-types/}, visited 07/19/16.}, which is equipped with 64 gigabytes of main memory.
 But even considering the great amount of main memory available on the Amazon Cloud virtual machine, \textit{FlowDroid} was reluctant to compute the dataflow for certain apps on the dataset.
 The second downside of precomputing the dataflow analysis, is the fact that reading in the pre-computed dataflow analysis from a XML file does not provide the live-context information of using the \textit{FlowDroid} API directly within the code.
 The \textit{FlowDroid} objects that represent methods and relationships between methods are to complex to be fully stored within XML files.
