@@ -1,6 +1,6 @@
 \section{Combining Source Code Analysis with Information Privacy Risk Assessment}
 
-\mH apps have been examined in various research studies that aim at providing insights for developers as well as users into how private information is processed.
+\mH apps have been examined in various research studies that aim at providing insights for developers as well as for users into how private information is processed.
 Privacy issues are the most impactful user complaints while using mobile apps.\footnote{See \cite{Khalid2015}, p. 5.}
 Especially \mH apps deal with sensitive and vulnerable user information and therefore pose a high information privacy risk. \footnote{See \cite{Kumar2013}, p. 33.}
 This encourages research to address information privacy risks.
@@ -15,10 +15,10 @@ Threats to information privacy in digital services can happen at application lev
 
 % mHealth context
 For this thesis, we chose the context of \mH apps, since \mH are commonly handling sensitive user information and are therefore more prone to information privacy violations.\footnote{See \cite{Huckvale2015}, p.1-2.}
-Research in the field of information privacy risk assessment of \mH apps has progressed, but still, "research literature in this area is sparse"\footnote{\cite{Arora2014}, p. 143.}.
+Research in the field of information privacy risk assessment of \mH apps has progressed, but research literature in this field is still behind its full potential.\footnote{\cite{Arora2014}, p. 143.}
 
 Information privacy risk classification frameworks were developed to structure the problem of information privacy violation into risk types.\footnote{See for this paragraph\cite{Lewis2014}, p. 2-3.}
-Risk types can range from "loss of reputation", where a \mH apps for instance display sensitive data to unauthorized viewers up to "Inappropriate and irreversible clinical action". 
+Risk types can range from \textit{loss of reputation}, where a \mH apps for instance display sensitive data to unauthorized viewers up to \textit{Inappropriate and irreversible clinical action}. 
 The latter type would be reached by a defective algorithm within a \mH app that proposes wrong information.
 
 Even though classifications of information privacy risks exist\footnote{See \cite{Lewis2014}, p. 1-3.} and subsequent regulations and policies have been put in place, \mH apps might not follow these regulations.\footnote{See \cite{Huckvale2015}, p. 1-2.}
@@ -42,13 +42,14 @@ The informatics and software development sector bears tools that could be applie
 One of these tools is a static code analysis.
 Static code analysis refers to analysing the source code of a software without actually executing the software.\footnote{See \cite{Louridas2006}, p. 58.}
 
-In informatics and software development contexts, \sca has been used to analyze source code\footnote{See \cite{Haris2014}, p.  5.} and provide feedback on coding styles to the users while programming\footnote{See \cite{Bardas2010}, p. 10.} or "to find defects in programs"\footnote{\cite{Bardas2010}, p. 1.}.\footnote{This paragraph follows \cite{Louridas2006}, p. 58.}
-\Sca provides a fast way to analyze source code\footnote{See \cite{Bardas2010}, p. 5.}, which makes it suitable to automate the assessment of large amounts of dataee.
+In informatics and software development contexts, \sca has been used to analyze source code\footnote{See \cite{Haris2014}, p.  5.} and provide feedback on coding styles to the users while programming\footnote{See \cite{Bardas2010}, p. 10.} or to identify fault in software source code\footnote{\cite{Bardas2010}, p. 1.}.\footnote{This paragraph follows \cite{Louridas2006}, p. 58.}
+\Sca provides a fast way to analyze source code\footnote{See \cite{Bardas2010}, p. 5.}, which makes it suitable to automate the assessment of large amounts of data.
 A further benefit of using \sca to retrieve information from software is that the software does not need to be executed during the analysis process.
-This additionally supports the development of fast performing assessment tools that are suitable for application on large datasets of source code since there is no need to wait for the application runtime to execute the software.
+This additionally supports the development of fast performing assessment tools that are suitable for application on large datasets of source code.
+There is no need to wait for the application runtime to execute the software in performing a static code analysis.
 
 In the context of \mH apps, the analysis of data connection using software that intercepts the HTTP traffic of the \mH to internet servers has been performed.\footnote{See \cite{Mense2015}, p. 42.}
-The results of the HTTP traffic anlysis show that information privacy leaks via unencrypted internet connections is a common situation.\footnote{See \cite{Mense2015}, p. 42-44.}
+The results of the HTTP traffic anlysis show that information privacy leaks via unencrypted internet connections are common.\footnote{See \cite{Mense2015}, p. 42-44.}
 
 Static code analysis is also used as an intermediate step in achieving an \ipr analysis, in previous research.\footnote{For this and the following sentence, see \cite{Dorazio2015}, p. 5177, 5179-5180.}
 The \sca step within the aforementioned analysis process is performed manually by a human researcher and not part of an automated process.
@@ -60,23 +61,31 @@ The \sca in the case of the study by \textcite{Knorr2015} uses a multitude of so
 Our study will use the benefits of \sca and apply them to the assessment of \mH information privacy risks.
 It is yet unclear if \sca is a viable tool to automatically analyze and identify information privacy risk factors.
 We will use the comprehensive information privacy practices that \cite{Dehling2016} identified\footnote{See \cite{Dehling2016}, p. 8-17.} and try to implement \sca strategies to identify the information privacy practices that bear risks, automatically.
-This will be a vital addition to current research, since there is yet no holistic approach to apply and automated \sca to \ipr detection that takes an ample amount of \iprfs into account.
+This will be a vital addition to current research, since there is yet no holistic approach to apply and no automated \sca to \ipr detection that takes an adequate amount of \iprfs into account.
 
 \subsection{Relevant Information Privacy Risk Factors}\label{chapter:Relevant}
 
-For this thesis, we will use the set of \ipp extracted from literature, the Platform for Privacy Preferences (\acs{P3P}) guide\footnote{\url{https://web.archive.org/web/20160616160213/http://www.w3.org/TR/P3P/}, visited 06/16/2016.} and app reviews by \cite{Dehling2016} as a source to derive \iprfs from.\footnote{For this and the following sentence, see \cite{Dehling2016}, p. 1-2.} 
+For this thesis, we will use the set of \ipp extracted from literature, the Platform for Privacy Preferences (\acs{P3P}) guide\footnote{\url{https://web.archive.org/web/20160616160213/http://www.w3.org/TR/P3P/}, visited 06/16/2016.} and app reviews by \cite{Dehling2016} as sources to derive \iprfs from.\footnote{For this and the following sentence, see \cite{Dehling2016}, p. 1-2.} 
 \Ipp are common content aspects and practices of informing users about the information privacy practices of an app. 
 App providers should follow these \ipp in order to achieve higher levels of transparency.
 A hierarchy of \ipp is formed by clustering the information privacy practices. 
-The top level of the hierarchy are 'Content' and 'Practice'.
-The 'Content' hierarchy level contains sub-hierarchy branches that express \ipp concerning the handling of information content, the information collection content, and meta content about information collection, information on offered privacy controls, and information on what purpose the \ipp was collected for.
 
-We argue, if an \ipp is a circumstance that the user should be informed about, an \ipp expresses an \ipr to the app user.
+\begin{figure}[h]
+	\centering
+	\includegraphics[keepaspectratio=true,width=350pt]{figures/IPP.png}
+	\caption{Diagram of the hierarchy of information privacy practices, proposed by \cite{Dehling2016}.}
+	\label{fig:informationPrivacyPractices}
+\end{figure}
+
+The top levels of the hierarchy, as seen in figure \ref{fig:informationPrivacyPractices}, are \textit{Content} and \textit{Practice}.
+The \textit{Content} hierarchy level contains sub-hierarchy branches that express \ipp concerning the handling of information content, the information collection content, and meta content about information collection, information on offered privacy controls, and information on what purpose the \ipp were collected for.
+
+We argue, if an information privacy practice is a circumstance that the user should be informed about, an information privacy practice expresses an information privacy risk to the app user.
 But since not all of the enlisted \ipp express or imply an information privacy risk to app users, we review and extract the \ipp that are relevant in terms of posing and expressing a potential information privacy risk.
-The classification of \ipp that bear or express an \ipr will be conducted by two researchers separately.
+The classification of \ipp that bear or express an information privacy risk will be conducted by two researchers separately.
 The results of the two researchers will be discussed to find common consensus about the classification.
 We will further limit the \ipp by excluding \ipp that are known to be technically infeasible to detect via static code analysis of the app source code.
-An example for such an exclusion is the \ipp 'InformationRetentionContent', which captures, if an app provider carries out a certain information retention policy or not.\footnote{See \cite{Dehling2016}, p. 8.}
+An example for such an exclusion is the information privacy practice \textit{InformationRetentionContent}, which captures, if an app provider carries out a certain information retention policy or not.\footnote{See \cite{Dehling2016}, p. 8.}
 This is a feature that is undetectable by \sca and beyond the scope of app source code analysis.
 An analysis of the app providers backend system would be necessary to ensure that the collection information is retained according to the app providers policy promise.
 

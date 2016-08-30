@@ -14,7 +14,7 @@ From this original dataset we extracted the 3,180 free apps for further inspecti
 It was possible to download 2,250 app APK files via the undocumented Google API.
 The remaining 930 APK files either returned a Google authentication error or were not available on the Google PlayStore anymore.
 
-Downloading the 2,250 APK files took multiple download-runs over the whole dataset, since the Google API only allows a certain amount of download requests per time unit.
+Downloading the 2,250 APK files took multiple download-runs over the whole dataset, since the Google API only allows a certain amount of download requests per time unit, as mentioned in section 3.1.1.
 The number of allowed download requests varied throughout the download phase and could not be detected exactly.
 Various tests downloading APK files automatically via websites like apkpure.com\footnote{\url{https://web.archive.org/web/20160528165049/https://apkpure.com/}, visited 06/05/2016} or apk-dl.com\footnote{\url{https://web.archive.org/web/20160518104842/https://apk-dl.com}, visited 06/05/2016} failed due to those websites effectively blocking automated non-browser traffic.
 The download of the 2,250 APK files took 11 days in total and 18 restart attempts of the download script.
@@ -22,14 +22,15 @@ The download of the 2,250 APK files took 11 days in total and 18 restart attempt
 \subsubsection{Decompilation Phase}
 
 From the downloaded 2,250 APK files, 355 were decompiled. 
-The reason that only 15\% of the 2,250 APK files were decompiled is the time that was available to write this thesis.
+The reason that only 15\% of the 2,250 APK files were decompiled is the time that was available to evaluate the tool.
 The decompilation time varied from 16 minutes to 54 minutes, based on the amount and complexity of the source files of the app.
 The 355 APK files that were decompiles were selected in order of their file size.
 An app with a lower file size was chosen over an app with a larger file size.
-The reason for this is the restriction of \textit{FlowDroid} to only analyze apps that are under a certain file size and complexity,due to \textit{FlowDroids'} internal memory management.
+The reason for this is the restriction of \textit{FlowDroid} to only analyze apps that are under a certain file size and complexity, due to \textit{FlowDroids'} internal memory management.
 
 During the decompilation of the APK files from smallest file size to largest, the decompilation failed to finish in 24 cases.
-Reasons for decompilation failure are heavily obfuscated source code, that forced the decompiler to abort the process and memory exceptions.
+Reasons for decompilation failure are heavily obfuscated source code and memory exceptions.
+Heavily obfuscated code forced the decompiler to abort the process.
 Memory exceptions appear if the source code files of the currently decompiled app exceed the size of the available main memory of the computer that performs the decompilation.
 This memory exceeding happens due to the fact that \textit{fernflower} keeps all source code file representations in main memory (including the Java virtual machine overhead) and therefore consumes a lot of memory.
 
@@ -41,15 +42,15 @@ This attempt failed due to the fact that \textit{FlowDroid} uses significant amo
 In case \textit{FlowDroid} ran out of memory, for apps with a larger or more complex source code structure, the operating system buffers the main memory to the hard disk which causes the running application to be slow.
 Further analysis was therefore impossible and the \textit{FlowDroid} analysis would take infeasible amounts of time.
 
-The second revision of the \sca phase was to outsource the \textit{FlowDroid} analysis into a separate application that precomputes the dataflows of any app in our dataset and stores the dataflow results in an \acs{XML} file format.
+The second revision of the \sca phase extracted the \textit{FlowDroid} analysis into a separate application that precomputes the dataflows of any app in our dataset and stores the dataflow results in an \acs{XML} file format.
 The idea behind this revision was, to be able to run the \textit{FlowDroid} dataflow analysis on high performance virtual machines in the Amazon Cloud.
 We used a \textit{m4.4xlarge} instance\footnote{\url{https://web.archive.org/web/20160415154133/http://aws.amazon.com/ec2/instance-types/}, visited 07/19/16.}, which is equipped with 64 gigabytes of main memory.
-But even considering the great number of main memory available on the Amazon Cloud virtual machine, \textit{FLowDroid} was reluctant to compute the dataflow for certain apps on the dataset.
+But even considering the great amount of main memory available on the Amazon Cloud virtual machine, \textit{FlowDroid} was reluctant to compute the dataflow for certain apps on the dataset.
 The second downside of precomputing the dataflow analysis, is the fact that reading in the pre-computed dataflow analysis from a XML file does not provide the live-context information of using the \textit{FlowDroid} API directly within the code.
 The \textit{FlowDroid} objects that represent methods and relationships between methods are to complex to be fully stored within XML files.
-Therefore analysis of the call graph of methods is very limited with this revisions' approach.
+Therefore analysis of the call graph of methods is very limited within this revisions' approach.
 
-The last and final revision of the \sca phase discovered a part of the \textit{FlowDroid} API that only computes the call graphs of apps with a limited subset of all the features that \textit{FlowDroid} yields.
+The third and final revision of the \sca phase discovered a part of the \textit{FlowDroid} API that only computes the call graphs of apps with a limited subset of all the features that \textit{FlowDroid} yields.
 The limited subset redeemed to be completely sufficient for the analysis purposes of this thesis.
 While large and complex apps still take up the main memory quickly, the threshold of APK file size seems to have changed to rather larger files for this approach.
 Therefore, we decided to conduct the \sca on the 15\% of the apps with the smallest file size, from the original dataset.
@@ -63,7 +64,7 @@ While 14 of the 44 strategies did not find any \ipr results within the analysis 
 In this case of an \ipr analysis, a non-found of a risk by a strategy is not necessarily a negative aspect.
 Especially the strategies for \textit{CH36} SharingWithDeliveryContent and \textit{CI344} IdeologicalContent do not particularly apply to the context of \mH apps and their information privacy risks.
 On average, 4.86 potential information privacy risk were found per app by the implemented strategies.
-The number of detected or found \ipr aspects does not correlate or reflect the level of risk an app poses.
+The number of found \ipr aspects does not correlate or reflect the level of risk an app poses.
 
 \begin{table}[]
 \centering
@@ -97,7 +98,7 @@ CI312 & 159 \\ \hline
 CI314 & 206 \\ \hline
 CH311, CH312 & 237 \\ \hline
 \end{tabular}
-\caption{All implemented automatic information privacy risk assessment tool strategies and their found appearance count throughout the static code analysis phase of this thesis.}
+\caption{All implemented automatic information privacy risk assessment tool strategies and their found appearance count throughout the static code analysis phase of this thesis}
 \label{table:strategyResults}
 \end{table}
 
@@ -106,7 +107,7 @@ CH311, CH312 & 237 \\ \hline
 
 Table \ref{table:reviewerResults} shows the results of the two human reviewer that inspected the source code of the three test-apps for information privacy risks.
 For simplification, we will from now on refer to the \aiprat as 'the computer' and the human reviewers as 'the human'.
-To compare the results of the human researchers to the automated information privacy risk assessment tool, we add the results that 'the computer' detected to table \ref{table:reviewerResults}.
+To compare the results of the human researchers to the computer, we add the results that 'the computer' detected to table \ref{table:reviewerResults}.
 
 % TABLE: REVIEWER RESULTS
 \begin{table}[h]
@@ -118,7 +119,7 @@ siyami.apps.patientregister         & 16                & 21                    
 medicaljoyworks.prognosis.questions & 13                & 9                     & 10                    \\ \hline
 szyk.myheart                        & 14                & 7                     & 11                    \\ \hline
 \end{tabular}
-\caption{The three human-reviewed apps with the strategy-"found" count results by the automated tool and the two human reviewers.}
+\caption{The three human-reviewed apps with the number of found \ipr by the automated tool and the two human reviewers.}
 \label{table:reviewerResults}
 \bigskip
 \raggedright{Note: The app package names were shortened by the prefix 'com.' for graphical reasons.}
@@ -127,10 +128,10 @@ szyk.myheart                        & 14                & 7                     
 For the app \textit{com.siyami.apps.patientregister} the human researcher found on average 20.5 information privacy risk, whereas the computer found  16.
 The two human researchers were able to detect 9.5 information privacy risks on average for app \linebreak\textit{com.medicaljoyworks.prognosis.questions}.
 The computer tool was able to find 13 information privacy risks.
-For the app \textit{com.szyk.myheart}, the computer was able to detect 14 apps.
+For the app \textit{com.szyk.myheart}, the computer was able to detect 14 information privacy risks.
 The human researchers in comparison did only detect 9 information privacy risks on average.
 
-The average distance between the "found"-count of the computer and the average count of the two human researchers results is:
+The average distance between the number of found \ipr of the computer and the average count of the two human researchers results is:
 
 \begin{equation}
 	\frac{|16 - \frac{21 + 20}{2}| + |13 - \frac{9 + 10}{2}| + |14 - \frac{7 + 11}{2}|}{3}=2.8\overline{3}
@@ -146,7 +147,7 @@ siyami.apps.patientregister         & 11.25                & 12.75              
 medicaljoyworks.prognosis.questions & 9.25                & 6.75                     & 8                    \\ \hline
 szyk.myheart                        & 9.75                & 4.25                     & 7.75                    \\ \hline
 \end{tabular}
-\caption{The three human-reviewed apps with the strategy-"found" count results by the automated tool and the two human reviewers.}
+\caption{The three human-reviewed apps with the aggregated certainty levels of the detected information privacy practices}
 \label{table:reviewerResultsCertainty}
 \bigskip
 \raggedright{Note: The app package names were shortened by the prefix 'com.' for graphical reasons.}

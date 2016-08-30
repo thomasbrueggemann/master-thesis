@@ -1,9 +1,11 @@
 \section{Implementation and Evaluation of an Automated Information Privacy Risk Assessment Tool}
 
+The following chapter will describe the method used to implement an automated information privacy risk assessment tool and the way we will evaluate the quality of the tool.
+
 % Implementation of an Automated Information Privacy Risk Assessment Tool
 \subsection{Implementing an Automated Information Privacy Risk Assessment Tool}
 
-Our implementation of an \aiprat is structured in three phases.
+The \aiprat proposed in this thesis is structured in three phases.
 In the first phase, Android APK files need to be downloaded to acquire the foundation of a static code analysis: the source code.
 While APK files are binary representations of source code, it is necessary in a second phase, to decompile to binary code back into actual source files.
 The third phase is the analysis phase, where the information privacy risk assessment takes place.
@@ -12,10 +14,10 @@ The third phase is the analysis phase, where the information privacy risk assess
 	\label{fig:implementationPhases}
 	\centering
 	\includegraphics[keepaspectratio=true,width=400pt]{figures/ImplementationFlow.png}
-	\caption{Diagram of implementation phases of the \aiprat over time.}
+	\caption{Diagram of the three phases of the \aiprat over time.}
 \end{figure}
 
-Figure 3-1 shows the implementation phases over time including the tools used within each phase. 
+Figure 3-1 shows the automated information privacy risk assessment phases over time including the tools used within each phase. 
 The tools will be described in greater detail within the following chapters.
 
 % Download Phase
@@ -24,20 +26,20 @@ The tools will be described in greater detail within the following chapters.
 The download phase is the first of the three implementation phases and comprises the acquisition of Android APK files. 
 The APK files hold the necessary Java source code that the \sca will be performed on.
 Since this thesis emphasises on Android mHealth apps, we used the repository database of \cite{Xu2015} as our main app data source.\footnote{This paragraph follows \cite{Xu2015}.}
-\cite{Xu2015} list mHealth apps from the Apple AppStore\footnote{\url{https://itunes.apple.com}, visited 07/13/16} and Android PlayStore\footnote{\url{https://play.google.com}, visited 07/13/16} and update their repository quarterly by scanning and scraping the app stores.
+\cite{Xu2015} list mHealth apps from the Apple AppStore\footnote{\url{https://itunes.apple.com}, visited 07/13/16.} and Android PlayStore\footnote{\url{https://play.google.com}, visited 07/13/16.} and update their repository quarterly by scanning and scraping the app stores.
 The list contains information on the app's identifier, category in the app stores, description, email address of the developer, price and the user rating of the app.
 
 We used the repository database to loop over the available mHealth app listings and included only the apps that were available for free, indicated by a price of \$0.00.
 As soon as the package name of an app is gathered, the download of the \acs{APK} file can begin. 
 While there is no official source to download \acs{APK} files for Android apps, a multitude of websites exist that host copies of \acs{APK} files to download for free.
 Unfortunately, all of these websites implement mechanisms that make it impossible to browse and download the APK files programatically within a download script.
-Instead, we used a open source Python implementation of an undocumented Google PlayStore \acs{API}.\footnote{\raggedright\url{https://web.archive.org/web/20140920061441/https://github.com/egirault/googleplay-api}, visited 05/12/16.} 
+Instead, we used an open source Python implementation of an undocumented Google PlayStore \acs{API}.\footnote{\raggedright\url{https://web.archive.org/web/20140920061441/https://github.com/egirault/googleplay-api}, visited 05/12/16.} 
 The undocumented part of the Google API allows users to download APK files.
 Even though the project has not been maintained for four years, the software is still in working order.
 The Python script authenticates to the Google API via the hardware ID of an Android smartphone or tablet and pretends to request data from this smartphone or tablet, even though the requests are sent from a desktop computer.
 We used a real Android tablet to detect its hardware ID and authenticate the Google API requests with this hardware ID.
 The main issue that has to be taken care of during the download phase is not to run into Google API limitations. 
-Google allows an API user to only request a certain amount requests per time unit. 
+Google allows an API user to only issue a certain amount of requests per time unit. 
 After this limit is exceeded, the requests will just return a HTTP error code and no APK file will be downloaded.
 In order to work around this circumstance, we ran our download script multiple times, always until the Google API returns error codes. 
 We then waited a couple of hours and tried the download script again, which would pick up the download process where it had stopped on the last run.
@@ -50,7 +52,18 @@ The automation script\footnote{\raggedright \url{https://github.com/thomasbruegg
 The tools used to decompile the APK files follow closely the tools described and used by \cite{Enck2011}.\footnote{See \cite{Enck2011}, p. 5.}
 
 In a first step, we use the tool \textit{dex2jar} to extract the \acs{JAR} file from the APK file.
-\textit{dex2jar} is a tool that can read and write .dex (Dalvik Executable) and .class (Java classes) files.\footnote{See \url{https://web.archive.org/web/20160614022230/https://github.com/pxb1988/dex2jar}, visited 08/19/16.}
+\textit{dex2jar} is a tool that can read and write .dex (Dalvik Executable) and .class (Java classes) files.\footnote{\raggedright See \url{https://web.archive.org/web/20160614022230/https://github.com/pxb1988/dex2jar}, visited 08/19/16.}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[keepaspectratio=true,width=350pt]{figures/APK}
+	\caption{Diagram of the contents of an APK file.}
+	\label{fig:apkFile}
+\end{figure}
+
+Figure \ref{fig:apkFile} displays the contents of an APK file. 
+An APK file consists of DEX files, the Manifest.xml and resources, such as images.
+DEX files contain java bytecode classes or JAR files.
 A JAR file is a compressed archive of Java classes.
 The JAR file contains the java bytecode representations of the app which is just one part of the content of an \acs{APK} file.
 The next step is to extract resource files, such as the \textit{Android Manifest} file from the APK file.
@@ -73,7 +86,7 @@ The idea is to make it more difficult to retrieve and understand the original so
 Member variables and methods will be automatically renamed and therefore provide an easier and more unique way of reading the source code.
 Optionally, the decompilation process can use an automatic code formatting tool called \textit{astyle}\footnote{\url{https://web.archive.org/web/20160422015538/http://astyle.sourceforge.net/}, visited 05/25/16.} to format the source code.
 This helps humans to read the source code files more easily, since the formatting and indentation of all source code files is identical and therefore very structured.
-Formatting the source code will help in the evaluation phase of this thesis to support the manual inspection the source code for \ipr by human researchers.
+Formatting the source code will help in the evaluation phase of this thesis to support the manual inspection of the source code for \ipr by human researchers.
 
 The expected result of the decompilation phase is a directory titled after the package name of a given app that contains the resource files, including the \textit{Android Manifest} and the decompiled source code of the app.
 The decompilation will be performed by order of file size.
@@ -83,7 +96,7 @@ This is due the fact that only APK files to a certain size can be analysed by th
 % Static Code Analysis Phase
 \subsubsection{Static Code Analysis Phase} \label{sssec:SCAP}
 
-The \sca phase is the main analysis phase of the thesis and uses the output of the previous decompilation phase to perform the static code analysis.
+The \sca phase is the main analysis phase of the \aiprat and uses the output of the previous decompilation phase to perform the static code analysis.
 The \sca tool is implemented as a Java software project, as the used libraries  and tools are implemented in Java and Android source code is written in Java, too.
 The output of the \sca Java project is an executable Java archive file called \textit{AIPRAT.jar} that can be executed in the command line terminal.
 In order for \textit{AIPRAT.jar} to perform the \sca on APK files, two preparation steps are required.
@@ -91,11 +104,11 @@ In order for \textit{AIPRAT.jar} to perform the \sca on APK files, two preparati
 The first preparation step is to run an Android data flow analysis tool over the APK files that extract potential data flows.
 The data flow analysis is achieved with an open source tool called \textit{FlowDroid}, introduced by \cite{Arzt2014}.\footnote{See \cite{Arzt2014}, p. 259-269.}
 \textit{FlowDroid} extends the Java optimization framework \textit{Soot}, which was already used by \cite{Enck2011} for post-decompilation optimization tasks.\footnote{See \cite{Enck2011}, p. 5.}
-The data flow is analysed by scanning an intermediate byte code format provided by \textit{Soot} for so called 'sources' and 'sinks'.\footnote{See \cite{Arzt2014}, p. 264.}
+The data flow is analysed by scanning an intermediate byte code format provided by \textit{Soot} for so called \textit{sources} and \textit{sinks}.\footnote{See \cite{Arzt2014}, p. 264.}
 A source is the origin of a data flow, for instance the user input of data via a textfield and a sink is the destination that data flows.
 An example for a sink is a HTTP internet connection or a local log file.
 \textit{FlowDroid} is also able to emulate Android lifecycle entry points.
-While a regular Java program has a single entry point to start the application from, the 'main()' function, Android apps provide multiple entry points.
+While a regular Java program has a single entry point to start the application from, the \textit{main()} function, Android apps provide multiple entry points.
 The entry points of an Android app are determined by the states an app can be in. 
 For instance, it can return from being in the background, do a fresh start and return from being offline.
 All these entry points are being emulated by \textit{FlowDroid} into a single \textit{main()} function call.
@@ -113,7 +126,6 @@ Even though this might not always be the case in a real life usage scenario, the
 
 In the case of the \sca in this study, we will be using the \nbc to classify URLs into categories.
 The categories that URLs can belong to, in the context of this study, are: advertisement, delivery services, government, instant-messaging, (data-) aggregation services, search engines and social networks.
-While the set of categories might not complete in terms of all possible and available categories, it is sufficient for the classification of URLs within this \sca to classify into the mentioned category-set.
 In order for the \nbc to classify text into categories we trained a \nbc implementation with meta-information about URLs from the previously mentioned categories.
 First, it was necessary to collect URLs for the categories to train the \nbc and we used a collection of \acs{URL}s from \textit{URLBlacklist.com}\footnote{\url{https://web.archive.org/web/20160617050003/http://urlblacklist.com/?sec=download}, visited 06/17/16.}.
 \textit{URLBlacklist.com} provides URL lists for the categories advertisement, government, instant-messaging, search engines and social networks.
@@ -175,7 +187,7 @@ If a user input field is found, a data flow towards an information collection si
 A less sophisticated approach is being used by the PermissionStrategy, shown in listing \ref{listing:PermissionStrategy}.
 It is required for Android apps to declare permission to use certain features, such as the \acs{GPS} location or internet access within the 'manifest' file.\footnote{\raggedright wSee \url{https://web.archive.org/web/20160425141027/https://developer.android.com/training/permissions/declaring.html}, visited 08/16/16}
 The PermissionStrategy enables a search through these permissions by a given search pattern (see line 6 of listing \ref{listing:PermissionStrategy}).
-\lstinputlisting[float=h, language=Java, label=lwisting:PermissionStrategy, caption=Generic strategy PermissionStrategy.java to find the existance of Android permissions declarations]{PermissionsStrategy.java}
+\lstinputlisting[float=h, language=Java, label=listing:PermissionStrategy, caption=Generic strategy PermissionStrategy.java to find the existance of Android permissions declarations]{PermissionsStrategy.java}
 
 The last two generic strategies concern the \acs{URL}s that are listed within the app source code and that are potential targets to information collection.
 The ProviderUrlStrategy iterates over all extracted URLs found within the source code and checks the similarity between the URL host in comparison to the app package name (see line 8 of listing \ref{listing:ProviderUrlStrategy}).
@@ -193,7 +205,7 @@ In order to check if a URL of a certain category exists, the URLCategoryStrategy
 % Specific strategy
 A specific strategy, on the other hand, implements the detection of an \ipp directly and contains the \ipp hierarchy identifier, introduced by \textcite{Dehling2016}, in its Java-classname.\footnote{See \cite{Dehling2016}, p. 6.}
 The Java-class \textit{analyze.src.strategies.CI213\textunderscore Strategy} contains a search pattern for the \ipp with the hierarchy identifier CI213, which refers to the \ipp Content (C) $\rightarrow$ InformationCollectionContent (I) $\rightarrow$ InformationCollectionSensorContent (2) $\rightarrow$ EnvironmentSensorContent (1) $\rightarrow$ MicrophoneContent (3).
-Therefore a specific strategy may contain a combination of one or many generic strategies in oder to distinguish the risk associated with the \ipp via static code analysis.
+Therefore a specific strategy may contain a combination of one or many generic strategies in order to distinguish the risk associated with the \ipp via static code analysis.
 In the example of the specific strategy \textit{analyze.src.strategies.CI213\textunderscore Strategy}, the class extends the generic strategy class \textit{analyze.src.strategies.ExistenceStrategy} and sets the search parameters of the \textit{ExistenceStrategy} to 'MediaRecorder.setAudioSource(' and 'MediaRecorder.AudioSource.MIC'.
 The \textit{CI213\textunderscore Strategy} class scans via the parent-class \textit{ExistenceStrategy} all of the source code files of the app for source code that uses the Android microphone \acs{API}.
 
@@ -245,7 +257,7 @@ The search words are derived from the open-source listing of Android libraries o
 % CH43 & CH44
 \textit{CH43} and \textit{CH44} search for function names that indicate a writing of data to the internal or external storage of an Android device.
 Internal and external storage can be a local database that every Android app instance can write to, the filesystem or a 'shared preferences' key value store, provided by the Android runtime.
-Internal storage refers to storage of data on the devices' flash memory itself and external storage refers to storage of data on inserted storage mediums, such as storage card.
+Internal storage refers to storage of data on the devices' flash memory itself and external storage refers to storage of data on inserted storage mediums, such as storage cards.
 % CI212
 Usage of the Android devices' internal camera is accomplished via a standardised \acs{API}.
 In order to detect the usage of the internal camera, the \textit{CI212} strategy searches for the code snippets that are designated to launch the camera view inside of an Android app.
@@ -392,10 +404,11 @@ Finally, the \textit{CH46} strategy tries to detect URL connections to storage p
 Storage providers refers to cloud storage or bulk data storage services that allow external data storage.
 
 % Evaluation of an Automated Information Privacy Risk Assessment Tool
-\subsection{Evaluation of an Automated Information Privacy Risk Assessment Tool}\label{chapter:evaluationMethods}
+\subsection{Evaluation of the Automated Information Privacy Risk Assessment Tool}\label{chapter:evaluationMethods}
 
-In order to evaluate how well the \aiprat is performing in comparison to a human researcher, we analyze a sample of three apps by two human researchers
+In order to evaluate how well the \aiprat is performing in comparison to a human researcher, we analyze a sample of three apps by two human researchers.
 The apps that will be chosen to be reviewed by human researchers will be the three apps with the most \ipr found by the \aiprat beforehand.
+Using the three apps with the most information privacy risks, found by the automated information privacy risk assessment tool, for the human review brings a broader overview to the quality comparison since the number of \ipr is the highest with this app selection.
 Each researcher is presented with the source code of the selected apps and the list of relevant information privacy practices to identify.
 The task for each researcher is to identify as many \ipp as possibly by analyzing, searching and reading through the source code files. 
 This will result in an overview comparison on how well the \aiprat performs in comparison to a human.
@@ -412,7 +425,7 @@ Additionally they will report the certainty with which they feel that they detec
 The certainty levels are \textit{LOW}, \textit{MEDIUM}, \textit{HIGH}.
 
 A \textit{HIGH} certainty expresses, that the reviewers are very confident that they found the \ipp in question.
-A \textit{LOW} certainty indicates that the reviewers found a potential indicator for an \ipp but is rather uncertain if this is indication expresses the full \ipp or if there are not any other indicators for the \ipp that were not found yet or are unfindable.
-To express a neither high nor low certainty about a \ipp found, the reviewers can use a \textit{MEDIUM} certainty level.
+A \textit{LOW} certainty indicates that the reviewers found a potential indicator for an information privacy practice but is rather uncertain if this indication expresses the full information privacy practice or if there are not any other indicators for the information privacy practice that were not found yet or are unfindable.
+To express a neither high nor low certainty about an information privacy practice found, the reviewers can use a \textit{MEDIUM} certainty level.
 
 Afterwards we will compare the results with the \ipr found by the \aiprat and draw conclusions from the comparison.

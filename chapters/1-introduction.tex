@@ -18,50 +18,52 @@ Aside from data usage beyond the control of the users, it is also challenging to
 Users have to download the apps of interest and try them out, before it becomes clear what health-related information is processed by the app and in which  way. 
 This leads to low comparability between apps. 
 When users are looking for specific functionality in a \mH app, it is challenging to find the app that offers the desired functionality at an acceptable information privacy risk. 
-Even if users would pursue the task of finding and comparing \mH apps of similar functionality, the high volume of apps available in the app stores\footnote{\raggedright See \cite{Enck2011}, p. 1 and \url{https://web.archive.org/web/20160602091827/http://www.statista.com/statistics/276623/number-of-apps-available-in-leading-app-stores/}, visited 07/13/16.} makes it laborious to review all of them by hand.
-One way to assess \ipr of the large amount of \mH apps is to automate the review process of each individual app. 
+Even if users would pursue the task of finding and comparing \mH apps of similar functionality, the high volume of apps available in the app stores \footnote{\raggedright See \url{https://web.archive.org/web/20160602091827/http://www.statista.com/statistics/276623/number-of-apps-available-in-leading-app-stores/}, visited 07/13/16.} makes it laborious to review all of them by hand.\footnote{See \cite{Enck2011}, p. 1}
+
+One way to assess the \ipr of the large amount of \mH apps is to automate the review process of each individual app. 
 The assessment automation can be done by downloading and analyzing the source code of each app and by tracing data leaks. 
 \Sca is used in the field of informatics to analyze application source code and detect faults or vulnerabilities.\footnote{See \cite{Baca2008}, p. 79.} 
 It is yet unclear how and to what degree the concepts of \sca and \pra can be combined in order to automate app assessment.
 A \sca could, in theory, be used to automatically assess some of the \ipr that \mH apps pose.
-Previous research has not shown how and to what degree the combination of \sca and \ipr assessment is feasible in the field of \mH app \pra and therefore the aim of this study is to explore the possibilities of static code analysis for information privacy risk assessment. 
-This leads to the research question: How and to what degree can the \ipr of \mH apps be automatically assessed?
-The 'degree' refers to the amount and the level of detail that \iprfs can be automatically assessed.
+Previous research has not shown how and to what degree the combination of \sca and \ipr assessment is feasible in the field of \mH app \pra and therefore the objective of this thesis is to explore the possibilities of static code analysis for information privacy risk assessment. 
+It leads to the research question: How and to what degree can the \ipr of \mH apps be automatically assessed?
+The 'degree' refers to the amount and the level of detail that \iprfs can be automatically identified.
 
 The automated process furthermore can help to drastically reduce the effort of reviewing each individual app and can enhance the information experience users receive while looking for mHealth apps.Additionally, it exposes new possibilities for research in the \ipr area. 
-The research could be conducted on providing solutions and best practices for further enhancing the \ipr communication of apps.
+The research could, for instance, be conducted on providing solutions and best practices for further enhancing the \ipr communication of apps or address the implications such an automated assessment might have on the app market.
 
 \subsection{Objectives}\label{chapter:Objectives}
 
-The main objective of this study is to ascertain how and to what degree the assessment of \iprfs for \mH apps can be automated.
+The main objective of this thesis is to determine how and to what degree the assessment of \iprfs for \mH apps can be automated.
 In order to reach this objective, the following sub-objectives have to be met.
 
 The first sub-objective is to extract \iprfs from the \ipp that \textcite{Dehling2016} identified and that are relevant for automated information privacy risk assessment.
-As a second sub-objective we will develop strategies to identify the \iprfs within the source code of \mH apps via static code analysis.
+As a second sub-objective strategies will be developed to identify the \iprfs within the source code of \mH apps via static code analysis.
+This will be the basis for our automated \pra tool.
 This is necessary since it is yet unclear how and to what degree the \sca can help to identify \iprfs of \mH apps. 
 Finally, we will evaluate how well the automated \pra tool can identify \iprfs in comparison to two human reviewers.
 In order to fully ascertain the degree \sca can identify information privacy risk factors, a manual review of the results of the \sca is necessary.
 
 \subsection{Structure}
-This work is structured in five chapters and the content can be summarized as follows. 
-The previous sections of this chapter motivated the goals of this thesis by outlining the knowledge gap of how and to what degree \ipr assessment of \mH apps can be automated.
+This thesis is structured in five chapters and the content can be summarized as follows. 
+The previous sections of this chapter motivated the goals of the thesis by outlining the knowledge gap of how and to what degree \ipr assessment of \mH apps can be automated.
 
-In section 2, we\footnote{Although this work is done by a single author, 'we' and 'our' respectively will be used throughout this thesis.} will give an overview over the current state of the research and lay the foundations of this thesis.
+In section 2, we will give an overview over the current state of the research and lay the foundations of this thesis.
 We will first highlight research regarding information privacy risk assessments and its current limitations in section 2.1.
-Following in chapter 2.2, we will outline research regarding static code analysis. 
+Following, in chapter 2.2, we will outline research regarding static code analysis. 
 We take special interest in further possibilities \sca offers for interdisciplinary research, between technical possibilities and business informatics.
 The data base for this thesis, the \ipp identified by \textcite{Dehling2016}, will be introduced in chapter 2.3.
 
-Chapter 3 focuses on the implementation and evaluation of an \aiprat.
+Chapter 3 focuses on the implementation and evaluation of an automated information privacy risk assessment tool.
 We will explain the three phases of the implementation of the \aiprat in detail in chapter 3.1.
-The following chapter 3.2 explains the process of evaluation of the \aiprat performance in comparison to two human researchers.
+The following chapter 3.2 explains the process of evaluation of the \aiprat quality in comparison to two human researchers.
 
 The next chapter, chapter 4, will present the results of the implementation and evaluation of the \aiprat.
 Chapter 4.1 contains results of the three implementation phases and will also point out the challenges that occurred within the implementation phases.
 The results of the evaluation of the \aiprat are presented in chapter 4.2.
 
-The thesis closes with the 'Discussion' chapter 5. 
+The thesis closes with chapter 5 'Discussion'. 
 In chapter 5.1 we will summarize the key findings of this work and will present the contributions this work offers to current research in chapter 5.2.
 The limitations this thesis is under will be presented in chapter 5.3.
-The next chapter 5.4 will give an outlook towards the topics that future research could cover in relation to this work.
-Finally we will conclude the thesis with a conclusion chapter 5.5.
+Chapter 5.4 will give an outlook towards the topics that future research could cover in relation to this work.
+Finally, chapter 5.5 concludes the thesis.

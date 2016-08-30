@@ -1,24 +1,24 @@
 \section{Discussion}
 
-The following chapter will discuss the results and limitations of this work and provide a possible outlook into future research applications.
+The following chapter will discuss the results and limitations of this work and provide a possible insight into future research applications.
 
 \subsection{Principal Findings}
 
-First of all we want to discuss and highlight on the reasons why 14 strategies did not report a 'found' result on the \ipr they were inspecting during the \sca phase.
+First of all we want to discuss and highlight the reasons why 14 strategies did not report a 'found' result on the \ipr they were inspecting during the \sca phase.
 We will follow the first row of table \ref{table:strategyResults}.
 The Strategies CH34, CH36, CH37, CH38, CH43, CH45, CI213, CI222, CI223, CI321, CI322, CI344, CI345 and CI346 did not find any occurrence of an \ipr within the source code of the test sample apps.
 
-Strategy CH34 and CH36 did not find and \ipr since the apps probably did not share information with aggregator and delivery services, known to the \aiprat in the \ml phase.
+Strategy CH34 and CH36 did not find any \ipr since the apps probably did not share information with aggregator and delivery services, known to the \aiprat in the \ml phase.
 We argue that \mH apps are not the target group of delivery and aggregation services and are therefore not so widely used.
 
 Strategy CH38 is not found, because the inter-app information sharing dialogue is not triggered from within the apps source code. 
-Sharing between users is not a commonly used feature and the implementation of sharing between app users can be implemented in many different ways.
-It is hard to capture this \ipr via static code analysis.
+Sharing between users is not a commonly used feature and the implementation of sharing between app users can be done in many different ways.
+It is hard to capture this information privacy risk via static code analysis.
 A \dca would be more appropriate in this context, to list and monitor the out- and inbound HTTP connections for data transfers.
 The same holds true for CH45.
 No data connections to the app provider were detected. 
 Our approach within the \aiprat was to construct the potential provider url beforehand and then executing the detection analysis.
-Again, with using a \dca the app provider URL could probably be detected more easily.
+Again, with using a \dca the app provider URL could probably be detected more reliable.
 The \dca would list all URLs that the app connects to and similarities with the app provider name can be computed or even derived.
 The reason we did not use a \dca within this thesis is the premise to be able to analyse \mH apps fast, independent from a runtime and at low costs.
 
@@ -61,7 +61,7 @@ The \ml approach was unfeasible due to the missing context and meta information 
 Using just a line of code to teach the \ml implementation a pattern is not sufficient, since there is no further meta information that could be compared by the algorithm.
 Looking at the \ml of \textcite{Shabtai2010}, the problems regarding the context in our approach become clearer.
 \textcite{Shabtai2010} used the complete text body of all Java code files within each app to train the \ml classifier to distinguish between two app categories.\footnote{See \cite{Shabtai2010}, p. 330.}
-A analytics or advertisement library can be named virtually anything, without any pattern.
+An analytics or advertisement library can be named virtually anything, without any pattern.
 Therefore, the computer needs a list of possible analytics and advertisement libraries in order to identify them in a static code analysis.
 We used analytics and advertisement libraries as an example of two information privacy risks here, the \ml approach problems apply to other \ipr strategies as well.
 
@@ -75,11 +75,11 @@ A human reviewer has the advantage to interpret variable names and the context t
 A unique user identification can be a randomly generated string, the email address of the user or any other unique feature that is unique to a single user.
 
 Additionally, it is difficult for the computer software to generalise concepts.
-The human reviewer can estimate how likely it is, that a higher hierarchy level \ipp bears an \ipr within the current app, but understanding the context.
+The human reviewer can estimate how likely it is, that a higher hierarchy level \ipp bears an information privacy risk within the current app, by understanding the context.
 In order for the computer to decide weather a high-level hierarchy is found, it has to check all the containing sub-hierarchy \ipp first.
 The human reviewer has, yet again, the benefit of context interpretation to generalise risk factors.
-
-We have met the first sub-objective, declared in chapter \ref{chapter:Objectives}, by stepping through the \ipp provided by \textcite{Dehling2016} and extracted the \ipp that potentially bear an \ipr to \mH app users.
+\newline\newline
+We have met the first sub-objective, declared in chapter \ref{chapter:Objectives}, by stepping through the \ipp provided by \textcite{Dehling2016} and extracted the \ipp that potentially bear an information privacy risk to \mH app users.
 This progress was documented in chapter \ref{chapter:Relevant}.
 
 We developed strategies for each of the relevant \ipp to be identified within the source code of \mH apps in chapter \ref{sssec:SCAP}, in order to achieve the second sub-objective.
@@ -112,7 +112,7 @@ But, to combine the 'implementation rate' and the 'detection rate', we will take
 	\frac{0.818 + 0.96}{2} = 0.889
 \end{equation}
 
-We therefore conclude, that the degree to which an \aiprat is feasible or implementable is 88.9\%.
+We therefore conclude, that the degree to which an \aiprat is feasible or implementable is 88.9\%, compared to a manual \sca by a human researcher.
 A completely automated information privacy risk assessment is "desirable but unrealistic today" \footnote{\cite{Knorr2015}, p. 7.}.
 
 \subsection{Contributions}
@@ -122,7 +122,7 @@ The tool downloads, decompiles and analyses an APK file of an app to perform the
 
 In an attempt to evaluate the outcome of the \aiprat we compared the results of a \sca of two human researchers to the results of the computer.
 
-The contribution of this thesis is the increase of knowledge, that an automated information privacy risk assessment is possible up to a degree of 88.9\%
+The contribution of this thesis is the increase of knowledge, that an automated information privacy risk assessment is possible up to a degree of 88.9\%, compared to a manual \sca by a human researcher.
 
 \subsection{Limitations}\label{chapter:Limitations}
 
@@ -167,13 +167,16 @@ In this context, future research could inspect the implications and the impact s
 We would also like to encourage future researchers to address the implications an integration of automated information privacy risk assessment may have on the app stores and the submitting of apps to the stores for developers.
 Future research could analyse what the effects are if an app store, for instance the Google PlayStore, implements an automated \ipr analysis tool that performs a \sca right after a developer submitted an app and transparently communicates the information privacy risks found within the source code.
 
+Regarding the \aiprat itself, future research can improve the tool as well as the search words used within the various specific strategies, explained in section 3.1.3.
+Future researchers could develop test cases to automatically test the whole proposed workflow of the three phases, in section 3.1 as well as individual test cases for each of the implemented strategies.
+
 \subsection{Conclusion}
 
-This master thesis is a practice-oriented research-work that tries to anwer the question to what degree an information privacy risk assessment of \mH apps can be automated by implementing such a tool and testing the feasibility.
+This master thesis is a practice-oriented research-work that tries to answer the question to what degree an information privacy risk assessment of \mH apps can be automated by implementing such a tool and testing the feasibility.
 
 In the emerging market of \mH apps, the focus on information privacy risks is growing.
 Based on the large amount of apps in the app stores and the continuous growth, manual review is infeasible.
-Yet, to the best of our knowledge, no study thus far linked a holistic \ipr assessment of \mH apps with automatic \sca approaches.
+Yet, to the best of our knowledge, no study thus far linked a holistic information privacy risk assessment of \mH apps with automatic \sca approaches.
 In this thesis, we introduced an \aiprat that is, with small human configuration, able to download, decompile and analyse Android \mH apps.
 
 We find that the information privacy risk assessment of \mH apps can be automated to a degree of 88.9\%.
